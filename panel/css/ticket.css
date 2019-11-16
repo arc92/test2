@@ -1,0 +1,109 @@
+.send-request {
+  margin: 80px 0px; }
+.send-request .posted .header-send {
+  margin-bottom: 18px; }
+.send-request .posted .header-send .title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #30acac;
+  position: relative;
+  word-spacing: -5px;
+  text-align: center;
+  display: block; }
+.send-request .posted .title-item {
+  margin-bottom: 30px; }
+.send-request .posted .title-item .name {
+  font-size: 20px;
+  font-weight: 500;
+  color: #30acac;
+  position: relative;
+  word-spacing: -3px; }
+.send-request .posted .title-item .subject {
+  font-size: 18px;
+  font-weight: 500;
+  color: #30acac;
+  position: relative;
+  word-spacing: -3px; }
+.send-request .posted .title-item .date {
+  font-size: 16px;
+  font-weight: 400;
+  color: #c1c1c1;
+  position: relative;
+  word-spacing: -5px; }
+.send-request .posted .text {
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #e8e8e8;
+  text-align: justify;
+  padding: 22px 18px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: normal; }
+.send-request .reply-item .reply {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  font-weight: 300;
+  color: #30acac;
+  position: relative;
+  word-spacing: -5px; }
+.send-request .reply-item .reply i {
+  font-size: 14px;
+  height: 14px;
+  display: block;
+  padding-right: 10px; }
+.send-request .reply-item form {
+  margin-top: 30px; }
+.send-request .reply-item form label {
+  color: #c1c1c1;
+  font-size: 16px;
+  padding-bottom: 5px;
+  white-space: -2px; }
+.send-request .reply-item form .input {
+  width: 100%;
+  height: 45px;
+  padding-bottom: 6px;
+  border: 1px solid #e8e8e8;
+  border-radius: 30px;
+  text-indent: 20px;
+  font-weight: normal;
+  font-size: 12.56px;
+  color: #505050;
+  word-spacing: -2px;
+  margin-bottom: 30px;
+  transition: all 0.5s ease-in-out; }
+.send-request .reply-item form .input.texterea {
+  height: 300px;
+  resize: none; }
+.send-request .reply-item form .input::placeholder {
+  font-weight: 300;
+  z-index: 99;
+  position: relative;
+  opacity: 1;
+  font-size: 12.56px;
+  color: #c1c1c1;
+  word-spacing: -2px; }
+.send-request .reply-item form .input:hover, .send-request .reply-item form .input:focus {
+  background-color: #FFFFFF;
+  border: 1px solid #f8f8f8 !important;
+  outline: none !important;
+  box-shadow: 7.5px 12.99px 40px 0px rgba(65, 74, 155, 0.04) !important;
+  -webkit-box-shadow: 7.5px 12.99px 40px 0px rgba(65, 74, 155, 0.04) !important;
+  -moz-box-shadow: 7.5px 12.99px 40px 0px rgba(65, 74, 155, 0.04) !important; }
+.send-request .reply-item form .btn-send {
+  width: 210px;
+  height: 50px;
+  background-color: #30acac;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 5px 8.66px 20px 0px rgba(48, 172, 172, 0.15);
+  color: #ffffff;
+  display: flex;
+  float: left;
+  justify-content: center;
+  padding-top: 14px;
+  margin-left: 15px; }
+.send-request .reply-item form .btn-send span {
+  margin-top: -7px;
+  padding-bottom: 6px; }
