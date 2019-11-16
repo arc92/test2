@@ -1,0 +1,10 @@
+/vendor
+.idea/
+docker
+docker-compose.yml
+data
+vol-share
+runtime
+assets/*
+!assets/AppAsset.php
+uploads/*
