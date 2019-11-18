@@ -21,7 +21,8 @@ use hoomanMirghasemi\jdf\Jdf;
                     'class' => 'd-flex justify-content-between flex-wrap'
                  ]
             ]); ?>
-            <?php   $useraddress=\app\models\Useraddress::find()->Where(['userID'=>\Yii::$app->session['user_id']])->all();
+            <?php
+                $useraddress=\app\models\Useraddress::find()->Where(['userID'=>\Yii::$app->session['user_id']])->all();
                 $address=\app\models\Useraddress::find()->Where(['userID'=>\Yii::$app->session['user_id']])->one();
             if($useraddress!=null){  ?>
                         <label class="item" style=" width: 100%;display: flex;align-items: center;margin-top: 20px;">
@@ -82,7 +83,7 @@ use hoomanMirghasemi\jdf\Jdf;
                     <label for="city">
                           کد پستی
                     </label>  
-              <?= $form->field($bascket, 'postalCode')->textInput(['pattern'=>'\d{10}'])->label(false)->hint('لطفا زبان سیستم خود را انگلیسی کنید')  ?> 
+              <?= $form->field($bascket, 'postalCode')->textInput(['pattern'=>'\d{10}' ,'value' => !empty($lastOrderInfo->postalCode) ? $lastOrderInfo->postalCode: ''])->label(false)->hint('لطفا زبان سیستم خود را انگلیسی کنید')  ?>
                     
                 </div>
                 <div class="item address-item">
@@ -90,14 +91,14 @@ use hoomanMirghasemi\jdf\Jdf;
                         نشانی گیرنده محصول
                     </label> 
                      
-                    <?= $form->field($bascket, 'address')->textarea(['class'=>'address','value'=>(isset($address->address))?$address->address:''])->label(false) ?>
+                    <?= $form->field($bascket, 'address')->textarea(['class'=>'address','value'=>(isset($address->address))?$address->address:!empty($lastOrderInfo->address) ? $lastOrderInfo->address : ''])->label(false) ?>
                  
                 </div>
                 <div class="item">
                     <label for="tel">
                         شماره تماس
                     </label> 
-                    <?= $form->field($bascket, 'tel')->textInput(['value'=>$user->tell])->label(false) ?>
+                    <?= $form->field($bascket, 'tel')->textInput(['value'=>!empty($user->tell) ? $user->tell : !empty($lastOrderInfo->tel) ? $lastOrderInfo->tel : ''])->label(false) ?>
                 </div>
                 <div class="item">
                     <label for="phone">
