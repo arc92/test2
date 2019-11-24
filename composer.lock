@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb3e22c1362310b6d56edb6120066c8b",
+    "content-hash": "556d86b887852d3e113e4cc31e3af96e",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -220,14 +220,13 @@
             "version": "v3.3.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
-                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
-                "shasum": null
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
@@ -242,14 +241,13 @@
             "version": "v1.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
+                "url": "git@github.com:eternicode/bootstrap-datepicker.git",
                 "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
-                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
-                "shasum": null
+                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7.1,<4.0.0"
@@ -270,8 +268,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "shasum": null
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -292,8 +289,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/77d2a51d0520d2ee44173afdf4e40a9201f5964e",
-                "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e",
-                "shasum": null
+                "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e"
             },
             "type": "bower-asset",
             "license": [
@@ -311,8 +307,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/rstacruz/nprogress/zipball/254266ea50c220f6507fa3f2978fc530147c7f06",
-                "reference": "254266ea50c220f6507fa3f2978fc530147c7f06",
-                "shasum": null
+                "reference": "254266ea50c220f6507fa3f2978fc530147c7f06"
             },
             "type": "bower-asset",
             "license": [
@@ -324,14 +319,13 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bestiejs/punycode.js.git",
+                "url": "https://github.com/bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "shasum": null
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "type": "bower-asset"
         },
@@ -346,8 +340,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/aef7b953107264f00234902a3880eb50dafc48be",
-                "reference": "aef7b953107264f00234902a3880eb50dafc48be",
-                "shasum": null
+                "reference": "aef7b953107264f00234902a3880eb50dafc48be"
             },
             "require": {
                 "bower-asset/jquery": ">=1.8"
@@ -1260,7 +1253,8 @@
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-krajee-base": ">=1.9"
+                "kartik-v/yii2-krajee-base": ">=1.9",
+                "select2/select2": ">=4.0"
             },
             "type": "yii2-extension",
             "extra": {
@@ -1439,30 +1433,29 @@
         },
         {
             "name": "markbaker/matrix",
-            "version": "1.1.4",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarkBaker/PHPMatrix.git",
-                "reference": "6ea97472b5baf12119b4f31f802835b820dd6d64"
+                "reference": "5348c5a67e3b75cd209d70103f916a93b1f1ed21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/6ea97472b5baf12119b4f31f802835b820dd6d64",
-                "reference": "6ea97472b5baf12119b4f31f802835b820dd6d64",
+                "url": "https://api.github.com/repos/MarkBaker/PHPMatrix/zipball/5348c5a67e3b75cd209d70103f916a93b1f1ed21",
+                "reference": "5348c5a67e3b75cd209d70103f916a93b1f1ed21",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6.0|^7.0.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3",
-                "phpcompatibility/php-compatibility": "^8.0",
-                "phpdocumentor/phpdocumentor": "2.*",
-                "phploc/phploc": "2.*",
-                "phpmd/phpmd": "2.*",
-                "phpunit/phpunit": "^4.8.35|^5.4.0",
-                "sebastian/phpcpd": "2.*",
-                "squizlabs/php_codesniffer": "^3.3.0"
+                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+                "phpcompatibility/php-compatibility": "dev-master",
+                "phploc/phploc": "^4",
+                "phpmd/phpmd": "dev-master",
+                "phpunit/phpunit": "^5.7",
+                "sebastian/phpcpd": "^3.0",
+                "squizlabs/php_codesniffer": "^3.0@dev"
             },
             "type": "library",
             "autoload": {
@@ -1505,7 +1498,7 @@
                 "matrix",
                 "vector"
             ],
-            "time": "2018-11-04T22:12:12+00:00"
+            "time": "2019-10-06T11:29:25+00:00"
         },
         {
             "name": "mihandev/yii2-mellatbank",
@@ -1749,13 +1742,23 @@
             "time": "2018-06-11T23:09:50+00:00"
         },
         {
+            "name": "npm-asset/bootstrap",
+            "version": "4.3.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.3.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/font-awesome",
             "version": "4.7.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -1872,16 +1875,16 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.6.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "bf00f0cc5f55c354018f9a9ef15e6e3e1a229051"
+                "reference": "f734783d826bd84c3d54fcf7b71c37ab9bac4b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/bf00f0cc5f55c354018f9a9ef15e6e3e1a229051",
-                "reference": "bf00f0cc5f55c354018f9a9ef15e6e3e1a229051",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/f734783d826bd84c3d54fcf7b71c37ab9bac4b04",
+                "reference": "f734783d826bd84c3d54fcf7b71c37ab9bac4b04",
                 "shasum": ""
             },
             "require": {
@@ -1899,20 +1902,19 @@
                 "ext-zip": "*",
                 "ext-zlib": "*",
                 "markbaker/complex": "^1.4",
-                "markbaker/matrix": "^1.1",
-                "php": "^5.6|^7.0",
+                "markbaker/matrix": "^1.2",
+                "php": "^7.1",
                 "psr/simple-cache": "^1.0"
             },
             "require-dev": {
-                "doctrine/instantiator": "^1.0.0",
-                "dompdf/dompdf": "^0.8.0",
-                "friendsofphp/php-cs-fixer": "@stable",
+                "dompdf/dompdf": "^0.8.3",
+                "friendsofphp/php-cs-fixer": "^2.16",
                 "jpgraph/jpgraph": "^4.0",
-                "mpdf/mpdf": "^7.0.0",
-                "phpcompatibility/php-compatibility": "^8.0",
-                "phpunit/phpunit": "^5.7",
-                "squizlabs/php_codesniffer": "^3.3",
-                "tecnickcom/tcpdf": "^6.2"
+                "mpdf/mpdf": "^8.0",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpunit/phpunit": "^7.5",
+                "squizlabs/php_codesniffer": "^3.5",
+                "tecnickcom/tcpdf": "^6.3"
             },
             "suggest": {
                 "dompdf/dompdf": "Option for rendering PDF with PDF Writer",
@@ -1928,15 +1930,9 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-2.1-or-later"
+                "MIT"
             ],
             "authors": [
-                {
-                    "name": "Erik Tilt"
-                },
-                {
-                    "name": "Adrien Crivelli"
-                },
                 {
                     "name": "Maarten Balliauw",
                     "homepage": "https://blog.maartenballiauw.be"
@@ -1948,6 +1944,12 @@
                 {
                     "name": "Franck Lefevre",
                     "homepage": "https://rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                },
+                {
+                    "name": "Adrien Crivelli"
                 }
             ],
             "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
@@ -1962,7 +1964,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2019-01-02T04:42:54+00:00"
+            "time": "2019-11-18T11:33:05+00:00"
         },
         {
             "name": "psr/log",
@@ -2058,6 +2060,44 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "select2/select2",
+            "version": "4.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/select2/select2.git",
+                "reference": "5765090318c4d382ae56463cfa25ba8ca7bdd495"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/select2/select2/zipball/5765090318c4d382ae56463cfa25ba8ca7bdd495",
+                "reference": "5765090318c4d382ae56463cfa25ba8ca7bdd495",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "dist/js/select2.js"
+                    ],
+                    "styles": [
+                        "dist/css/select2.css"
+                    ],
+                    "files": [
+                        "dist/js/select2.js",
+                        "dist/js/i18n/*.js",
+                        "dist/css/select2.css"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Select2 is a jQuery based replacement for select boxes.",
+            "homepage": "https://select2.org/",
+            "time": "2019-11-06T01:34:17+00:00"
         },
         {
             "name": "setasign/fpdi",
@@ -2432,6 +2472,75 @@
             "time": "2018-02-16T10:41:52+00:00"
         },
         {
+            "name": "yiisoft/yii2-bootstrap4",
+            "version": "2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
+                "reference": "c67ae3f3624c35d977841f6b18d0d752ebed6420"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/c67ae3f3624c35d977841f6b18d0d752ebed6420",
+                "reference": "c67ae3f3624c35d977841f6b18d0d752ebed6420",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/bootstrap": "^4.3",
+                "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<7",
+                "yiisoft/yii2-coding-standards": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\bootstrap4\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com",
+                    "homepage": "http://www.yiiframework.com/"
+                },
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/"
+                },
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "amigo.cobos@gmail.com"
+                },
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                },
+                {
+                    "name": "Simon Karlen",
+                    "email": "simi.albi@outlook.com"
+                }
+            ],
+            "description": "The Twitter Bootstrap extension for the Yii framework",
+            "keywords": [
+                "bootstrap",
+                "bootstrap4",
+                "yii2"
+            ],
+            "time": "2019-10-08T11:01:37+00:00"
+        },
+        {
             "name": "yiisoft/yii2-composer",
             "version": "2.0.7",
             "source": {
@@ -2657,8 +2766,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/twitter/typeahead.js/zipball/588440f66559714280628a4f9799f0c4eb880a4a",
-                "reference": "588440f66559714280628a4f9799f0c4eb880a4a",
-                "shasum": null
+                "reference": "588440f66559714280628a4f9799f0c4eb880a4a"
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
