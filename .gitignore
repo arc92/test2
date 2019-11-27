@@ -1,7 +1,5 @@
 /vendor
 .idea/
-data
-vol-share
 runtime
 assets/*
 !assets/AppAsset.php
