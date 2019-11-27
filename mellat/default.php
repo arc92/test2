@@ -10,7 +10,7 @@ $amount = "1000"; // Price / Rial
 $localDate = date('Ymd'); // Date
 $localTime = date('Gis'); // Time
 $additionalData = '';
-$callBackUrl = "https://bccstyle.com/mellat/callback.php"; // Callback URL
+$callBackUrl = "http://185.204.101.16//mellat/callback.php"; // Callback URL
 $payerId = '0';
  
 //-- تبدیل اطلاعات به آرایه برای ارسال به بانک
