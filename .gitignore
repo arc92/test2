@@ -1,7 +1,5 @@
 /vendor
 .idea/
-docker
-docker-compose.yml
 data
 vol-share
 runtime
