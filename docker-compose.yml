@@ -33,9 +33,9 @@ services:
     restart: always
     environment:
       - MYSQL_DATABASE=bccstyle
-      - MYSQL_ROOT_PASSWORD=123123
-      - MYSQL_USER=nima
-      - MYSQL_PASSWORD=123123
+      - MYSQL_ROOT_PASSWORD=arcsin360
+      - MYSQL_USER=test_user
+      - MYSQL_PASSWORD=test_pass
     expose:
       - "3306"
     ports:
