@@ -454,12 +454,8 @@ use hoomanMirghasemi\jdf\Jdf;
                                 <img src="/img/bank/melli.png" class="bank-logo active" alt="">
                             </label>-->
                             
-                            <input type="radio" name="bank" value="mellat" id="mlt"   > 
 
-                            <label for="mlt" class="bank-logo">
-                                <img src="/img/bank/mellat.jpg" class="bank-logo active" alt="">
-                            </label>
-                            <input type="radio" name="bank" value="zarinpal" id="zarin"   >
+                            <input type="radio" name="bank" value="zarinpal" id="zarin"  checked>
 
                             <label for="zarin" class="bank-logo">
                                 <img src="/img/zarinpal-logo-2.png" class="bank-logo active" alt="">
