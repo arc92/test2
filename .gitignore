@@ -6,3 +6,4 @@ runtime
 assets/*
 !assets/AppAsset.php
 uploads/*
+composer.lock
