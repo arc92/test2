@@ -239,9 +239,9 @@ $cartoptionss= Cartoption::find()->where(['cartID'=>$carts->id])->all();
     $bank=$_bank;
     $bascketID=intval($bascket->id);
         if($bank=='melli'){
-          return \yii::$app->payment->melli_request($amount,time(),"https://www.bccstyle.com/endstep/callback?id=".$bascketID);
+          return \yii::$app->payment->melli_request($amount,time(),"http://185.204.101.16/endstep/callback?id=".$bascketID);
         }elseif($bank=='mellat'){
-            return \yii::$app->mellatbank->Request($amount,"https://www.bccstyle.com/endstep/backmellat?id=".$bascketID);
+            return \yii::$app->mellatbank->Request($amount,"http://185.204.101.16/endstep/backmellat?id=".$bascketID);
          //  return \yii::$app->payment->Request($amount,"https://www.bccstyle.com/endstep/callbackmelat?id=".intval($bascket->id));
         }elseif($bank=='zarinpal'){ 
             if($zarinpal->request($amount,'بی سی سی',null,null,['parameter'=>intval($bascket->id)])->getStatus() == '100'){ 
