@@ -18,6 +18,7 @@ class Sms extends Component{
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => "http://api.smsapp.ir/v2/sms/send/simple",
+        CURLOPT_RETURNTRANSFER,1,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => "message=".$text."&sender=30005066962957&Receptor=".$receiverNumber,
@@ -30,9 +31,9 @@ class Sms extends Component{
         curl_close($curl);
         
         if ($err) {
-        echo "cURL Error #:" . $err;
+         "cURL Error #:" . $err;
         } else {
-        echo $response;
+         $response;
         }
     }
 }
