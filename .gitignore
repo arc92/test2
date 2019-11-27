@@ -5,3 +5,4 @@ assets/*
 !assets/AppAsset.php
 uploads/*
 composer.lock
+vol-share
