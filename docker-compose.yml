@@ -32,7 +32,7 @@ services:
     image: mysql
     restart: always
     environment:
-      - MYSQL_DATABASE=bcccstyle
+      - MYSQL_DATABASE=bccstyle
       - MYSQL_ROOT_PASSWORD=123123
       - MYSQL_USER=nima
       - MYSQL_PASSWORD=123123
