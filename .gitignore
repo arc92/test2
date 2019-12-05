@@ -7,3 +7,4 @@ uploads/*
 composer.lock
 vol-share
 data
+config/db.php
