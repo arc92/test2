@@ -78,7 +78,7 @@ $config = [
         'zarinpal' => [
             'class' => 'amirasaran\zarinpal\Zarinpal',
             'merchant_id' => '081df5a6-7097-11e9-be6e-000c29344814',
-            'callback_url' => 'https://www.bccstyle.com/endstep/verify',
+            'callback_url' => 'http://185.204.101.16/endstep/verify',
             'testing' => false, // if you are testing zarinpal set it true, else set to false
         ],
         'reCaptcha' => [

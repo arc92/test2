@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mysqldb;dbname=bbcstyle',
+    'dsn' => 'mysql:host=mysqldb;dbname=blumshop_bcc',
     'username' => 'root',
-    'password' => '123123',
+    'password' => 'arcsin360',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

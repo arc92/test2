@@ -75,7 +75,7 @@ class SiteController extends Controller
     public function actionMellat()
     {
         
-        \yii::$app->mellatbank->Request(1000,"http://bccstyle.com/site/mellatback");
+        \yii::$app->mellatbank->Request(1000,"http://185.204.101.16//site/mellatback");
     }
     public function actionMellatback()
     {

@@ -269,6 +269,7 @@ class EndstepController extends Controller
                     return $this->redirect('/failed/');
                 }
             }
+
             return $this->render('index', [
                 'carts' => $carts,
                 'cartoptions' => $cartoptions,
@@ -282,6 +283,7 @@ class EndstepController extends Controller
                 'user' => $user,
                 'lastOrderInfo' => $lastOrderInfo,
             ]);
+
         }
     }
 
