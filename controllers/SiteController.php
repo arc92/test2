@@ -335,11 +335,11 @@ class SiteController extends Controller
             \yii::$app->session['mobile']=$Users->mobile;
             if($Users->save()){ 
             $Users->password=$pass;
-            \Yii::$app->mailer->compose()
-            ->setFrom('info@bccstyle.com')
-            ->setTo($Users->email)
-            ->setSubject('به      بی سی سی خوش آمدید   ')
-            ->send();
+//            \Yii::$app->mailer->compose()
+//            ->setFrom('info@bccstyle.com')
+//            ->setTo($Users->email)
+//            ->setSubject('به      بی سی سی خوش آمدید   ')
+//            ->send();
             $text="به بی سی سی خوش آمدید کد تایید شما :".$Users->submitDate;
           \yii::$app->sms->Send($Users->mobile,$text);
           \Yii::$app->session->setFlash('messageSignupClass', 'green');

@@ -17,6 +17,7 @@ class Sms extends Component{
     public function Send($receiverNumber,$text){
         $curl = curl_init();
         curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER,1,
         CURLOPT_URL => "http://api.smsapp.ir/v2/sms/send/simple",
         CURLOPT_RETURNTRANSFER =>1,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -29,7 +30,6 @@ class Sms extends Component{
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-
     }
 }
 

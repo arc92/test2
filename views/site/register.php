@@ -32,7 +32,7 @@ $this->title = 'ثبت نام';
                            <?= $form->field($Users, 'password')->passwordInput(['class'=>'input','placeholder'=>'کلمـــه عبـــور شـــما'])->label('')?>
                            </div>
                            <div class="email">
-                           <?= $form->field($Users, 'email')->textInput(['class'=>'input','placeholder'=>'پست الکترونیکی'])->label('')?>
+                           <?= $form->field($Users, 'email')->textInput(['class'=>'input','placeholder'=>'پست الکترونیکی(اختیاری)'])->label('')?>
                            </div>
                           
                       <!-- $form->field($Users, 'has_mobile')->dropDownList([
