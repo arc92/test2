@@ -48,7 +48,11 @@ class EndstepController extends Controller
 
         //for getting address from latest user order
         $lastSuccessfulCart = Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 1])->orderBy(['id' =>SORT_DESC])->one();
-        $lastOrderInfo = Bascket::find()->where(['cartID' => $lastSuccessfulCart->id])->orderBy(['id' => SORT_DESC])->one(); //for getting address from latest user order
+        if(!empty ($lastSuccessfulCart)){
+            $lastOrderInfo = Bascket::find()->where(['cartID' => $lastSuccessfulCart->id])->orderBy(['id' => SORT_DESC])->one(); //for getting address from latest user order
+        } else{
+            $lastOrderInfo = [];
+        }
 
 
 
