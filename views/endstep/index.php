@@ -98,7 +98,7 @@ use hoomanMirghasemi\jdf\Jdf;
                     <label for="tel">
                         شماره تماس
                     </label> 
-                    <?= $form->field($bascket, 'tel')->textInput(['value'=>!empty($user->tell) ? $user->tell : !empty($lastOrderInfo->tel) ? $lastOrderInfo->tel : ''])->label(false) ?>
+                    <?= $form->field($bascket, 'tel')->textInput(['value'=>!empty($lastOrderInfo->tel)  ? $lastOrderInfo->tel : ''])->label(false) ?>
                 </div>
                 <div class="item">
                     <label for="phone">
