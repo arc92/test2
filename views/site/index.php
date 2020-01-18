@@ -75,9 +75,7 @@
                 <span class="title">
                 طرح  های  البسه
                  </span>
-                <a href="/collections/" class="archive">
-                    مشاهده آرشیو
-                </a>
+
             </div>
         </section>
         <section class="owl-carousel container p-0" id="category-1">
