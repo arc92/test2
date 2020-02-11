@@ -220,15 +220,15 @@ use yii\helpers\Url;
                             </div>
                         <?php } ?>
                        <!----color select--->
-                        <div class="color d-flex align-items-center">
-                          <span class="title"> رنگ </span> 
-                                    <ul class="nav">
-                                        <li class="nav-item"> 
-                                        <div class="nav-link blue" style="background-color:<?=$product->color->name?>"></div> 
-                                        </li> 
-                                    </ul> 
-                        
-                        </div>
+<!--                        <div class="color d-flex align-items-center">-->
+<!--                          <span class="title"> رنگ </span> -->
+<!--                                    <ul class="nav">-->
+<!--                                        <li class="nav-item"> -->
+<!--                                        <div class="nav-link blue" style="background-color:--><?//=$product->color->name?><!--"></div> -->
+<!--                                        </li> -->
+<!--                                    </ul> -->
+<!--                        -->
+<!--                        </div>-->
                         <div class="not-available" <?php if($featurevalue==true || $product->count>0){ ?> style="display:none;" id="mojod" <?php } ?>>
                         متاسفانه این سایز در حال حاضر موجود نمیباشد
                         </div>
