@@ -10,3 +10,4 @@ composer.lock
 vol-share
 data
 config/db.php
+config/db.php
