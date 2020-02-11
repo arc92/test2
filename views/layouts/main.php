@@ -196,7 +196,7 @@ $str.=($urls['path']);
                                         <?php foreach(\app\models\Menu2::find()->where(['has_Submenu'=>0])->all() as $submenu){
                                                 if($menus->has_submenu==1 && $submenu->parent==$menus->id && $submenu->row==1){?>
                                             <li class="item"> 
-                                             <a href="/<?=$submenu->link?>/" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
+                                             <a href="/<?=$submenu->link . '/?categoryName='. $submenu->name?>" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
                                              <i class="icon-006-left-chevron"></i>  <?=$submenu->name?>
                                                 </a> 
                                             </li>
@@ -210,7 +210,7 @@ $str.=($urls['path']);
                                         <?php foreach(\app\models\Menu2::find()->where(['has_Submenu'=>0])->all() as $submenu){
                                                 if($menus->has_submenu==1 && $submenu->parent==$menus->id && $submenu->row==2){?>
                                             <li class="item"> 
-                                             <a href="/<?=$submenu->link?>/" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
+                                             <a href="/<?=$submenu->link . '/?categoryName='. $submenu->name?>" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
                                              <i class="icon-006-left-chevron"></i>    <?=$submenu->name?>
                                                 </a> 
                                             </li>
@@ -224,7 +224,7 @@ $str.=($urls['path']);
                                         <?php foreach(\app\models\Menu2::find()->where(['has_Submenu'=>0])->all() as $submenu){
                                                 if($menus->has_submenu==1 && $submenu->parent==$menus->id && $submenu->row==3){?>
                                             <li class="item"> 
-                                                <a href="/<?=$submenu->link?>/" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
+                                                <a href="/<?=$submenu->link . '/?categoryName='. $submenu->name?>" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
                                                 <i class="icon-006-left-chevron"></i>     <?=$submenu->name?>
                                                 </a> 
                                             </li>
