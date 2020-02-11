@@ -428,6 +428,22 @@ ActiveForm::end(); ?>
 <li class="nav-item">
 <?php echo LinkPager::widget([
 'pagination' => $pagination ,
+    //Css option for container
+
+
+    //Previous option value
+    'prevPageLabel' => 'قبلی',
+    //Next option value
+    'nextPageLabel' => 'بعدی',
+    //Current Active option value
+    'activePageCssClass' => 'paginationActivePage',
+    //Max count of allowed options
+    'maxButtonCount' => 5,
+
+
+    // Customzing CSS class for navigating link
+    'prevPageCssClass' => 'currentPage',
+    'nextPageCssClass' => 'currentPage',
 
 ]);?>
 

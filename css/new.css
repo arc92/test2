@@ -1228,3 +1228,32 @@ padding: 20px 0;
 .width-res{
     padding-bottom: 80px;
 }
+
+
+#pagenum > ul > li > ul > li{
+    background-color: #a3cced;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+}
+
+
+#pagenum > ul > li > ul > li.paginationActivePage{
+    background-color: #1a3348;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+}
+
+#pagenum > ul > li > ul > li.currentPage{
+    background-color: #b5bdc3;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+}
