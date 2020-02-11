@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mysqldb;dbname=blumshop_bcc',
+    'dsn' => 'mysql:host=localhost;dbname=bbcstyle',
     'username' => 'root',
     'password' => 'arcsin360',
     'charset' => 'utf8',
