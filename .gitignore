@@ -7,5 +7,5 @@ assets/*
 !assets/AppAsset.php
 uploads/*
 composer.lock
-config/db.php
+/config/db.php
 
