@@ -11,7 +11,7 @@ use yii\widgets\LinkPager;
 ?>
 
 <main class="product-list catfilter">
-
+    <div class="loader2"></div>
     <div class=" container p-0 d-flex justify-content-between align-items-center">
         <button class="filter-category">
             <i class="icon-menu-1"></i>
@@ -26,19 +26,12 @@ use yii\widgets\LinkPager;
     <article class="header-list-grid ">
         <section class="show container p-0 d-flex  align-items-center justify-content-between">
 
-            <!--Right Details -->
 
-            <!--of Header Content-->
-            <!--
-            <div class="number d-flex  align-items-center">
-            <span class="title number-title">   بر اساس تعداد نمایش  :    </span>
-            <select name="state" class="js-example-basic-single" id="show" >
-            <option > لطفا انتخاب کنید </option>
-            <option value="10">    نمایش 10 عدد   </option>
-            <option value="20">   نمایش 20 عدد   </option>
-            <option value="30">    نمایش 30 عدد  </option>
-            </select>
-            </div> -->
+<!--            <div class="number d-flex  align-items-center">-->
+<!--            <span class="title number-title">   فیلتر ها :    </span>-->
+<!--                <button type="button" class="btn btn-labeled btn-danger">-->
+<!--                    <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Cancel</button>-->
+<!--            </div>-->
 
             <!--Left Details -->
 
@@ -46,33 +39,14 @@ use yii\widgets\LinkPager;
 
             <div class="sort d-flex  align-items-center">
 
-<span class="title sort-title">
+            <span class="title sort-title">
 
-مرتب سازی بر اساس  :
+            مرتب سازی بر اساس  :
 
-</span>
+            </span>
 
                 <ul class="nav">
 
-                    <!-- <li class="nav-item ">
-
-                    <a href="#" class="nav-link ">
-
-                    <i class="icon-menu-1"></i>
-
-                    </a>
-
-                    </li> -->
-
-                    <!-- <li class="nav-item ">
-
-                    <div class="nav-link active">
-
-                    <i class="icon-menu-2"></i>
-
-                    </a>
-
-                    </li> -->
 
                     <li class="nav-item active category-button" data-filter="one">
 
@@ -93,32 +67,6 @@ use yii\widgets\LinkPager;
 
         </section>
 
-        <!-- <section class="filter container p-0 d-flex flex-wrap  justify-content-around align-items-center">
-        <span class="title">
-        انتخاب فیلتر ها بر اساس  :
-        </span>
-        $form = ActiveForm::begin([
-        'action'=>'search',
-        'fieldConfig' => [
-        'template' => '{input}{label}{hint}',
-        'horizontalCssClasses' => [
-        'label' => '',
-        'offset' => '',
-        'wrapper' => '',
-        'error' => '',
-        'hint' => '',
-        ],
-        ]
-        ]); ?>
-        $form->field($category, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList( ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),['prompt'=>'انتخاب دسته بندی','class'=>'js-example-basic-single auto'])->label('') ?>
-        $form->field($subcat, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Subcat::find()->all(), 'id', 'name'),['prompt'=>'انتخاب جنسیت..','class'=>'js-example-basic-single auto'])->label('') ?>
-        $form->field($model, 'planID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Plan::find()->Where(['status'=>1])->orderBy(['id'=>SORT_DESC])->all(), 'id', 'name'),['prompt'=>'انتخاب طرح..','class'=>'js-example-basic-single auto'])->label('') ?>
-        $form->field($model, 'colorID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Color::find()->all(), 'id', 'value'),['prompt'=>'انتخاب رنگ..','class'=>'js-example-basic-single auto'])->label('') ?>
-        $form->field($size, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Size::find()->all(), 'age', 'age'),['prompt'=>'انتخاب سایز..','class'=>'js-example-basic-single auto'])->label('') ?>
-
-
-        ActiveForm::end(); ?>
-        </section> -->
     </article>
 
     <section class="filter-sec one list">
@@ -151,10 +99,10 @@ use yii\widgets\LinkPager;
                                                             </div>
                                                             <div class="td text-center"
                                                                  style="margin-right:20px!important;">
-                                        <span class="btn btn-icon">
-                                            <i class="icon-004-down-chevron"></i>
-                                            <i class="icon-007-up-chevron d-none"></i>
-                                        </span>
+                                                                <span class="btn btn-icon">
+                                                                    <i class="icon-004-down-chevron"></i>
+                                                                    <i class="icon-007-up-chevron d-none"></i>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="drop-down" style="display: none;">
@@ -190,21 +138,23 @@ use yii\widgets\LinkPager;
                     <i class="icon-004-down-chevron"></i>
                     <i class="icon-007-up-chevron d-none"></i>
                 </span>
-                                    </div>
-                                </div>
-                                <div class="drop-down" style="display: none;">
-                                    <div class="top-drop-down d-flex justify-content-between align-items-center">
-                                        <div class="right d-flex align-items-center">
-                                            <div class="detail">
-                                            <?php foreach(\app\models\Subcat::find()->all() as $subcat){ ?>
-                                                    <div class="address d-flex justify-content-between align-items-center">
-                                                        <input type="radio" name="subcat" value="<?=$subcat->id?>" id="subcat<?=$subcat->id?>">
-                                                        <label for="subcat<?=$subcat->id?>">
-                                                          <?=$subcat->name ?>
-                                                        </label>
-                                                </div>
-                                                <?php } ?>
-                                               <!-- $form->field($subcat, 'id', ['options' => ['style' => 'display:inline-block;']])->radioList(ArrayHelper::map(\app\models\Subcat::find()->all(), 'id', 'name'))->label('') ?> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="drop-down" style="display: none;">
+                                                            <div class="top-drop-down d-flex justify-content-between align-items-center">
+                                                                <div class="right d-flex align-items-center">
+                                                                    <div class="detail">
+                                                                        <?php foreach (\app\models\Subcat::find()->all() as $subcat) { ?>
+                                                                            <div class="address d-flex justify-content-between align-items-center">
+                                                                                <input type="radio" name="subcat"
+                                                                                       value="<?= $subcat->id ?>"
+                                                                                       id="subcat<?= $subcat->id ?>">
+                                                                                <label for="subcat<?= $subcat->id ?>">
+                                                                                    <?= $subcat->name ?>
+                                                                                </label>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                        <!-- $form->field($subcat, 'id', ['options' => ['style' => 'display:inline-block;']])->radioList(ArrayHelper::map(\app\models\Subcat::find()->all(), 'id', 'name'))->label('') ?> -->
 
                                                                     </div>
                                                                 </div>
@@ -520,18 +470,19 @@ use yii\widgets\LinkPager;
 <!-- get subcat api-->
 
 <?php
+
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/sendRequest.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/toRial.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/category.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/subcat.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/plan.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/color.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/size.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+$this->registerJsFile(Yii::$app->request->BaseUrl . 'js/babycatJS/show.js', ['depends' => [yii\web\JqueryAsset::className()]]);
+
 $script = <<< JS
 
-function ToRial(str) {
 
-    var objRegex = new RegExp('(-?[0-9]+)([0-9]{3})');
-
-    while (objRegex.test(str)) {
-        str = str.toString().replace(objRegex, '$1,$2');
-    }
-
-    return str;
-} 
 
 $(document).ready(function () { 
 ConvertNumberToPersion();
@@ -539,447 +490,16 @@ ConvertNumberToPersion();
 });
 
  
-$('input:radio[name="category"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') ) {
-    var url=("/api/url?categoryID="+$(this).val());
-    } 
- 
-    
-    
-  $.get(url,(data,status)=>{
-                $.each(data.data, function(index, value) {  
-                        html+='/baby-clothing/'+value.urltitle+'/?categoryName=' + value.name;  
-                    });    
-                    window.location.href = (html); 
-                    $('.layer').css('border','1px solid #ed008c');
-     });  
-    }
-    }
-   
-); 
- ////categoryID
-// $('input:radio[name="category"]').change(
-//     function(){
-//         if ($(this).is(':checked') ) {
-//     var html=''; 
-//     if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-//     }else if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-//     }else if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') ) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-//     }else if ($('input:radio[name="subcat"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-//     }else if ($('input:radio[name="plan"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-//     }else if ($('input:radio[name="color"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-//     }else if ($('input:radio[name="size"]').is(':checked')) {
-//     var url=("/api/filter?categoryID="+$(this).val()+"&name="+$('input:radio[name="size"]:checked').val());
-//     }else{
-//     var url=("/api/filter?categoryID="+$(this).val());
-//     }
- 
-//     
-    
-//   $.get(url,(data,status)=>{
-//       
-//       
-              
-     
-//                 $.each(data.data, function(index, value) {  
-//                         var text=value.name; 
-//                      text=text.replace(/ /g, "-"); 
-//                      if(value.count==1 ){ 
 
-//                      }else{
-//                      html+='<div class="item" >';
-//                         html+=' <div class="details-item"> ';  
-//                         html+=' <a target="_blank" href="/product/'+text+'/ ">'; 
-//                         html+='<img src="/'+value.image+'">'; 
-//                         html+='<div class="text">';
-//                         html+=' <h3 class="title">'+value.name+'</h3>     ';   
-//                         if(value.count==1 ){   
-//                             html+=' <div class="price-item d-flex " > ';  
-//                             html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-//                             html+='</div>  ';  
-//                         }else{
-//                             if(value.offer!=null ){
-//                                 html+=' <div class="price-item d-flex " >'; 
-//                                 html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-//                                 html+='<span class="price"> '; 
-//                                 html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-//                                 html+=' </span>';  
-//                                 html+='</div> ';  
-//                                 html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-//                         }else{
-//                         html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-//                         }
-//                 }
-//                         html+=' </div>';
-//                         html+=' </a>';
-//                         html+='</div>'; 
-//                         html+='</div>'; 
-//                      }
-//                  });
 
-          
-//                 $('#product-content').html(html);
-//                 $('#pagenum').html(' ');
-//                 ConvertNumberToPersion();
-               
-//      });  
-//     }
-// }
-// );   
 
- 
 
-  ////subcatID
-$('input:radio[name="subcat"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') ) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    } else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="plan"]').is(':checked') ) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
 
-                     }else{
-                     html+='<div class="item" >';
-                        html+=' <div class="details-item"> ';  
-                        html+=' <a target="_blank" href="/product/'+text+'/">'; 
-                        html+='<img src="/'+value.image+'">'; 
-                        html+='<div class="text">';
-                        html+=' <h3 class="title">'+value.name+'</h3>     ';   
-                        if(value.count==1 ){   
-                            html+=' <div class="price-item d-flex " > ';  
-                            html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-                            html+='</div>  ';  
-                        }else{
-                            if(value.offer!=null ){
-                                html+=' <div class="price-item d-flex " >'; 
-                                html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-                                html+='<span class="price"> '; 
-                                html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-                                html+=' </span>';  
-                                html+='</div> ';  
-                                html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-                        }else{
-                        html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-                        }
-                }
-                        html+=' </div>';
-                        html+=' </a>';
-                        html+='</div>'; 
-                        html+='</div>'; 
-                     }
-                 });
-              
-                $('#product-content').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
 
-  ////planID
-  $('input:radio[name="plan"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ($('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
 
-                     }else{
-                     html+='<div class="item" >';
-                        html+=' <div class="details-item"> ';  
-                        html+=' <a target="_blank" href="/product/'+text+'/">'; 
-                        html+='<img src="/'+value.image+'">'; 
-                        html+='<div class="text">';
-                        html+=' <h3 class="title">'+value.name+'</h3>     ';   
-                        if(value.count==1 ){   
-                            html+=' <div class="price-item d-flex " > ';  
-                            html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-                            html+='</div>  ';  
-                        }else{
-                            if(value.offer!=null ){
-                                html+=' <div class="price-item d-flex " >'; 
-                                html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-                                html+='<span class="price"> '; 
-                                html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-                                html+=' </span>';  
-                                html+='</div> ';  
-                                html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-                        }else{
-                        html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-                        }
-                }
-                        html+=' </div>';
-                        html+=' </a>';
-                        html+='</div>'; 
-                        html+='</div>'; 
-                     }
-                 });
-              
-                $('#product-content').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
 
- 
- ////colorID
- $('input:radio[name="color"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
 
-                     }else{
-                     html+='<div class="item" >';
-                        html+=' <div class="details-item"> ';  
-                        html+=' <a target="_blank" href="/product/'+text+'/">'; 
-                        html+='<img src="/'+value.image+'">'; 
-                        html+='<div class="text">';
-                        html+=' <h3 class="title">'+value.name+'</h3>     ';   
-                        if(value.count==1 ){   
-                            html+=' <div class="price-item d-flex " > ';  
-                            html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-                            html+='</div>  ';  
-                        }else{
-                            if(value.offer!=null ){
-                                html+=' <div class="price-item d-flex " >'; 
-                                html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-                                html+='<span class="price"> '; 
-                                html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-                                html+=' </span>';  
-                                html+='</div> ';  
-                                html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-                        }else{
-                        html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-                        }
-                }
-                        html+=' </div>';
-                        html+=' </a>';
-                        html+='</div>'; 
-                        html+='</div>'; 
-                     }
-                 });
-              
-                $('#product-content').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
- ////size
- $('input:radio[name="size"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
 
-                     }else{
-                     html+='<div class="item" >';
-                        html+=' <div class="details-item"> ';  
-                        html+=' <a target="_blank" href="/product/'+text+'/">'; 
-                        html+='<img src="/'+value.image+'">'; 
-                        html+='<div class="text">';
-                        html+=' <h3 class="title">'+value.name+'</h3>     ';   
-                        if(value.count==1 ){   
-                            html+=' <div class="price-item d-flex " > ';  
-                            html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-                            html+='</div>  ';  
-                        }else{
-                            if(value.offer!=null ){
-                                html+=' <div class="price-item d-flex " >'; 
-                                html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-                                html+='<span class="price"> '; 
-                                html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-                                html+=' </span>';  
-                                html+='</div> ';  
-                                html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-                        }else{
-                        html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-                        }
-                }
-                        html+=' </div>';
-                        html+=' </a>';
-                        html+='</div>'; 
-                        html+='</div>'; 
-                     }
-                 });
-              
-                $('#product-content').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
- 
 
 
 
@@ -993,427 +513,11 @@ $('input:radio[name="subcat"]').change(
 
 
 
-////part list view
 
- ////categoryID
- $('input:radio[name="category"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') ) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?categoryID="+$(this).val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else{
-    var url=("/api/filter?categoryID="+$(this).val());
-    }
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-     
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
 
-                     }else{
-                        html+='<div class="item item-line">';
-                        html+='<div class="d-flex flex-wrap justify-content-around align-items-center">';
-                        html+='<a href="/product/'+text+'/" target="_blank">'; 
-                        html+='<img src="/'+value.image+'" alt=""></a>';
-                        html+='<div class="introduciton">';
-                        html+='<h3 class="title">'+value.name+'</h3>';
-                        html+='<span class="price ">'+ToRial(value.price)+' تومان </span>';
-                        html+='</div>'; 
-                        html+='<a href="/product/'+text+'/" target="_blank" class="show">';
-                        html+=' <span>   مشاهده محصول </span> </a>';
-                        html+='</div>';
-                        html+='</div>';
-                     }
-                 });
 
-          
-                $('#view2').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-);   
 
- 
 
-  ////subcatID
-$('input:radio[name="subcat"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') ) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    } else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="plan"]').is(':checked') ) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
-
-                     }else{
-                        html+='<div class="item item-line">';
-                        html+='<div class="d-flex flex-wrap justify-content-around align-items-center">';
-                        html+='<a href="/product/'+text+'/" target="_blank">'; 
-                        html+='<img src="/'+value.image+'" alt=""></a>';
-                        html+='<div class="introduciton">';
-                        html+='<h3 class="title">'+value.name+'</h3>';
-                        html+='<span class="price ">'+ToRial(value.price)+' تومان </span>';
-                        html+='</div>'; 
-                        html+='<a href="/product/'+text+'/" target="_blank" class="show">';
-                        html+=' <span>   مشاهده محصول </span> </a>';
-                        html+='</div>';
-                        html+='</div>';
-                     }
-                 });
-              
-                $('#view2').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
-
-  ////planID
-  $('input:radio[name="plan"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ($('input:radio[name="color"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
-
-                     }else{
-                        html+='<div class="item item-line">';
-                        html+='<div class="d-flex flex-wrap justify-content-around align-items-center">';
-                        html+='<a href="/product/'+text+'/" target="_blank">'; 
-                        html+='<img src="/'+value.image+'" alt=""></a>';
-                        html+='<div class="introduciton">';
-                        html+='<h3 class="title">'+value.name+'</h3>';
-                        html+='<span class="price ">'+ToRial(value.price)+' تومان </span>';
-                        html+='</div>'; 
-                        html+='<a href="/product/'+text+'/" target="_blank" class="show">';
-                        html+=' <span>   مشاهده محصول </span> </a>';
-                        html+='</div>';
-                        html+='</div>';
-                     }
-                 });
-              
-                $('#view2').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
-
- 
- ////colorID
- $('input:radio[name="color"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&name="+$('input:radio[name="size"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="size"]').is(':checked')) {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&name="+$('input:radio[name="size"]:checked').val());
-    }else {
-    var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
-
-                     }else{
-                        html+='<div class="item item-line">';
-                        html+='<div class="d-flex flex-wrap justify-content-around align-items-center">';
-                        html+='<a href="/product/'+text+'/" target="_blank">'; 
-                        html+='<img src="/'+value.image+'" alt=""></a>';
-                        html+='<div class="introduciton">';
-                        html+='<h3 class="title">'+value.name+'</h3>';
-                        html+='<span class="price ">'+ToRial(value.price)+' تومان </span>';
-                        html+='</div>'; 
-                        html+='<a href="/product/'+text+'/" target="_blank" class="show">';
-                        html+=' <span>   مشاهده محصول </span> </a>';
-                        html+='</div>';
-                        html+='</div>';
-                     }
-                 });
-              
-                $('#view2').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-); 
- ////size
- $('input:radio[name="size"]').change(
-    function(){
-        if ($(this).is(':checked') ) {
-    var html=''; 
-    if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ( $('input:radio[name="category"]').is(':checked') && $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="category"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="category"]:checked').val()+ "&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else if ($('input:radio[name="subcat"]').is(':checked') && $('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val()+"&planID="+$('input:radio[name="plan"]:checked').val() );
-    }else if ($('input:radio[name="plan"]').is(':checked') && $('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val()+"&colorID="+$('input:radio[name="color"]:checked').val() );
-    }else if ( $('input:radio[name="subcat"]').is(':checked') ) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&subcatID="+$('input:radio[name="subcat"]:checked').val());
-    }else if ($('input:radio[name="plan"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&planID="+$('input:radio[name="plan"]:checked').val());
-    }else if ($('input:radio[name="color"]').is(':checked')) {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val()+"&colorID="+$('input:radio[name="color"]:checked').val());
-    }else {
-    var url=("/api/filter?name="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
-    }
- 
- 
-    
-    
-  $.get(url,(data,status)=>{
-      
-      
-              
-                       
-                $.each(data.data, function(index, value) {  
-                        var text=value.name; 
-                     text=text.replace(/ /g, "-"); 
-                     if(value.count==1 ){ 
-
-                     }else{
-                        html+='<div class="item item-line">';
-                        html+='<div class="d-flex flex-wrap justify-content-around align-items-center">';
-                        html+='<a href="/product/'+text+'/" target="_blank">'; 
-                        html+='<img src="/'+value.image+'" alt=""></a>';
-                        html+='<div class="introduciton">';
-                        html+='<h3 class="title">'+value.name+'</h3>';
-                        html+='<span class="price ">'+ToRial(value.price)+' تومان </span>';
-                        html+='</div>'; 
-                        html+='<a href="/product/'+text+'/" target="_blank" class="show">';
-                        html+=' <span>   مشاهده محصول </span> </a>';
-                        html+='</div>';
-                        html+='</div>';
-                     }
-                 });
-              
-                $('#view2').html(html);
-                $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-    }
-}
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-jQuery('#show').change(()=>{   
-var html='';
-var url=("/api/limit/"+jQuery('#show').val());
-$.get(url,(data,status)=>{
-      
-      
-         
-                $.each(data.data, function(index, value) {  
-                    var text=value.name;
-                     text=text.replace(/ /g, "-"); 
-
-                     html+='<div class="item" >';
-                        html+=' <div class="details-item"> ';  
-                        html+=' <a target="_blank" href="/product/'+text+'/">'; 
-                        html+='<img src="/'+value.image+'">'; 
-                        html+='<div class="text">';
-                        html+=' <h3 class="title">'+value.name+'</h3>     ';   
-                        if(value.count==1 ){   
-                            html+=' <div class="price-item d-flex " > ';  
-                            html+='<span class="price" style="color: #ababab;font-size: 1.286rem;line-height: 1.222;font-weight: 400;margin-top: 20px;"> ـــــــــــــــــــــ  ناموجود   ــــــــــــــــــــــ</span> ';  
-                            html+='</div>  ';  
-                        }else{
-                            if(value.offer!=null ){
-                                html+=' <div class="price-item d-flex " >'; 
-                                html+='<del class="price-deleted" style="color:#5e5e5e!important;">'+ToRial(value.price)+'</del>'; 
-                                html+='<span class="price"> '; 
-                                html+='<label class="badge off" style="border-radius:5px!important;top:0px!important;width:80px!important;height:30px!important;">'+value.offer+'%</label>'; 
-                                html+=' </span>';  
-                                html+='</div> ';  
-                                html+=' <span class="price" style="color:#ed008c!important;"> '+ToRial(value.price)+'هزار تومان</span>';   
-                        }else{
-                        html+=' <span class="price">  '+ToRial(value.price)+'  تومان </span>';
-                        }
-                }
-                        html+=' </div>';
-                        html+=' </a>';
-                        html+='</div>'; 
-                        html+='</div>'; 
-                 });
-              
-                $('#product-content').html(html);
-                // $('#pagenum').html(' ');
-                ConvertNumberToPersion();
-               
-     });  
-}); 
 
   
 JS;
