@@ -28,7 +28,7 @@ $('input:radio[name="subcat"]').change(
             }else {
                 var url=("/api/filter?subcatID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
             }
-
+            $('#gender').html($( this ).attr( "data-genderName" ));
             sendRequest(url);
 
 

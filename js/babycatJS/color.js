@@ -30,7 +30,7 @@ $('input:radio[name="color"]').change(
             }else {
                 var url=("/api/filter?colorID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
             }
-
+            $('#color').html($( this ).attr( "data-colorName" ));
             sendRequest(url);
         }
     }

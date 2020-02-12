@@ -41,7 +41,7 @@ use yii\widgets\LinkPager;
 
             <span class="title sort-title">
 
-            مرتب سازی بر اساس  :
+            نحوه نمایش  :
 
             </span>
 
@@ -97,8 +97,7 @@ use yii\widgets\LinkPager;
                                                                 دسته بندی
                                                                 <span class="badge badge-danger"><?= $categoryName ?></span>
                                                             </div>
-                                                            <div class="td text-center"
-                                                                 style="margin-right:20px!important;">
+                                                            <div class="td text-center" style="margin-right:20px!important;">
                                                                 <span class="btn btn-icon">
                                                                     <i class="icon-004-down-chevron"></i>
                                                                     <i class="icon-007-up-chevron d-none"></i>
@@ -131,6 +130,7 @@ use yii\widgets\LinkPager;
                                                             <div class="td"
                                                                  style="width:70%!important;font-weight:300!important;font-size:17px!important;">
                                                                 جنسیت
+                                                                <span class="badge badge-danger" id="gender"></span>
                                                             </div>
                                                             <div class="td text-center"
                                                                  style="margin-right:20px!important;">
@@ -147,7 +147,7 @@ use yii\widgets\LinkPager;
                                                                         <?php foreach (\app\models\Subcat::find()->all() as $subcat) { ?>
                                                                             <div class="address d-flex justify-content-between align-items-center">
                                                                                 <input type="radio" name="subcat"
-                                                                                       value="<?= $subcat->id ?>"
+                                                                                       value="<?= $subcat->id ?>" data-genderName="<?= $subcat->name ?>"
                                                                                        id="subcat<?= $subcat->id ?>">
                                                                                 <label for="subcat<?= $subcat->id ?>">
                                                                                     <?= $subcat->name ?>
@@ -167,6 +167,7 @@ use yii\widgets\LinkPager;
                                                             <div class="td"
                                                                  style="width:70%!important;font-weight:300!important;font-size:17px!important;">
                                                                 طرح
+                                                                <span class="badge badge-danger" id="plan" ></span>
                                                             </div>
                                                             <div class="td text-center"
                                                                  style="margin-right:20px!important;">
@@ -183,7 +184,7 @@ use yii\widgets\LinkPager;
                                                                         <?php foreach (\app\models\Plan::find()->orderBy(['id' => SORT_DESC])->all() as $Plan) { ?>
                                                                             <div class="address d-flex justify-content-between align-items-center">
                                                                                 <input type="radio" name="plan"
-                                                                                       value="<?= $Plan->id ?>"
+                                                                                       value="<?= $Plan->id ?>" data-planName="<?= $Plan->name ?>"
                                                                                        id="plan<?= $Plan->id ?>">
                                                                                 <label for="plan<?= $Plan->id ?>">
                                                                                     <?= $Plan->name ?>
@@ -203,6 +204,7 @@ use yii\widgets\LinkPager;
                                                             <div class="td"
                                                                  style="width:70%!important;font-weight:300!important;font-size:17px!important;">
                                                                 رنگ
+                                                                <span class="badge badge-danger" id="color"></span>
                                                             </div>
                                                             <div class="td text-center"
                                                                  style="margin-right:20px!important;">
@@ -219,7 +221,7 @@ use yii\widgets\LinkPager;
                                                                         <?php foreach (\app\models\Color::find()->all() as $Color) { ?>
                                                                             <div class="address d-flex justify-content-between align-items-center">
                                                                                 <input type="radio" name="color"
-                                                                                       value="<?= $Color->id ?>"
+                                                                                       value="<?= $Color->id ?>" data-colorName="<?= $Color->value ?>"
                                                                                        id="color<?= $Color->id ?>">
                                                                                 <label for="color<?= $Color->id ?>">
                                                                                     <?= $Color->value ?>
@@ -240,6 +242,7 @@ use yii\widgets\LinkPager;
                                                             <div class="td"
                                                                  style="width:70%!important;font-weight:300!important;font-size:17px!important;">
                                                                 سایز
+                                                                <span class="badge badge-danger" id="size"></span>
                                                             </div>
                                                             <div class="td text-center"
                                                                  style="margin-right:20px!important;">
@@ -256,7 +259,7 @@ use yii\widgets\LinkPager;
                                                                         <?php foreach (\app\models\Size::find()->all() as $Size) { ?>
                                                                             <div class="address d-flex justify-content-between align-items-center">
                                                                                 <input type="radio" name="size"
-                                                                                       value="<?= $Size->age ?>"
+                                                                                       value="<?= $Size->age ?>" data-sizeName="<?=$Size->age?>"
                                                                                        id="size<?= $Size->id ?>">
                                                                                 <label for="size<?= $Size->id ?>">
                                                                                     <?= $Size->age ?>

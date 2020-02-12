@@ -1,5 +1,4 @@
 ////size
-
 $('input:radio[name="size"]').change(
     function(){
         if ($(this).is(':checked') ) {
@@ -33,6 +32,7 @@ $('input:radio[name="size"]').change(
             }
 
             sendRequest(url);
+            $('#size').html($( this ).attr( "data-sizeName" ));
         }
     }
 );

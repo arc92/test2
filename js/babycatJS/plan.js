@@ -32,6 +32,7 @@ $('input:radio[name="plan"]').change(
                 var url=("/api/filter?planID="+$(this).val()+"&categoryID="+$('input:radio[name="catproduct"]').val());
             }
 
+            $('#plan').html($( this ).attr( "data-planName" ));
             sendRequest(url);
         }
     }
