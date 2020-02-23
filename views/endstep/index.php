@@ -463,6 +463,11 @@ use hoomanMirghasemi\jdf\Jdf;
                             </label>
 
                         </div>
+                        <div style="padding: 7px">
+                            <span style="color: #f542c8">
+                                توجه: پس از ارسال بسته تعویض و مرجوع امکان پذیر نمی باشد.
+                            </span>
+                        </div>
                       <!-- Html::a('پرداخت در محل ', ['name'=>'payplace','class' => 'btn payment']) ?> -->
                         <!-- <?= Html::submitButton('پرداخت در محل', ['name'=>'payplace','value'=>1,'class' => 'btn payment']) ?> -->
                         <?= Html::submitButton('ثبت و پرداخت', ['class' => 'btn payment']) ?>
