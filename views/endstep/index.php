@@ -438,9 +438,9 @@ use hoomanMirghasemi\jdf\Jdf;
                     </div>
                    
                 </div>
-                <label class="item" style=" width: 100%;display: flex;align-items: center;margin-top: 20px;display:none;" id="place">
-                            <input type="checkbox" name="place" value="1" id="payplace" style="width: 10px;height: 10px;margin-left: 10px;">
-                            پرداخت در محل
+<!--                <label class="item" style=" width: 100%;display: flex;align-items: center;margin-top: 20px;display:none;" id="place">-->
+<!--                            <input type="checkbox" name="place" value="1" id="payplace" style="width: 10px;height: 10px;margin-left: 10px;">-->
+<!--                            پرداخت در محل-->
           </label>
                 <div class="bank">
                     <!-- <span class="title">
@@ -462,6 +462,11 @@ use hoomanMirghasemi\jdf\Jdf;
                                 <img src="/img/zarinpal-logo-2.png" class="bank-logo active" alt="">
                             </label>
 
+                        </div>
+                        <div style="padding: 7px">
+                            <span style="color: #f542c8">
+                                توجه: پس از ارسال بسته تعویض و مرجوع امکان پذیر نمی باشد.
+                            </span>
                         </div>
                       <!-- Html::a('پرداخت در محل ', ['name'=>'payplace','class' => 'btn payment']) ?> -->
                         <!-- <?= Html::submitButton('پرداخت در محل', ['name'=>'payplace','value'=>1,'class' => 'btn payment']) ?> -->

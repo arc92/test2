@@ -383,10 +383,11 @@ class ProductController extends Controller
         ->limit($pagination->limit)
          ->all(); 
          
-        return $this->render('sets',compact('imgs','articles','subcat','pagination','category','model','size','count','aboutproducts')); 
+        return $this->render('sets',compact('imgs','articles','subcat','pagination','category','model','size','count','aboutproducts'));
     }
     public function actionBabycat($id=null,$urltitle)  
     {
+        $categoryName = Yii::$app->getRequest()->getQueryParam('categoryName');
         $aboutproducts=\app\models\Aboutproduct::find()->all();
       // $strname=str_replace('-',' ',$name);
       if($id!=null){
@@ -397,7 +398,7 @@ class ProductController extends Controller
         $contentcategory=\app\models\Contentcategory::find()->Where(['catID'=>$catproducts->id])->orderBy(['id'=>SORT_DESC])->one();
 
         $products=\app\models\Product::find()->Where(['status'=>1])->andWhere(['catproductID'=>$catproducts->id])->orderBy(['id' => SORT_DESC]);
-        $category=new \app\models\Category(); 
+        $category=new \app\models\Category();
         $subcat=new \app\models\Subcat(); 
         $size=new \app\models\Size();
         $imgs=\app\models\Productimg::find()->all();
@@ -407,7 +408,7 @@ class ProductController extends Controller
         $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>12]);
         $articles = $products->offset($pagination->offset)
         ->limit($pagination->limit)
-         ->all(); 
+         ->all();
         
          $catproduct=\app\models\Catproduct::find()->Where(['urltitle'=>$urltitle])->one();
          \Yii::$app->view->registerMetaTag([
@@ -415,7 +416,7 @@ class ProductController extends Controller
            'content' => $catproduct->description
        ]);
        \Yii::$app->view->title=$catproduct->title;
-        return $this->render('babycat',compact('imgs','articles','subcat','pagination','category','model','size','count','aboutproducts','contentcategory')); 
+        return $this->render('babycat',compact('imgs','articles','subcat','pagination','category','model','size','count','aboutproducts','contentcategory','categoryName'));
     }
     ////product details    
      
