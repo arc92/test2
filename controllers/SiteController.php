@@ -94,9 +94,15 @@ class SiteController extends Controller
 
        // var_dump(Yii::$app->jdate->date('Y/m/d H:m:s'));exit;
         $this->layout='layout';
-        
+
+        if(!Yii::$app->cache->exists('setting')){
+            $setting=\app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+            \Yii::$app->cache->set('setting',$setting,3600 * 24 * 7);
+        }
+
+        $setting = \Yii::$app->cache->get('setting');
+
           $plans=\app\models\Plan::find()->Where(['status'=>1])->all();
-          $setting=\app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one(); 
           \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description
