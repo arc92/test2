@@ -59,7 +59,7 @@ $str.=($urls['path']);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <link rel="icon" type="image/x-icon" href="/img/foviconbcc.png" />
+    <link rel="icon" type="image/x-icon" href="/img/foviconbcc.ng" />
     <link rel="canonical" href="<?=$str?>" />
     <title><?= Html::encode($this->title) ?></title>
     <script>
