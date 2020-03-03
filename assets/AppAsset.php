@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
         'css/owl.carousel.min.css',
         'css/owl.theme.default.min.css',
       
-        'https://www.google.com/recaptcha/api.js', 
+//        'https://www.google.com/recaptcha/api.js',
         
     ];
     public $js = [
