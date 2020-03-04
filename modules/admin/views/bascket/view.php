@@ -65,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'نام کاربر',
                 'format'=>'raw',
                 'value'=>function($model){
-                        $cart=$model->cart;
+                        $cart=$model[0]->cart;
                         if(isset($cart)){
-                        $user= Users::find()->Where(['id'=>$cart[0]->userID])->one();
+                        $user= Users::find()->Where(['id'=>$cart->userID])->one();
                         return '<h1>'.$user->fullName.'</h1>';
                         }
                    
