@@ -193,11 +193,11 @@ $config = [
                 'route' => 'product/product',
                 'suffix' => '/',  
             ],
-             [
-                'pattern' => 'product/<name>',       
-                'route' => 'product/product',
-                'suffix' => '/',
-            ],
+//             [
+//                'pattern' => 'product/<name>',
+//                'route' => 'product/product',
+//                'suffix' => '/',
+//            ],
              [
                 'pattern' => 'index',
                 'route' => 'site/index',

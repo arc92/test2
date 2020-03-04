@@ -451,14 +451,12 @@ class ProductController extends Controller
 
     ////product details
 
-    public function actionProduct($id = null,$name = null)
+    public function actionProduct($id = null)
     {
 
         date_default_timezone_set("Asia/tehran");
         if ($id != null) {
             $product = \app\models\Product::find()->where(['id' => $id])->one();
-        }else{
-            $product = \app\models\Product::find()->where(['name' => $name])->one();
         }
 
         \Yii::$app->view->registerMetaTag([
