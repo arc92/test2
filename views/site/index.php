@@ -7,11 +7,11 @@
 <main class="content-index">
        
  
-        <section class="d-flex flex-wrap justify-content-between container p-0" style="margin-top:100px;">
-        <a href="/girlgrid/" target="_blank"  class="box boy  d-flex justify-content-around align-items-center" style="width: 49.5%;background-image:url('/img/girl1-min.jpg');background-size:cover;background-position:center; margin-top: 60px!important;"> 
+        <section class="d-flex flex-wrap justify-content-between container p-0" >
+        <a href="/girlgrid/" target="_blank"  class="box boy  d-flex justify-content-around align-items-center" style="width: 49.5%;background-image:url('/img/girl1-min.jpg');background-size:cover;background-position:center; margin-top: 10px!important;">
                 
         </a> 
-         <a href="/boygrid/"  target="_blank" class="box girl d-flex justify-content-around align-items-center" style="width: 49.5%;background-image:url('/img/boy1-min.jpg');background-size:cover;background-position:center; margin-top: 60px!important;">
+         <a href="/boygrid/"  target="_blank" class="box girl d-flex justify-content-around align-items-center" style="width: 49.5%;background-image:url('/img/boy1-min.jpg');background-size:cover;background-position:center; margin-top: 10px!important;">
          
         </a>
         <div class="center d-flex  justify-content-center" style="width:49%;">
