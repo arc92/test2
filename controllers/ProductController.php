@@ -2,6 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\Aboutproduct;
+use app\models\Cartoption;
+use app\models\CategoryRelation;
+use app\models\Checkit;
+use app\models\Color;
+use app\models\Details;
+use app\models\Detailsvalue;
+use app\models\Feature;
+use app\models\Productimg;
+use app\models\Size;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
@@ -67,9 +77,9 @@ class ProductController extends Controller
 
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->one();
+        $aboutproducts = Aboutproduct::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->one();
         $model = new \app\models\Product();
         // $products=\app\models\Product::find()->Where(['status'=>1])->orderBy(new Expression('rand()'));
         $products = \app\models\Product::find()->Where(['status' => 1])->orderBy(['off' => SORT_DESC]);
@@ -96,9 +106,9 @@ class ProductController extends Controller
     {
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->one();
+        $aboutproducts = Aboutproduct::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->one();
         $model = new \app\models\Product();
         $products = \app\models\Product::find()->Where(['status' => 1])->orderBy(new Expression('rand()'));
         $countQuery = clone $products;
@@ -122,9 +132,9 @@ class ProductController extends Controller
 
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->one();
+        $aboutproducts = Aboutproduct::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->one();
         $model = new \app\models\Product();
         $products = \app\models\Product::find()->Where(['status' => 2]);
         $countQuery = clone $products;
@@ -167,10 +177,10 @@ class ProductController extends Controller
 
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
+        $aboutproducts = Aboutproduct::find()->all();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 1])->all();
         foreach ($catrelations as $catrelationsitem) {
             $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
         }
@@ -186,7 +196,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('girlgrid', compact('catrelations', 'subcatrelations', 'subcat', 'imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'aboutproducts'));
     }
 
@@ -204,12 +214,12 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_boygrid;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 1])->all();
         foreach ($catrelations as $catrelationsitem) {
             $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
         }
@@ -225,7 +235,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('boygrid', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
@@ -244,12 +254,12 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_girlbaby;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 2])->all();
         $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 9])->all();
         $products = \app\models\Product::find()->Where(['status' => 1]);
         $countQuery = clone $products;
@@ -259,7 +269,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('girlbaby', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
@@ -277,12 +287,12 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_boybaby;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 2])->all();
 
         $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 10])->all();
         $products = \app\models\Product::find()->Where(['status' => 1]);
@@ -293,7 +303,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('boybaby', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
@@ -306,13 +316,13 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_menulink;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', $name);
         $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->all();
         $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -333,13 +343,13 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_menulink;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', $name);
         $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->all();
         $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -360,13 +370,13 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_menulink;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', 'ست-نوزادی');
         $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->all();
         $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -387,13 +397,13 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_menulink;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', 'ست-نوزادی');
         $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->all();
         $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -408,7 +418,7 @@ class ProductController extends Controller
     public function actionBabycat($id = null, $urltitle)
     {
         $categoryName = Yii::$app->getRequest()->getQueryParam('categoryName');
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         // $strname=str_replace('-',' ',$name);
         if ($id != null) {
             $catproducts = \app\models\Catproduct::find()->Where(['id' => $id])->one();
@@ -420,8 +430,8 @@ class ProductController extends Controller
         $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['catproductID' => $catproducts->id])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
+        $size = new Size();
+        $imgs = Productimg::find()->all();
         $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -462,10 +472,10 @@ class ProductController extends Controller
         ///***********************/////
 
             $cart = new \app\models\Cart();
-            $cartoption = new \app\models\Cartoption();
+            $cartoption = new Cartoption();
             $fvoption = new \app\models\Fvoption();
             $featurevalue = \app\models\Featurevalue::find()->where(['productID' => $product->id])->all();
-            $checkit = new \app\models\Checkit();
+            $checkit = new Checkit();
             $letme = new \app\models\Letme();
 
 
@@ -547,8 +557,8 @@ class ProductController extends Controller
                         $carId = $cart->id;
                     }
                 }
-                if (\app\models\Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one()) {
-                    $coption = \app\models\Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one();
+                if (Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one()) {
+                    $coption = Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one();
                     $fvoption = \app\models\Fvoption::find()->Where(['cartoptionID' => $coption->id])->one();
                     if ($fvoption->featurevID == Yii::$app->request->post('cartprice')) {
                         $coption->count += Yii::$app->request->post('countproduct');
@@ -635,43 +645,60 @@ class ProductController extends Controller
         }
 
 
-        $imgs = \app\models\Productimg::find()->where(['productID' => $product->id])->all();
-        $catrelations = \app\models\CategoryRelation::find()->where(['productID' => $product->id])->all();//cc
-        $subcatrelations = \app\models\SubcatRelation::find()->where(['productID' => $product->id])->all();
-        $aboutproducts = \app\models\Aboutproduct::find()->where(['productID' => $product->id])->all();
-        $color = \app\models\Color::find()->all();//cc
-        $feature = \app\models\Feature::find()->all();//cc
 
-        $details = \app\models\Details::find()->all();//c
-        $detailsvalue = \app\models\Detailsvalue::find()->where(['productID' => $product->id])->all();
-        $count = \app\models\Cartoption::find()->Where(['productID' => $product->id])->sum('count');
-        $sizes = \app\models\Size::find()->all();//cc
-        $comments = \app\models\Checkit::find()->Where(['productID' => $product->id])->all();//cc
-        $count = \app\models\Checkit::find()->Where(['productID' => $product->id])->count();//cc
-        $sum = \app\models\Checkit::find()->Where(['productID' => $product->id])->sum('rate');//cc
+
+        if(!Yii::$app->cache->exists($product->id . "_30_days")){
+            Yii::$app->cache->set($product->id . "_30_days",
+                [
+                    'catrelations' => CategoryRelation::find()->where(['productID' => $product->id])->all(),
+                    'color' => Color::find()->all(),
+                    'feature' => Feature::find()->all(),
+                    'details' => Details::find()->all(),
+                    'sizes' => Size::find()->all(),
+                ],
+                3600 * 24 * 30
+            );
+        }
+
+        if(!Yii::$app->cache->exists($product->id . "_3_days"))
+        {
+            Yii::$app->cache->set($product->id . "_3_days",
+                [
+                    'count' =>      Checkit::find()->Where(['productID' => $product->id])->count(),
+                    'sum' =>        Checkit::find()->Where(['productID' => $product->id])->sum('rate'),
+                    'comments' =>   Checkit::find()->Where(['productID' => $product->id])->all(),
+                ],
+                3600 * 24 * 3
+            );
+        }
+
+        $data = array_merge(Yii::$app->cache->get($product->id . "_30_days"), Yii::$app->cache->get($product->id . "_3_days"));
+
+        $imgs = Productimg::find()->where(['productID' => $product->id])->all();
+        $aboutproducts = Aboutproduct::find()->where(['productID' => $product->id])->all();
+        $detailsvalue = Detailsvalue::find()->where(['productID' => $product->id])->all();
+
 
 
         return $this->render('product', [
-            'details' => $details,
+            'details' => $data['details'],
             'detailsvalue' => $detailsvalue,
-            'feature' => $feature,
+            'feature' => $data['feature'],
             'featurevalue' => $featurevalue,
             'product' => $product,
             'cart' => $cart,
             'cartoption' => $cartoption,
             'fvoption' => $fvoption,
-            'sizes' => $sizes,
+            'sizes' => $data['sizes'],
             'imgs' => $imgs,
             'aboutproducts' => $aboutproducts,
-            'count' => $count,
+            'count' => $data['count'],
             'checkit' => $checkit,
-            'comments' => $comments,
-            'color' => $color,
-            'catrelations' => $catrelations,
-            'subcatrelations' => $subcatrelations,
+            'comments' => $data['comments'],
+            'color' => $data['sum'],
+            'catrelations' => $data['catrelations'],
             'letme' => $letme,
-            'count' => $count,
-            'sum' => $sum,
+            'sum' => $data['sum'],
 
         ]);
     }
@@ -690,12 +717,12 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_baby;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 1])->all();
         $products = \app\models\Product::find()->orderBy(['id' => SORT_DESC]);
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -704,7 +731,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('baby', compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
@@ -722,12 +749,12 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_child;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
+        $aboutproducts = Aboutproduct::find()->all();
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
+        $size = new Size();
         $model = new \app\models\Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
+        $catrelations = CategoryRelation::find()->Where(['catID' => 2])->all();
         $products = \app\models\Product::find()->orderBy(['id' => SORT_DESC]);
 
         $countQuery = clone $products;
@@ -737,7 +764,7 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        $imgs = \app\models\Productimg::find()->all();
+        $imgs = Productimg::find()->all();
         return $this->render('child', compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 

@@ -449,7 +449,9 @@ use yii\helpers\Url;
 <section class="filter-sec two">
 
 <div class="comment-news">
-<?php foreach($comments as $comment){ ?>
+<?php
+if(!empty($comments))
+foreach($comments as $comment){ ?>
 <div class="item-comment d-flex">
     <div class="img">
     <div class="image-person">
