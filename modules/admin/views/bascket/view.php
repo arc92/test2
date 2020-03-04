@@ -3,10 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Bascket */
-$this->title = $model->name.'  '. $model->family ;
+$this->title = $model[0]->name.'  '. $model[0]->family ;
 $this->params['breadcrumbs'][] = ['label' => 'Basckets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
