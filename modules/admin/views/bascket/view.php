@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Users;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
@@ -64,9 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'نام کاربر',
                 'format'=>'raw',
                 'value'=>function($model){
-                        $cart=$model->cart[0];
+                        $cart=$model[0]->cart;
                         if(isset($cart)){
-                        $user=\app\models\Users::find()->Where(['id'=>$cart->userID])->one(); 
+                        $user= Users::find()->Where(['id'=>$cart->userID])->one();
                         return '<h1>'.$user->fullName.'</h1>';
                         }
                    
@@ -77,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'amount',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->amount.'</h1>';
+                        return '<h1>'.$model[0]->amount.'</h1>';
                         }
             ],
             [
@@ -110,9 +111,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'recived',
                 'format'=>'raw',
                 'value'=>function($model){
-                    if ($model->recived==1){
+                    if ($model[0]->recived==1){
                         return '<h1>'."بله".'</h1>';
-                    }elseif ($model->recived==0){
+                    }elseif ($model[0]->recived==0){
                         return '<h1>'."خیر".'</h1>';
                     }
                 }
@@ -122,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'name',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->name.'</h1>';
+                        return '<h1>'.$model[0]->name.'</h1>';
                         }
             ],
             
@@ -131,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'family',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->family.'</h1>';
+                        return '<h1>'.$model[0]->family.'</h1>';
                         }
             ],
            // 'stateID',
@@ -140,8 +141,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'filter'=> ArrayHelper::map(\app\models\Province::find()->all(), 'id','name'),
                 'value'=>function($model){ 
-                    if($model->stateID!=null || $model->stateID!=0){ 
-                    return '<h1>'.$model->state->name.'</h1>'; 
+                    if($model[0]->stateID!=null || $model[0]->stateID!=0){
+                    return '<h1>'.$model[0]->state->name.'</h1>';
                     }
             }
             ],
@@ -151,8 +152,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'filter'=> ArrayHelper::map(\app\models\City::find()->all(), 'id','name'),
                 'value'=>function($model){
-                    if($model->cityID!=null || $model->cityID!=0){ 
-                    return '<h1>'.$model->city->name.'</h1>';
+                    if($model[0]->cityID!=null || $model[0]->cityID!=0){
+                    return '<h1>'.$model[0]->city->name.'</h1>';
                     }
                 }
             ],
@@ -161,7 +162,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'address',
                 'format'=>'raw', 
                 'value'=>function($model){
-                    return '<h1>'.$model->address.'</h1>';
+                    return '<h1>'.$model[0]->address.'</h1>';
             }
             ],
             //'tel',
@@ -169,7 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'tel',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->tel.'</h1>';
+                        return '<h1>'.$model[0]->tel.'</h1>';
                         }
             ],
            // 'mobile',
@@ -177,7 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'mobile',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->mobile.'</h1>';
+                        return '<h1>'.$model[0]->mobile.'</h1>';
                         }
             ],
             //'postalCode',
@@ -185,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'postalCode',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->postalCode.'</h1>';
+                        return '<h1>'.$model[0]->postalCode.'</h1>';
                         }
             ],
            // 'day',
@@ -193,7 +194,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'day',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->day.'</h1>';
+                        return '<h1>'.$model[0]->day.'</h1>';
                         }
             ],
             //'timeID',
@@ -201,9 +202,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'timeID', 
                 'format'=>'raw',
                 'value'=>function($model){
-                    if($model->timeID!=0 && $model->timeID==1){ 
+                    if($model[0]->timeID!=0 && $model[0]->timeID==1){
                     return '<h1>'."ساعت ارسال صبح".'</h1>';
-                    }elseif($model->timeID!=0 && $model->timeID==2){ 
+                    }elseif($model[0]->timeID!=0 && $model[0]->timeID==2){
                         return '<h1>'."ساعت ارسال بعد از ظهر".'</h1>';
                 }
             }
@@ -213,8 +214,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'filter'=> ArrayHelper::map(\app\models\Expresssend::find()->all(), 'id','send'),
                 'value'=>function($model){
-                    if($model->expressID!=null || $model->expressID!=0){ 
-                    return '<h1>'.$model->express->send.'</h1>'; 
+                    if($model[0]->expressID!=null || $model[0]->expressID!=0){
+                    return '<h1>'.$model[0]->express->send.'</h1>';
                     }
             }
             ],
@@ -222,7 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
         //         'attribute'=>'محصولات', 
         //         'format'=>'raw',
         //         'value'=>function($model){
-        //            foreach(\app\models\Checkbuy::find()->Where(['bascketID'=>$model->id])->all() as  $checkbuy){
+        //            foreach(\app\models\Checkbuy::find()->Where(['bascketID'=>$model[0]->id])->all() as  $checkbuy){
         //             $cartoptions=\app\models\Cartoption::find()->Where(['cartID'=>$checkbuy->cartID])->all(); 
         //             $sample='';
         //             $count=1;
@@ -257,7 +258,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'discount',
                 'format'=>'raw', 
                 'value'=>function($model){
-                    return '<h1>'.$model->discount.'</h1>';
+                    return '<h1>'.$model[0]->discount.'</h1>';
             }
             ],
          //   'memeber',
@@ -265,7 +266,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'memeber',
                 'format'=>'raw', 
                 'value'=>function($model){ 
-                    return '<h1>'.$model->memeber.'</h1>';    
+                    return '<h1>'.$model[0]->memeber.'</h1>';
             }
             ],
            // 'authority',
@@ -278,11 +279,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'وضعیت پرداخت', 
                 'format'=>'raw',
                 'value'=>function($model){
-                    if ($model->status==1){
+                    if ($model[0]->status==1){
                         return '<h1>  پرداخت شده</h1>';
-                    }elseif ($model->status==0){
+                    }elseif ($model[0]->status==0){
                         return 'پرداخت نشده';
-                    }elseif ($model->status==2){
+                    }elseif ($model[0]->status==2){
                         return 'پرداخت در محل';
                     }
                 }
@@ -291,11 +292,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'بانک', 
                 'format'=>'raw',
                 'value'=>function($model){
-                    if ($model->bank=="melli"){
+                    if ($model[0]->bank=="melli"){
                         return '<h1>'."ملی".'</h1>';
-                    }elseif ($model->bank=='mellat'){
+                    }elseif ($model[0]->bank=='mellat'){
                         return '<h1>'."ملت".'</h1>';
-                    }elseif ($model->bank=='zarinpal'){
+                    }elseif ($model[0]->bank=='zarinpal'){
                         return '<h1>'."زرین پال".'</h1>';
                     }
                 }
@@ -304,7 +305,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'description', 
                 'format'=>'raw',
                 'value'=>function($model){
-                        return '<h1>'.$model->description.'</h1>';
+                        return '<h1>'.$model[0]->description.'</h1>';
                   
                 }
             ],
@@ -314,13 +315,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // [
             //     'attribute'=>'condition',
             //     'value'=>function($model){
-            //         if ($model->condition==1){
+            //         if ($model[0]->condition==1){
             //             return 'در حال بررسی';
-            //         }elseif ($model->condition==2){
+            //         }elseif ($model[0]->condition==2){
             //             return ' تایید سفارش';
-            //         }elseif ($model->condition==3){
+            //         }elseif ($model[0]->condition==3){
             //             return '  ارسال شده';
-            //         }elseif ($model->condition==3){
+            //         }elseif ($model[0]->condition==3){
             //             return ' وضعیت نهایی ';
             //         }
             //     }
