@@ -146,6 +146,9 @@ class CartController extends Controller
 
         }
 
+        if(!empty($carts[0]))
+            $carts = $carts[0];
+
 
         $cartoptions = Cartoption::find()->with(['product', 'product.featurevalues'])->where(['cartID' => $carts[0]->id])->all();
 
