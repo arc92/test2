@@ -63,14 +63,12 @@ class BascketController extends Controller
      */
     public function actionView($id)
     {
-        $bascket= \app\models\Bascket::findOne($id); 
-        $cartoptions=\app\models\Cartoption::find()->all(); 
+        $bascket= \app\models\Bascket::find()->where(['id' => $id])->with(['cart','cart.cartoptions','cart.cartoptions.product','cart.cartoptions.product.featurevalues','cart.cartoptions.product.featurevalues.fvoptions'])->all();
         ini_set('memory_limit','4000M');
 
         return $this->render('view', [ 
-            'model' => $this->findModel($id), 
-            'cartoptions'=>$cartoptions,
-           
+            'model' => $bascket
+
         ]);
     }
 
