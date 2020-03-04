@@ -189,7 +189,7 @@ $config = [
             //     'suffix' => '/',
             // ],
             [
-                'pattern' => 'product/<id:\d+>/<name>',  
+                'pattern' => 'product/<id:\d+>',
                 'route' => 'product/product',
                 'suffix' => '/',  
             ],
