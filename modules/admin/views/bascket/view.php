@@ -6,10 +6,10 @@ use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Bascket */
-
 $this->title = $model->name.'  '. $model->family ;
 $this->params['breadcrumbs'][] = ['label' => 'Basckets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="bascket-view" id='outprint'>
 
@@ -63,8 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'نام کاربر',
                 'format'=>'raw',
-                'value'=>function($model){ 
-                        $cart=\app\models\Cart::find()->Where(['id'=>$model->cartID])->one(); 
+                'value'=>function($model){
+                        $cart=$model->cart[0];
                         if(isset($cart)){
                         $user=\app\models\Users::find()->Where(['id'=>$cart->userID])->one(); 
                         return '<h1>'.$user->fullName.'</h1>';
@@ -84,23 +84,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'cartID',
                 'format'=>'raw',
                 'value'=>function($model){
-                    $cartoptions=\app\models\Cartoption::find()->Where(['cartID'=>$model->cartID])->all(); 
                     $sample='';
                     $count=1;
+                    $cartoptions= $model[0]->cart->cartoptions;
                     foreach($cartoptions as $cartoption){
-                        foreach(\app\models\Product::find()->all() as $product){
-                            if($product->id==$cartoption->productID){
-                                if(\app\models\Featurevalue::find()->Where(['productID'=>$product->id])->all() ){
-                                foreach(\app\models\Fvoption::find()->all() as $fvoption){
+                        foreach($cartoption->product as $product){
+                                if($product->featurevalues){
+                                    foreach ($product->featurevalues as $featurevalue)
+                                foreach($featurevalue->fvoptions as $fvoption){
                                     if($fvoption->cartoptionID==$cartoption->id){
-                                  $sample.="<hr>".$count.' : '.$product->name.'<br><br> سایز:'.$fvoption->featurev->value .' <br><br>تعداد :  '.$cartoption->count.' عدد '."<hr>"; 
+                                  $sample.="<hr>".$count.' : '.$product->name.'<br><br> سایز:'.$fvoption->featurev->value .' <br><br>تعداد :  '.$cartoption->count.' عدد '."<hr>";
                                 $count++;
-                                    } 
+                                    }
                                 }
                             }else{
                                 $sample.="<hr>".$count.' : '.$product->name."<br><br>   تعداد: ".$cartoption->count.' عدد '."<hr>"; 
                                 $count++;
-                            }
                             }
                         }
                     }  
