@@ -681,28 +681,28 @@ JS;
 $this->registerJs($script);
 ?>
 <?php
-$script = <<< JS
-
-jQuery('#fvoption-featurevid').change(()=>{  
-    var html='';
-    $.get("/api/featurev/"+jQuery('#fvoption-featurevid').val()).done((data,status)=>{
-      console.log(data);
-      console.log(status); ;
-      $.each(data.data, function(index, value) {  
-        $("#minmaxcount").attr({
-            "max" : +value.count,
-            "min" : 1
-            });
-      });
-    
-      ConvertNumberToPersion();
-     
-    });      
-});
- 
-  
-JS;
-$this->registerJs($script);
+//$script = <<< JS
+//
+//jQuery('#fvoption-featurevid').change(()=>{
+//    var html='';
+//    $.get("/api/featurev/"+jQuery('#fvoption-featurevid').val()).done((data,status)=>{
+//      console.log(data);
+//      console.log(status); ;
+//      $.each(data.data, function(index, value) {
+//        $("#minmaxcount").attr({
+//            "max" : +value.count,
+//            "min" : 1
+//            });
+//      });
+//
+//      ConvertNumberToPersion();
+//
+//    });
+//});
+//
+//
+//JS;
+//$this->registerJs($script);
 ?>
 
  

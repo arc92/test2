@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -442,6 +443,7 @@ class ProductController extends Controller
 
     public function actionProduct($id = null)
     {
+
         date_default_timezone_set("Asia/tehran");
         if ($id != null) {
             $product = \app\models\Product::find()->where(['id' => $id])->one();
@@ -458,113 +460,139 @@ class ProductController extends Controller
         }
 
         ///***********************/////
-        $imgs = \app\models\Productimg::find()->where(['productID' => $product->id])->all();
-        $catrelations = \app\models\CategoryRelation::find()->where(['productID' => $product->id])->all();
-        $subcatrelations = \app\models\SubcatRelation::find()->where(['productID' => $product->id])->all();
-        $aboutproducts = \app\models\Aboutproduct::find()->where(['productID' => $product->id])->all();
-        $color = \app\models\Color::find()->all();
-        $feature = \app\models\Feature::find()->all();
-        $featurevalue = \app\models\Featurevalue::find()->where(['productID' => $product->id])->all();
-        $details = \app\models\Details::find()->all();
-        $detailsvalue = \app\models\Detailsvalue::find()->where(['productID' => $product->id])->all();
-        $count = \app\models\Cartoption::find()->Where(['productID' => $product->id])->sum('count');
-        $sizes = \app\models\Size::find()->all();
-        $cart = new \app\models\Cart();
-        $cartoption = new \app\models\Cartoption();
-        $fvoption = new \app\models\Fvoption();
-        $comments = \app\models\Checkit::find()->Where(['productID' => $product->id])->all();
-        $checkit = new \app\models\Checkit();
-        $letme = new \app\models\Letme();
-        $count = \app\models\Checkit::find()->Where(['productID' => $product->id])->count();
-        $sum = \app\models\Checkit::find()->Where(['productID' => $product->id])->sum('rate');
+
+            $cart = new \app\models\Cart();
+            $cartoption = new \app\models\Cartoption();
+            $fvoption = new \app\models\Fvoption();
+            $featurevalue = \app\models\Featurevalue::find()->where(['productID' => $product->id])->all();
+            $checkit = new \app\models\Checkit();
+            $letme = new \app\models\Letme();
 
 
-        if ($checkit->load(Yii::$app->request->post())) {
-            $checkit->productID = $product->id;
-            $checkit->status = 0;
-            $checkit->submitDate = Yii::$app->jdate->date('Y/m/d');
-            $checkit->save();
-            Yii::$app->session->setFlash('confirm', "اطلاعات شما با موفقیت ثبت شد");
-            return $this->refresh();
-        }
-        if ($letme->load(Yii::$app->request->post())) {
-            $letme->productID = $product->id;
-            $letme->status = 0;
-            $letme->submitDate = Yii::$app->jdate->date('Y/m/d');
-            $letme->save();
-        }
+        if(Yii::$app->request->isPost){
 
-        if ($cartoption->load(Yii::$app->request->post())) {
-            //set session for cart id 
-            $usercheck = \app\models\Cart::find()->Where(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 0])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->count();
-            if ((!isset(\yii::$app->session['cart_id'])) && \yii::$app->users->is_loged() == true && $usercheck == 1) {
-                $cart = \app\models\Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
-                $cart->userID = \yii::$app->session['user_id'];
-                $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
-                $cart->status = 0;
-                $cart->save();
-                \yii::$app->session['cart_id'] = $cart->id;
-            } elseif ((!isset(\yii::$app->session['cart_id'])) && \yii::$app->users->is_loged() == true && $usercheck == 0) {
-                $cart->userID = \yii::$app->session['user_id'];
-                $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
-                $cart->status = 0;
-                $cart->save();
-                \yii::$app->session['cart_id'] = $cart->id;
-            } elseif ((!isset(\yii::$app->session['cart_id'])) && \yii::$app->users->is_loged() == false) {
-                $time = time();
-                \yii::$app->session['guest_id'] = $time;
-                $cart->userID = \yii::$app->session['guest_id'];
-                $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
-                $cart->status = 0;
-                $cart->save();
-                \yii::$app->session['cart_id'] = $cart->id;
-            } elseif ((isset(\yii::$app->session['cart_id'])) && \yii::$app->users->is_loged() == false) {
-                $cart = \app\models\Cart::find()->Where(['id' => \yii::$app->session['cart_id']])->one();
-                $time = time();
-                \yii::$app->session['guest_id'] = $time;
-                $cart->userID = \yii::$app->session['guest_id'];
-                $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
-                $cart->status = 0;
-                $cart->save();
-                \yii::$app->session['cart_id'] = $cart->id;
-            } elseif (isset(\yii::$app->session['cart_id']) && (\app\models\Cart::find()->Where(['id' => \yii::$app->session['cart_id']])->andWhere(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 0])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->one()) && \yii::$app->users->is_loged() == true) {
-                $cart = \app\models\Cart::find()->Where(['id' => \yii::$app->session['cart_id']])->one();
-                $cart->userID = \yii::$app->session['user_id'];
-                $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
-                $cart->status = 0;
-                $cart->save();
-            } elseif (isset(\yii::$app->session['cart_id']) && (\app\models\Cart::find()->Where(['id' => \yii::$app->session['cart_id']])->andWhere(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 1])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->one()) && \yii::$app->users->is_loged() == true) {
-                if ($carts = \app\models\Cart::find()->Where(['id' => \yii::$app->session['cart_id']])->one()) {
-                    unset(\Yii::$app->session['cart_id']);
-                    unset(\Yii::$app->session['guest_id']);
-                }
-                $carts = \app\models\Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
-                if ($carts) {
-                    $carts->userID = \yii::$app->session['user_id'];
-                    $carts->submitDate = Yii::$app->jdate->date('Y/m/d');
-                    $carts->status = 0;
-                    $carts->save();
-                    \yii::$app->session['cart_id'] = $carts->id;
-                } else {
+            $isLogged = \yii::$app->users->is_loged();
+            $carId    = \yii::$app->session['cart_id'];
+
+            if ($checkit->load(Yii::$app->request->post())) {
+                $checkit->productID = $product->id;
+                $checkit->status = 0;
+                $checkit->submitDate = Yii::$app->jdate->date('Y/m/d');
+                $checkit->save();
+                Yii::$app->session->setFlash('confirm', "اطلاعات شما با موفقیت ثبت شد");
+                return $this->refresh();
+            }
+            if ($letme->load(Yii::$app->request->post())) {
+                $letme->productID = $product->id;
+                $letme->status = 0;
+                $letme->submitDate = Yii::$app->jdate->date('Y/m/d');
+                $letme->save();
+            }
+            if ($cartoption->load(Yii::$app->request->post())) {
+                //set session for cart id
+
+                if ((!isset($carId)) && $isLogged == true ) {
+                    $cart = \app\models\Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
                     $cart->userID = \yii::$app->session['user_id'];
                     $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
                     $cart->status = 0;
                     $cart->save();
-                    \yii::$app->session['cart_id'] = $cart->id;
-                }
-            }
-            if (\app\models\Cartoption::find()->Where(['cartID' => \yii::$app->session['cart_id']])->andWhere(['productID' => $product->id])->one()) {
-                $coption = \app\models\Cartoption::find()->Where(['cartID' => \yii::$app->session['cart_id']])->andWhere(['productID' => $product->id])->one();
-                $fvoption = \app\models\Fvoption::find()->Where(['cartoptionID' => $coption->id])->one();
-                if ($fvoption->featurevID == Yii::$app->request->post('cartprice')) {
-                    $coption->count += Yii::$app->request->post('countproduct');
-                    if ($coption->save()) {
-                        Yii::$app->session->setFlash('success', "محصول با موفقیت به سبد خرید افزوده شد.");
-                    } else {
-                        Yii::$app->session->setFlash('error', "متاسفانه خطایی رخ داده است.");
+                    $carId = $cart->id;
+                } elseif ((!isset($carId)) && $isLogged == true ) {
+                    $cart->userID = \yii::$app->session['user_id'];
+                    $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
+                    $cart->status = 0;
+                    $cart->save();
+                    $carId = $cart->id;
+                } elseif ((!isset($carId)) && $isLogged == false) {
+                    $time = time();
+                    \yii::$app->session['guest_id'] = $time;
+                    $cart->userID = \yii::$app->session['guest_id'];
+                    $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
+                    $cart->status = 0;
+                    $cart->save();
+                    $carId = $cart->id;
+                } elseif ((isset($carId)) && $isLogged == false) {
+                    $cart = \app\models\Cart::find()->Where(['id' => $carId])->one();
+                    $time = time();
+                    \yii::$app->session['guest_id'] = $time;
+                    $cart->userID = \yii::$app->session['guest_id'];
+                    $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
+                    $cart->status = 0;
+                    $cart->save();
+                    $carId = $cart->id;
+                } elseif (isset($carId) && (\app\models\Cart::find()->Where(['id' => $carId])->andWhere(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 0])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->one()) && $isLogged == true) {
+                    $cart = \app\models\Cart::find()->Where(['id' => $carId])->one();
+                    $cart->userID = \yii::$app->session['user_id'];
+                    $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
+                    $cart->status = 0;
+                    $cart->save();
+                } elseif (isset($carId) && (\app\models\Cart::find()->Where(['id' => $carId])->andWhere(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 1])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->one()) && $isLogged == true) {
+                    if ($carts = \app\models\Cart::find()->Where(['id' => $carId])->one()) {
+                        unset($carId);
+                        unset(\Yii::$app->session['guest_id']);
                     }
+                    $carts = \app\models\Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
+                    if ($carts) {
+                        $carts->userID = \yii::$app->session['user_id'];
+                        $carts->submitDate = Yii::$app->jdate->date('Y/m/d');
+                        $carts->status = 0;
+                        $carts->save();
+                        $carId = $carts->id;
+                    } else {
+                        $cart->userID = \yii::$app->session['user_id'];
+                        $cart->submitDate = Yii::$app->jdate->date('Y/m/d');
+                        $cart->status = 0;
+                        $cart->save();
+                        $carId = $cart->id;
+                    }
+                }
+                if (\app\models\Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one()) {
+                    $coption = \app\models\Cartoption::find()->Where(['cartID' => $carId])->andWhere(['productID' => $product->id])->one();
+                    $fvoption = \app\models\Fvoption::find()->Where(['cartoptionID' => $coption->id])->one();
+                    if ($fvoption->featurevID == Yii::$app->request->post('cartprice')) {
+                        $coption->count += Yii::$app->request->post('countproduct');
+                        if ($coption->save()) {
+                            Yii::$app->session->setFlash('success', "محصول با موفقیت به سبد خرید افزوده شد.");
+                        } else {
+                            Yii::$app->session->setFlash('error', "متاسفانه خطایی رخ داده است.");
+                        }
+                    } else {
+                        $cartoption->cartID = $carId;
+                        $cartoption->productID = $product->id;
+                        $cartoption->count = Yii::$app->request->post('countproduct');
+                        if ($featurevalue) {
+                            $fvid = \app\models\Featurevalue::find()->Where(['id' => Yii::$app->request->post('cartprice')])->one();
+                            $cartoption->amount = Yii::$app->request->post('advance');
+                            $cartoption->off = Yii::$app->request->post('firstprice');
+                        } else {
+                            $cartoption->amount = Yii::$app->request->post('advanceprice');
+                            $cartoption->off = Yii::$app->request->post('offprice1');
+                        }
+                        //save cartoption tabel
+
+                        if ($cartoption->save()) {
+                            if ($featurevalue) {
+                                $newoption = new \app\models\Fvoption();
+                                $newoption->cartoptionID = $cartoption->id;
+                                $newoption->featurevID = Yii::$app->request->post('cartprice');
+                                $newoption->submitDate = Yii::$app->jdate->date('Y/m/d');
+                                $newoption->save();
+                            } else {
+                                $newoption = new \app\models\Fvoption();
+                                $newoption->cartoptionID = $cartoption->id;
+                                $newoption->submitDate = Yii::$app->jdate->date('Y/m/d');
+                                $newoption->save();
+                            }
+                            Yii::$app->session->setFlash('success', "محصول با موفقیت به سبد خرید افزوده شد.");
+                        } else {
+                            Yii::$app->session->setFlash('error', "متاسفانه خطایی رخ داده است.");
+                        }
+                    }
+
                 } else {
-                    $cartoption->cartID = \yii::$app->session['cart_id'];
+
+                    $cartoption->cartID = $carId;
                     $cartoption->productID = $product->id;
                     $cartoption->count = Yii::$app->request->post('countproduct');
                     if ($featurevalue) {
@@ -576,9 +604,11 @@ class ProductController extends Controller
                         $cartoption->off = Yii::$app->request->post('offprice1');
                     }
                     //save cartoption tabel
-
                     if ($cartoption->save()) {
                         if ($featurevalue) {
+                            //     var_dump(Yii::$app->request->post('cartprice'));exit;
+                            // foreach(Yii::$app->request->post('cartprice') as $key=>$value){
+
                             $newoption = new \app\models\Fvoption();
                             $newoption->cartoptionID = $cartoption->id;
                             $newoption->featurevID = Yii::$app->request->post('cartprice');
@@ -590,69 +620,36 @@ class ProductController extends Controller
                             $newoption->submitDate = Yii::$app->jdate->date('Y/m/d');
                             $newoption->save();
                         }
+
                         Yii::$app->session->setFlash('success', "محصول با موفقیت به سبد خرید افزوده شد.");
+
                     } else {
                         Yii::$app->session->setFlash('error', "متاسفانه خطایی رخ داده است.");
+
                     }
                 }
-
-            } else {
-
-                $cartoption->cartID = \yii::$app->session['cart_id'];
-                $cartoption->productID = $product->id;
-                $cartoption->count = Yii::$app->request->post('countproduct');
-                if ($featurevalue) {
-                    $fvid = \app\models\Featurevalue::find()->Where(['id' => Yii::$app->request->post('cartprice')])->one();
-                    $cartoption->amount = Yii::$app->request->post('advance');
-                    $cartoption->off = Yii::$app->request->post('firstprice');
-                } else {
-                    $cartoption->amount = Yii::$app->request->post('advanceprice');
-                    $cartoption->off = Yii::$app->request->post('offprice1');
-                }
-                //save cartoption tabel
-                if ($cartoption->save()) {
-                    if ($featurevalue) {
-                        //     var_dump(Yii::$app->request->post('cartprice'));exit;
-                        // foreach(Yii::$app->request->post('cartprice') as $key=>$value){
-
-                        $newoption = new \app\models\Fvoption();
-                        $newoption->cartoptionID = $cartoption->id;
-                        $newoption->featurevID = Yii::$app->request->post('cartprice');
-                        $newoption->submitDate = Yii::$app->jdate->date('Y/m/d');
-                        $newoption->save();
-                    } else {
-                        $newoption = new \app\models\Fvoption();
-                        $newoption->cartoptionID = $cartoption->id;
-                        $newoption->submitDate = Yii::$app->jdate->date('Y/m/d');
-                        $newoption->save();
-                    }
-                    //if($fvoption->load(Yii::$app->request->post())){
-
-                    //  foreach($fvoption->featurevID as $fv){
-                    //     $newoption=new \app\models\Fvoption();
-                    //     $newoption->cartoptionID=$cartoption->id;
-                    //     $newoption->featurevID=$fv;
-                    //     $newoption->submitDate=Yii::$app->jdate->date('Y/m/d');
-                    //     $newoption->save();
-
-                    //    }
-                    // }else{
-                    //     $newoption=new \app\models\Fvoption();
-                    //     $newoption->cartoptionID=$cartoption->id;
-                    //     $newoption->submitDate=Yii::$app->jdate->date('Y/m/d');
-                    //     $newoption->save();
-                    // }
-
-                    Yii::$app->session->setFlash('success', "محصول با موفقیت به سبد خرید افزوده شد.");
-
-                } else {
-                    Yii::$app->session->setFlash('error', "متاسفانه خطایی رخ داده است.");
-
-                }
+                // var_dump($cartoption->errors);exit;
+                return $this->refresh();
             }
-            // var_dump($cartoption->errors);exit;
-            return $this->refresh();
+            return Yii::$app->response->redirect(Url::to(['cart/cart']));
         }
+
+
+        $imgs = \app\models\Productimg::find()->where(['productID' => $product->id])->all();
+        $catrelations = \app\models\CategoryRelation::find()->where(['productID' => $product->id])->all();//cc
+        $subcatrelations = \app\models\SubcatRelation::find()->where(['productID' => $product->id])->all();
+        $aboutproducts = \app\models\Aboutproduct::find()->where(['productID' => $product->id])->all();
+        $color = \app\models\Color::find()->all();//cc
+        $feature = \app\models\Feature::find()->all();//cc
+
+        $details = \app\models\Details::find()->all();//c
+        $detailsvalue = \app\models\Detailsvalue::find()->where(['productID' => $product->id])->all();
+        $count = \app\models\Cartoption::find()->Where(['productID' => $product->id])->sum('count');
+        $sizes = \app\models\Size::find()->all();//cc
+        $comments = \app\models\Checkit::find()->Where(['productID' => $product->id])->all();//cc
+        $count = \app\models\Checkit::find()->Where(['productID' => $product->id])->count();//cc
+        $sum = \app\models\Checkit::find()->Where(['productID' => $product->id])->sum('rate');//cc
+
 
         return $this->render('product', [
             'details' => $details,
