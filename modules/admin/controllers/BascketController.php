@@ -15,14 +15,16 @@ use yii\filters\VerbFilter;
 class BascketController extends Controller
 {
     public $enableCsrfValidation = false;
+
     public function beforeActions($action)
-    {            
+    {
         if ($action->id == 'view') {
             $this->enableCsrfValidation = false;
         }
-        
+
         return parent::beforeActions($action);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +51,7 @@ class BascketController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'model'=>$model,
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -63,10 +65,10 @@ class BascketController extends Controller
      */
     public function actionView($id)
     {
-        $bascket= \app\models\Bascket::find()->where(['id' => $id])->with(['cart','cart.cartoptions','cart.cartoptions.product','cart.cartoptions.product.featurevalues','cart.cartoptions.product.featurevalues.fvoptions'])->all();
-        ini_set('memory_limit','4000M');
+        $bascket = \app\models\Bascket::find()->where(['id' => $id])->with(['cart', 'cart.cartoptions', 'cart.cartoptions.product', 'cart.cartoptions.product.featurevalues', 'cart.cartoptions.product.featurevalues.fvoptions'])->all();
+        ini_set('memory_limit', '4000M');
 
-        return $this->render('view', [ 
+        return $this->render('view', [
             'model' => $bascket
 
         ]);
@@ -92,8 +94,8 @@ class BascketController extends Controller
 
     public function actionPdf()
     {
-      
-        return $this->render('pdf' );
+
+        return $this->render('pdf');
     }
 
     /**
@@ -107,8 +109,8 @@ class BascketController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->sendDate=Yii::$app->jdate->date('Y/m/d');
+        if ($model->load(Yii::$app->request->post())) {
+            $model->sendDate = Yii::$app->jdate->date('Y/m/d');
             $model->save();
             return $this->redirect('index');
         }
