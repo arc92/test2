@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Bascket */
-$this->title = $model[0]->name.'  '. $model[0]->family ;
+$model = $model[0];
+$this->title = $model->name.'  '. $model->family ;
 $this->params['breadcrumbs'][] = ['label' => 'Basckets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -63,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'نام کاربر',
                 'format'=>'raw',
                 'value'=>function($model){
-                        $cart=$model->cart[0];
+                        $cart=$model->cart;
                         if(isset($cart)){
                         $user=\app\models\Users::find()->Where(['id'=>$cart->userID])->one(); 
                         return '<h1>'.$user->fullName.'</h1>';
@@ -85,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($model){
                     $sample='';
                     $count=1;
-                    $cartoptions= $model[0]->cart->cartoptions;
+                    $cartoptions= $model->cart->cartoptions;
                     foreach($cartoptions as $cartoption){
                         foreach($cartoption->product as $product){
                                 if($product->featurevalues){
