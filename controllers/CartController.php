@@ -150,7 +150,7 @@ class CartController extends Controller
             $carts = $carts[0];
 
 
-        $cartoptions = Cartoption::find()->with(['product', 'product.featurevalues'])->where(['cartID' => $carts[0]->id])->all();
+        $cartoptions = Cartoption::find()->with(['product', 'product.featurevalues'])->where(['cartID' => $carts->id])->all();
 
 
         return $this->render('cart', [
