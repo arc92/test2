@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'submitDate',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->submitDate.'</h1>';
+                        return '<h1>'.$model[0]->submitDate.'</h1>';
                         }
             ],
          
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'refID',
                 'format'=>'raw',
                 'value'=>function($model){ 
-                        return '<h1>'.$model->refID.'</h1>';
+                        return '<h1>'.$model[0]->refID.'</h1>';
                         }
             ],
             [
