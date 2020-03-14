@@ -470,7 +470,9 @@ use hoomanMirghasemi\jdf\Jdf;
                         </div>
                       <!-- Html::a('پرداخت در محل ', ['name'=>'payplace','class' => 'btn payment']) ?> -->
                         <!-- <?= Html::submitButton('پرداخت در محل', ['name'=>'payplace','value'=>1,'class' => 'btn payment']) ?> -->
-<!--                        --><?//= Html::submitButton('ثبت و پرداخت', ['class' => 'btn payment']) ?>
+                        <?php
+//                        Html::submitButton('ثبت و پرداخت', ['class' => 'btn payment'])
+                        ?>
                         <!-- Html::submitButton('پرداخت در محل  ', ['name'=>'payplace','class' => 'btn payment']) ?> -->
                   
                         <!-- Html::a('پرداخت در محل   ', ['href'=>'/site/notificationpay','name'=>'payplace','class' => 'btn payment']) ?> -->
