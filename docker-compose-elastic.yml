@@ -38,8 +38,8 @@ services:
       - elasticsearch
 
     environment:
-      #        - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
-      #        - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - ELASTICSEARCH_USERNAME=bccstyle
+      - ELASTICSEARCH_PASSWORD=Arcsin_360
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     ports:
       - "127.0.0.1:5602:5601"
