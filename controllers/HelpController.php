@@ -76,7 +76,7 @@ class HelpController extends Controller
 
     public function actionIndexmetoo()
     {
-        $client = ClientBuilder::create()->setHosts(["http://37.152.178.208:9202/"])->build();
+        $client = ClientBuilder::create()->setHosts(["localhost:9202"])->build();
 
         $params = [
             'index' => 'product',
