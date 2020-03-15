@@ -2,21 +2,6 @@ version: '3'
 
 
 services:
-  mysqldb:
-    image: mysql
-    restart: always
-    environment:
-      - MYSQL_DATABASE=bccstyle
-      - MYSQL_ROOT_PASSWORD=123123
-      - MYSQL_USER=nima
-      - MYSQL_PASSWORD=123123
-    expose:
-      - "3306"
-    ports:
-      - "1212:3306"
-    volumes:
-      - "./data/db/mysql:/var/lib/mysql"
-      - ./vol-share/:/v-share/
 
 
   elasticsearch:
