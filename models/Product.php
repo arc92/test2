@@ -148,7 +148,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getSubcatRelations()
     {
-        return $this->hasOne(SubcatRelation::className(), ['ProductID' => 'id'])->inverseOf('product');;
+        return $this->hasOne(SubcatRelation::className(), ['productID' => 'id'])->inverseOf('product');;
     }
 
     /**
@@ -184,6 +184,14 @@ class Product extends \yii\db\ActiveRecord
     public function getProductimgs()
     {
         return $this->hasOne(Productimg::className(), ['productID' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAllproductimgs()
+    {
+        return $this->hasMany(Productimg::className(), ['productID' => 'id']);
     }
 
 
