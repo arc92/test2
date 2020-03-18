@@ -5,6 +5,7 @@ use app\models\Color;
 use app\models\Menu;
 use app\models\Size;
 use app\models\Subcat;
+use Elasticsearch\ClientBuilder;
 
 if(!function_exists('cacheCategoryList')){
     function cacheCategoryList(){

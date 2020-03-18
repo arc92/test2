@@ -143,6 +143,11 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasOne(CategoryRelation::className(), ['productID' => 'id'])->inverseOf('product');
     }
 
+    public function getCategoryRelationsMany()
+    {
+        return $this->hasMany(CategoryRelation::className(), ['productID' => 'id'])->inverseOf('product');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

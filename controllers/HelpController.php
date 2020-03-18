@@ -74,12 +74,16 @@ class HelpController extends Controller
     }
 
 
+
+
     public function actionIndexmetoo()
     {
-        $client = ClientBuilder::create()->setHosts(["localhost:9202"])->build();
+
+
 
         $params = [
-            'index' => 'product',
+            'index' => getIndexName(),
+
             'body' => [
                 'settings' => [
                     'number_of_shards' => 3,
@@ -124,20 +128,23 @@ class HelpController extends Controller
                                 "norms" => ["enabled" => false],
                                 'analyzer' => 'special_character_analyzer'
                             ],
-                            'product_category_id' => [
-                                'type' => 'integer',
-                            ],
-                            'product_category_name' => [
-                                'type' => 'text',
-                                'fields' => [
-                                    'keyword' =>
-                                        [
-                                            'type' => 'keyword',
-                                            'ignore_above' => 256,
-                                        ],
-                                ],
-                                "norms" => ["enabled" => false],
-                                'analyzer' => 'special_character_analyzer'
+
+                            'product_category' =>[
+                                'type' => 'nested',
+                                'properties' => [
+                                    'id' => [
+                                        'type' => 'integer',
+                                    ],
+                                    'name' => [
+                                        'type' => 'text',
+                                        'fields' => [
+                                            'keyword' => [
+                                                'type' => 'keyword',
+                                                'ignore_above' => 256,
+                                            ]
+                                        ]
+                                    ]
+                                ]
                             ],
                             'product_status' => [
                                 'type' => 'integer'
@@ -207,6 +214,9 @@ class HelpController extends Controller
                             'product_details' => [
                                 'type' => 'nested',
                                 'properties' => [
+                                    'id' => [
+                                        'type' => 'integer',
+                                    ],
                                     'size' => [
                                         'type' => 'text',
                                         'fields' => [
@@ -269,10 +279,12 @@ class HelpController extends Controller
         ];
 
 
-        $client->indices()->create($params);
+
+//        elasticSearchClient()->indices()->create($params);
 
 
-        $allProduct = Product::find()->with('catproduct', 'allproductimgs', 'plan', 'plan.offers', 'color', 'featurevalues', 'detailsvalues', 'aboutproducts', 'categoryRelations.cat', 'offer', 'subcatRelations.subcat')->all();
+        $allProduct = Product::find()->with('catproduct', 'allproductimgs', 'plan', 'plan.offers', 'color', 'featurevalues', 'detailsvalues', 'aboutproducts', 'categoryRelationsMany.cat', 'offer', 'subcatRelations.subcat')->all();
+
 
         foreach ($allProduct as $key => $eachProduct) {
 
@@ -310,6 +322,14 @@ class HelpController extends Controller
             }
 
 
+            $product_category_name = [];
+            foreach ($eachProduct->categoryRelationsMany as $index => $productCat){
+                $product_category_name[$index]['id'] = $productCat->cat->name;
+                $product_category_name[$index]['name'] = $productCat->cat->name;
+            }
+
+
+
             $params = [
                 'index' => 'product',
                 'id' => $eachProduct->id,
@@ -317,8 +337,7 @@ class HelpController extends Controller
                     'product_id' => $eachProduct->id,
                     'product_name' => $eachProduct->name,
                     'product_gender' => $eachProduct->subcatRelations->subcat->name,
-                    'product_category_id' => $eachProduct->catproductID,
-                    'product_category_name' => $eachProduct->categoryRelations->cat->name,
+                    'product_category' => $product_category_name,
                     'product_status' => $eachProduct->status,
                     'product_plan_id' => $eachProduct->planID,
                     'product_plan_name' => $eachProduct->plan->name,
@@ -338,13 +357,43 @@ class HelpController extends Controller
             ];
 
 
-            $response = $client->index($params);
+
+            $response = elasticSearchClient()->index($params);
         }
 
 
         print_r($response);
 
     }
+
+
+    public function actionSearch()
+    {
+        $client = ClientBuilder::create()->setHosts(["elasticsearch:9200"])->build();
+        $r = $client->search([
+            'index' => getIndexName(),
+            'scroll' => '10s',
+            'body'  => [
+                'query' => [
+                    'query_string' => [
+                        "query" => "شلوار",
+                        "fields" => [
+                            'product_name^20',
+                            'product_gender^2',
+                            'product_plan_name^5',
+                            'product_color_name^4',
+                            'product_more_details.detail_title^3',
+                            'product_more_details.detail_description^3',
+                            'about_product^2'
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        echo (json_encode($r));die();
+    }
+
 
 
 }
