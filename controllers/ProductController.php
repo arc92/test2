@@ -404,6 +404,32 @@ class ProductController extends Controller
         return $this->render('sets', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
+    public function actionBestsales()
+    {
+
+
+        $connection = Yii::$app->getDb();
+
+        $products = $connection->createCommand("
+         select count(p.id) as sales_rate ,p.`name`, p.price,pi.img,o.percent,o.start_date,o.end_date
+         from bascket as b
+         join cartoption as c on c.id = b.id
+         join product as p on p.id = c.productID
+         join productimg as pi on pi.productID = p.id
+         join offer as o on o.planID = p.planID
+          GROUP BY p.id,pi.id,o.id
+          ORDER BY sales_rate DESC
+           limit 52")
+            ->queryAll();
+
+
+
+
+
+        \Yii::$app->view->title = "پر فروش ترین ها";
+        return $this->render('bestsales', compact( 'products'));
+    }
+
     public function actionBabycat($id = null, $urltitle)
     {
         $categoryName = Yii::$app->getRequest()->getQueryParam('categoryName');
