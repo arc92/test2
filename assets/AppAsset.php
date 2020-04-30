@@ -22,7 +22,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/select2.min.css',
         'css/bootstrap.css',
-        'css/style.css',
+        'css/styleMain.css',
         'css/new.css',
         'css/owl.carousel.min.css',
         'css/owl.theme.default.min.css',

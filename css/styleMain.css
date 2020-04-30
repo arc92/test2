@@ -2618,3 +2618,9 @@ button:focus, button:active, input:focus, input:active, select:focus, select:act
     }
 
 }
+
+@media screen and (min-width: 768px) {
+    .header-index{
+        margin-bottom: 100px;
+    }
+}
