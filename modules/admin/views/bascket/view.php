@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bascket-view" id='outprint'>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 style="text-align: center !important;"><?= Html::encode($this->title) ?></h1>
 
     <p> 
     
