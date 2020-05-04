@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bascket-view" id='outprint'>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 style="text-align: center !important;"><?= Html::encode($this->title) ?></h1>
 
     <p> 
     
@@ -345,7 +345,9 @@ var newWin=window.open('','Print-Window');
 
 newWin.document.open();
 
-newWin.document.write('<html><head><title>چاپ فاکتور</title> <link href="/panel/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"><link href="/css/bootstrap-glyphicons.css" rel="stylesheet"><link href="/panel/plugins/bootstrap-rtl-master/dist/css/custom-bootstrap-rtl.css" rel="stylesheet"><link href="/panel/css/styleMain.css" rel="stylesheet"><link href="/panel/css/ticket.css" rel="stylesheet"><link href="/panel/css/colors/blue.css" rel="stylesheet"></head><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
+newWin.document.write('<html style="direction: rtl !important;"><head><title>چاپ فاکتور</title> <link href="/panel/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"><link href="/css/bootstrap-glyphicons.css" rel="stylesheet"><link href="/panel/plugins/bootstrap-rtl-master/dist/css/custom-bootstrap-rtl.css" rel="stylesheet"><link href="/panel/css/styleMain.css" rel="stylesheet"><link href="/panel/css/ticket.css" rel="stylesheet"><link href="/panel/css/colors/blue.css" rel="stylesheet"></head><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+
 
 newWin.document.close();
 

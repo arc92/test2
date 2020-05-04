@@ -84,3 +84,21 @@ services:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     ports:
       - "127.0.0.1:5602:5601"
+
+
+  ## --------------------------------------------
+  ## | 5 : PhpMyAdmin
+  ## --------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysqldb
+    expose:
+      - '80'
+      - '443'
+    environment:
+      - PMA_HOST=mysqldb
+    volumes:
+      - /sessions
+    ports:
+    - 8006:80
