@@ -217,6 +217,110 @@ use yii\helpers\Url;
                                 </a>
                             </div>
                         </div>
+                       
+                    <div class="d-flex align-items-center" > 
+                        <!-- ادیت ایتم تعداد --> 
+                    <div class="size"> 
+                        <div <?php if($featurevalue==true || $product->count<1){ ?>   id="counthide" style="display:none!important;" <?php } ?> >
+                        <div class="number-item" style="display: flex; align-items: center;" >
+                        <span class="title" style="margin-left:10px;">  انتخاب تعداد  :  </span>
+                    <div class="count-product count">
+                           <a class="btn btn-minus down">
+                                  <i class="icon-006-left-chevron"></i>
+                             </a>
+                        
+                <?= $form->field($cartoption, 'submitDate')->hiddenInput(['value'=>Yii::$app->jdate->date('Y/m/d')])->label(false) ?>  
+                <?php if($featurevalue==true ){?>
+                        <input type="number" class="count" min="1" value="1"  id="minmaxcount" name="countproduct" readonly required/>
+                <?php }else{?>
+                   <input type="number" class="count" min="1" max="<?=$product->count?>" value="1"    name="countproduct" readonly required/>
+                <?php } ?>
+                         <a class="btn btn-plus up">
+                                  <i class="icon-005-right-chevron"></i>
+                        </a>
+                        </div>
+               <!-- پایان -->
+                     </div> 
+                     </div> 
+             
+                    
+                      <?php if($featurevalue==true){ ?>     
+                        <input type="hidden" value="" id="mallprice" name="firstprice"> 
+                        <input type="hidden" value="<?=$product->price?> " id="advance" name="advance">
+                        <div class="price-item d-flex align-items-center">   
+                        <div id="masterprice">
+                        <del class="mall-price"> </del>
+                            <span class="mall-price"></span>
+                            <?php
+                            if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                                $BaseProductOff=($product->price-($product->price*$offer->percent)/100);
+                                ?>
+                                <del class="mall-price">
+                                    قیمت  :
+                                    <span id="pricefeature"><?=$product->price?></span>
+                                    تومان
+                                </del>
+                                <BR>
+                                <span class="online-price">قیمت با تخفیف  <?=number_format($BaseProductOff)?> تومان</span>
+                            <?php }else{ ?>
+                                <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
+                            <?php } ?>
+
+
+                        </div>  
+                        <div  id="pricehide" style="display:none;" >
+                        <?php   $today=Yii::$app->jdate->date('Y/m/d');
+                         if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                             if($today>=$offer->start_date and $today<=$offer->end_date){  ?> 
+                              <input type="hidden" value="<?=$offer->percent?>" id="offfer">
+                                <del class="mall-price"> قیمت  :<span id="pricefeature"></span> تومان</del> 
+                                <span class="online-price"> قیمت با تخفیف  :<span id="offerprice"></span> تومان</span> 
+                               
+                             <?php }else{ ?>  
+                                <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span> 
+                                <input type="hidden" value="" id="offfer">
+                             <?php } 
+                            }elseif($generaloff=\app\models\Off::find()->Where(['status'=>1])->one()){  
+                                $sood=(($product->price*$generaloff->percent)/100);?> 
+                                    <input type="hidden" value="<?=$generaloff->percent?>" id="offfer">
+                                    <div class="price-item d-flex align-items-center">   
+                                    <del class="mall-price">:قیمت فروشگاه <span id="pricefeature"></span> تومان</del>
+                                    </div>   
+                                    <div class="price-item d-flex align-items-center"> 
+                                    <span class="online-price"> سود خرید آنلاین:  <?=number_format($sood)?> تومان</span>   
+                                    </div>  
+                                    <div class="price-item d-flex align-items-center">   
+                                    <span class="online-price"> قیمت آنلاین  :<span id="offerprice"></span> تومان</span>  
+                           <?php }else{ ?>   
+                             <input type="hidden" value="" id="offfer">
+
+                                <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span>   
+                             <?php } ?>
+                            
+                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart','id'=>'callyou']) ?>
+                        </div>  
+                        </div> 
+                        <?php ActiveForm::end(); ?>     
+                      </div>  
+                   
+
+                <?php  }else{
+                    if($product->count>0 && $product->count!=null){ ?>
+              <input type="hidden" value="<?=$product->price?>" id="offprice1" name="offprice1"> 
+
+                       <?php  $today=Yii::$app->jdate->date('Y/m/d');
+                         if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                             if($today>=$offer->start_date and $today<=$offer->end_date){  ?> 
+                            <div class="price-item d-flex align-items-center">    
+                                <del class="mall-price"> </del>
+                                <span class="mall-price"></span> 
+                             <del class="mall-price">قیمت  <?=number_format($product->price)?> تومان</del>   
+                      <?php   $off=($product->price-($product->price*$offer->percent)/100); ?>
+                             <span class="online-price">قیمت با تخفیف  <?=number_format($off)?> تومان</span>   
+                             <input type="hidden" value="<?= $off?> " id="advanceprice" name="advanceprice">
+                             <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
+
+                             </div>  
                         <?php }else{ ?>
 
                     </div>
