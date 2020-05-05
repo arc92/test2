@@ -261,7 +261,12 @@ use yii\helpers\Url;
                             if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
                                 $BaseProductOff=($product->price-($product->price*$offer->percent)/100);
                                 ?>
-                                <del class="mall-price"><?=$product->price?>  قیمت  :<span id="pricefeature"></span> تومان</del><BR>
+                                <del class="mall-price">
+                                    قیمت  :
+                                    <span id="pricefeature"><?=$product->price?></span>
+                                    تومان
+                                </del>
+                                <BR>
                                 <span class="online-price">قیمت با تخفیف  <?=number_format($BaseProductOff)?> تومان</span>
                             <?php }else{ ?>
                                 <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
