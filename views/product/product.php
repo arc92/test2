@@ -5,7 +5,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use \yii\widgets\Pjax;
 use yii\helpers\Url;
-
 \kl83\widgets\RatingWidgetFaAsset::register(\Yii::$app->view);
 
 
@@ -19,9 +18,9 @@ use yii\helpers\Url;
                     <div class="slider">
                         <div class="sync1">
                             <div id="sync1" class="owl-carousel owl-theme">
-                                <?php foreach ($imgs as $img) { ?>
+                                <?php foreach($imgs as $img){ ?>
                                     <div class="item">
-                                        <img class="magniflier" src="/<?= $img->img ?>" alt="">
+                                        <img class="magniflier" src="/<?=$img->img?>" alt="">
                                     </div>
                                 <?php } ?>
                             </div>
@@ -48,9 +47,9 @@ use yii\helpers\Url;
                         </div>
                         <div class="sync2">
                             <div id="sync2" class="owl-carousel owl-theme">
-                                <?php foreach ($imgs as $img) { ?>
+                                <?php foreach($imgs as $img){ ?>
                                     <div class="item">
-                                        <img src="/<?= $img->img ?>" alt="">
+                                        <img  src="/<?=$img->img?>" alt="">
                                     </div>
                                 <?php } ?>
                             </div>
@@ -71,11 +70,11 @@ use yii\helpers\Url;
                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                             <?= Yii::$app->session->getFlash('error') ?>
                         </div>
-                    <?php endif; ?>
+                    <?php endif;  ?>
                     <div class="details-img">
-                        <?php $form = ActiveForm::begin(['id' => 'submitcart']); ?>
+                        <?php  $form = ActiveForm::begin(['id' => 'submitcart']); ?>
                         <h2 class="title">
-                            <?= $product->name ?>
+                            <?=$product->name?>
                         </h2>
                         <div class="category-item d-flex">
                             <span class="title-category">
@@ -84,9 +83,9 @@ use yii\helpers\Url;
                             <ul class="nav category">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <?php foreach ($catrelations as $catrelation) {
-                                            echo $catrelation->cat->name . '<br>  ';
-                                        } ?>
+                                        <?php foreach($catrelations as $catrelation){
+                                            echo $catrelation->cat->name.'<br>  ';
+                                        }?>
                                     </a>
                                 </li>
                             </ul>
@@ -96,45 +95,45 @@ use yii\helpers\Url;
                         <div class="rate">
                             <fieldset class="rating">
                                 <?php
-                                if ($sum == 1) { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                if($sum==1){  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 1,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>1,  // highlighted stars count
                                     ]);
                                     ?>
-                                <?php } elseif ($sum == 2) { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                <?php  }elseif($sum==2){  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 2,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>2,  // highlighted stars count
                                     ]);
                                     ?>
-                                <?php } elseif ($sum == 3) { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                <?php }elseif($sum==3){  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 3,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>3,  // highlighted stars count
                                     ]);
                                     ?>
-                                <?php } elseif ($sum == 4) { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                <?php }elseif($sum==4){  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 4,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>4,  // highlighted stars count
                                     ]);
                                     ?>
-                                <?php } elseif ($sum == 5 || $sum > 5) { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                <?php }elseif($sum==5 || $sum>5){  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 5,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>5,  // highlighted stars count
                                     ]);
-                                } else { ?>
-                                    <?= \kl83\widgets\RatingWidget::widget([
+                                }else{  ?>
+                                    <?=\kl83\widgets\RatingWidget::widget([
                                         'maxRating' => 5, // stars count, default - 5
-                                        'options' => ['class' => 'some-class', 'style' => 'color:#a3cced;'], // HTML attributes
-                                        'value' => 0,  // highlighted stars count
+                                        'options' => ['class' => 'some-class','style'=>'color:#a3cced;'], // HTML attributes
+                                        'value' =>0,  // highlighted stars count
                                     ]); ?>
                                 <?php } ?>
 
@@ -161,11 +160,11 @@ use yii\helpers\Url;
                         <!-- =======// Description  ===== -->
                         <!-- =======   cloth    //====== -->
                         <div class="description d-flex flex-wrap">
-                            <?php foreach ($aboutproducts as $aboutproduct) { ?>
+                            <?php foreach($aboutproducts as $aboutproduct){ ?>
                                 <ul class="nave" style="margin-left:50px;">
                                     <li class="nav-item">
-                                        <?= ($count == $product->count) ? '' : '<i class="icon-023-tick"></i>' ?>
-                                        <?= $aboutproduct->details ?>
+                                        <?=($count== $product->count)?'':'<i class="icon-023-tick"></i>'?>
+                                        <?=$aboutproduct->details?>
                                     </li>
                                 </ul>
                             <?php } ?>
@@ -175,19 +174,19 @@ use yii\helpers\Url;
                             <!-- =======// Add ======= -->
                             <!-- ======= to ======= -->
                             <!-- ======= Favourites //=======-->
-                            <div class="liked" id="like" data-like="<?= $product->id ?>">
+                            <div class="liked"  id="like"  data-like="<?=$product->id?>">
                                 <i class="icon-044-heart"></i>
                             </div>
                             <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
                             <script>
-                                jQuery('#like').on('click', function (e) {
+                                jQuery('#like').on('click',function(e){
                                     e.preventDefault();
                                     var data = $(this).attr('data-like');
-                                    console.log(data);
+                                    console.log(data );
                                     $.ajax({
                                         url: '/product/like',
                                         data: {like: data}
-                                    }).done(function (response) {
+                                    }).done(function(response){
                                         sessionStorage.setItem('<?=$product->id?>', data);
                                     });
                                 });
@@ -195,159 +194,52 @@ use yii\helpers\Url;
                             <!-- =======// Choose ======= -->
                             <!-- ======= Size //======= -->
 
-                            <?php if ($featurevalue == true){ ?>
+                            <?php if($featurevalue==true){ ?>
                             <div class="size">
-                                <?php foreach ($feature as $featu) {
-                                    echo '<span class="title">' . $featu->value . ' :</span>';
-                                    $a = [];
-                                    foreach ($featurevalue as $featurev) {
-                                        if ($featu->id == $featurev->featureID) {
-                                            !empty($featurev->value) &&$a[$featurev->id] = $featurev->value;
+                                <?php  foreach($feature as $featu){
+                                    echo '<span class="title">'.$featu->value.' :</span>';
+                                    $a=[];
+                                    foreach($featurevalue as $featurev){
+                                        if($featu->id==$featurev->featureID){
+                                            $a[$featurev->id]=  $featurev->value;
                                         }
                                     }
-
-                                    echo $form->field($fvoption, 'featurevID[]')->dropDownList($a,
-                                        ['prompt' => 'لطفا انتخاب کنید', 'required' => 'required', 'name' => 'cartprice'])->label(false);
-                                } ?>
+                                    echo  $form->field($fvoption, 'featurevID[]')->dropDownList($a,
+                                        ['prompt'=>'لطفا انتخاب کنید','required'=>'required','name'=>'cartprice'])->label(false);
+                                }  ?>
                             </div>
                             <div class="d-flex align-items-center flex-wrap">
                                 <!-- <div class="col-md-2"></div> -->
-                                <a href="/site/size" class="size-guide">
+                                <a href="/site/size" class="size-guide" >
                                     راهنمای انتخاب سایز
                                 </a>
                             </div>
                         </div>
-                       
-                    <div class="d-flex align-items-center" > 
-                        <!-- ادیت ایتم تعداد --> 
-                    <div class="size"> 
-                        <div <?php if($featurevalue==true || $product->count<1){ ?>   id="counthide" style="display:none!important;" <?php } ?> >
-                        <div class="number-item" style="display: flex; align-items: center;" >
-                        <span class="title" style="margin-left:10px;">  انتخاب تعداد  :  </span>
-                    <div class="count-product count">
-                           <a class="btn btn-minus down">
-                                  <i class="icon-006-left-chevron"></i>
-                             </a>
-                        
-                <?= $form->field($cartoption, 'submitDate')->hiddenInput(['value'=>Yii::$app->jdate->date('Y/m/d')])->label(false) ?>  
-                <?php if($featurevalue==true ){?>
-                        <input type="number" class="count" min="1" value="1"  id="minmaxcount" name="countproduct" readonly required/>
-                <?php }else{?>
-                   <input type="number" class="count" min="1" max="<?=$product->count?>" value="1"    name="countproduct" readonly required/>
-                <?php } ?>
-                         <a class="btn btn-plus up">
-                                  <i class="icon-005-right-chevron"></i>
-                        </a>
-                        </div>
-               <!-- پایان -->
-                     </div> 
-                     </div> 
-             
-                    
-                      <?php if($featurevalue==true){ ?>     
-                        <input type="hidden" value="" id="mallprice" name="firstprice"> 
-                        <input type="hidden" value="<?=$product->price?> " id="advance" name="advance">
-                        <div class="price-item d-flex align-items-center">   
-                        <div id="masterprice">
-                        <del class="mall-price"> </del>
-                            <span class="mall-price"></span>
-                            <?php
-                            if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
-                                $BaseProductOff=($product->price-($product->price*$offer->percent)/100);
-                                ?>
-                                <del class="mall-price">
-                                    قیمت  :
-                                    <span id="pricefeature"><?=$product->price?></span>
-                                    تومان
-                                </del>
-                                <BR>
-                                <span class="online-price">قیمت با تخفیف  <?=number_format($BaseProductOff)?> تومان</span>
-                            <?php }else{ ?>
-                                <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
-                            <?php } ?>
-
-
-                        </div>  
-                        <div  id="pricehide" style="display:none;" >
-                        <?php   $today=Yii::$app->jdate->date('Y/m/d');
-                         if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
-                             if($today>=$offer->start_date and $today<=$offer->end_date){  ?> 
-                              <input type="hidden" value="<?=$offer->percent?>" id="offfer">
-                                <del class="mall-price"> قیمت  :<span id="pricefeature"></span> تومان</del> 
-                                <span class="online-price"> قیمت با تخفیف  :<span id="offerprice"></span> تومان</span> 
-                               
-                             <?php }else{ ?>  
-                                <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span> 
-                                <input type="hidden" value="" id="offfer">
-                             <?php } 
-                            }elseif($generaloff=\app\models\Off::find()->Where(['status'=>1])->one()){  
-                                $sood=(($product->price*$generaloff->percent)/100);?> 
-                                    <input type="hidden" value="<?=$generaloff->percent?>" id="offfer">
-                                    <div class="price-item d-flex align-items-center">   
-                                    <del class="mall-price">:قیمت فروشگاه <span id="pricefeature"></span> تومان</del>
-                                    </div>   
-                                    <div class="price-item d-flex align-items-center"> 
-                                    <span class="online-price"> سود خرید آنلاین:  <?=number_format($sood)?> تومان</span>   
-                                    </div>  
-                                    <div class="price-item d-flex align-items-center">   
-                                    <span class="online-price"> قیمت آنلاین  :<span id="offerprice"></span> تومان</span>  
-                           <?php }else{ ?>   
-                             <input type="hidden" value="" id="offfer">
-
-                                <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span>   
-                             <?php } ?>
-                            
-                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart','id'=>'callyou']) ?>
-                        </div>  
-                        </div> 
-                        <?php ActiveForm::end(); ?>     
-                      </div>  
-                   
-
-                <?php  }else{
-                    if($product->count>0 && $product->count!=null){ ?>
-              <input type="hidden" value="<?=$product->price?>" id="offprice1" name="offprice1"> 
-
-                       <?php  $today=Yii::$app->jdate->date('Y/m/d');
-                         if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
-                             if($today>=$offer->start_date and $today<=$offer->end_date){  ?> 
-                            <div class="price-item d-flex align-items-center">    
-                                <del class="mall-price"> </del>
-                                <span class="mall-price"></span> 
-                             <del class="mall-price">قیمت  <?=number_format($product->price)?> تومان</del>   
-                      <?php   $off=($product->price-($product->price*$offer->percent)/100); ?>
-                             <span class="online-price">قیمت با تخفیف  <?=number_format($off)?> تومان</span>   
-                             <input type="hidden" value="<?= $off?> " id="advanceprice" name="advanceprice">
-                             <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
-
-                             </div>  
                         <?php }else{ ?>
 
                     </div>
                 <?php } ?>
 
-                    <div class="not-available" <?php if ($featurevalue == true || $product->count > 0) { ?> style="display:none;" id="mojod" <?php } ?>>
+                    <div class="not-available" <?php if($featurevalue==true || $product->count>0){ ?> style="display:none;" id="mojod" <?php } ?>>
                         متاسفانه این سایز در حال حاضر موجود نمیباشد
                     </div>
 
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" >
                         <!-- ادیت ایتم تعداد -->
                         <div class="size">
-                            <div <?php if ($featurevalue == true || $product->count < 1) { ?>   id="counthide" style="display:none!important;" <?php } ?> >
-                                <div class="number-item" style="display: flex; align-items: center;">
+                            <div <?php if($featurevalue==true || $product->count<1){ ?>   id="counthide" style="display:none!important;" <?php } ?> >
+                                <div class="number-item" style="display: flex; align-items: center;" >
                                     <span class="title" style="margin-left:10px;">  انتخاب تعداد  :  </span>
                                     <div class="count-product count">
                                         <a class="btn btn-minus down">
                                             <i class="icon-006-left-chevron"></i>
                                         </a>
 
-                                        <?= $form->field($cartoption, 'submitDate')->hiddenInput(['value' => Yii::$app->jdate->date('Y/m/d')])->label(false) ?>
-                                        <?php if ($featurevalue == true) { ?>
-                                            <input type="number" class="count" min="1" value="1" id="minmaxcount"
-                                                   name="countproduct" readonly required/>
-                                        <?php } else { ?>
-                                            <input type="number" class="count" min="1" max="<?= $product->count ?>"
-                                                   value="1" name="countproduct" readonly required/>
+                                        <?= $form->field($cartoption, 'submitDate')->hiddenInput(['value'=>Yii::$app->jdate->date('Y/m/d')])->label(false) ?>
+                                        <?php if($featurevalue==true ){?>
+                                            <input type="number" class="count" min="1" value="1"  id="minmaxcount" name="countproduct" readonly required/>
+                                        <?php }else{?>
+                                            <input type="number" class="count" min="1" max="<?=$product->count?>" value="1"    name="countproduct" readonly required/>
                                         <?php } ?>
                                         <a class="btn btn-plus up">
                                             <i class="icon-005-right-chevron"></i>
@@ -358,100 +250,110 @@ use yii\helpers\Url;
                             </div>
 
 
-                            <?php if ($featurevalue == true){ ?>
+                            <?php if($featurevalue==true){ ?>
                                 <input type="hidden" value="" id="mallprice" name="firstprice">
-                                <input type="hidden" value="<?= $product->price ?> " id="advance" name="advance">
+                                <input type="hidden" value="<?=$product->price?> " id="advance" name="advance">
                                 <div class="price-item d-flex align-items-center">
                                     <div id="masterprice">
-                                        <del class="mall-price"></del>
+                                        <del class="mall-price"> </del>
                                         <span class="mall-price"></span>
-                                        <span class="online-price">قیمت  <?= number_format($product->price) ?> تومان</span>
-                                    </div>
-                                    <div id="pricehide" style="display:none;">
-                                        <?php $today = Yii::$app->jdate->date('Y/m/d');
-                                        if ($offer = \app\models\Offer::find()->Where(['planID' => $product->planID])->one()){
-                                            if ($today >= $offer->start_date and $today <= $offer->end_date) { ?>
-                                                <input type="hidden" value="<?= $offer->percent ?>" id="offfer">
-                                                <del class="mall-price"> قیمت :<span id="pricefeature"></span> تومان
-                                                </del>
-                                                <span class="online-price"> قیمت با تخفیف  :<span
-                                                            id="offerprice"></span> تومان</span>
+                                        <?php
+                                        if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                                            $BaseProductOff=($product->price-($product->price*$offer->percent)/100);
+                                            ?>
+                                            <del class="mall-price">
+                                                قیمت  :
+                                                <span id="pricefeature"><?=$product->price?></span>
+                                                تومان
+                                            </del>
+                                            <BR>
+                                            <span class="online-price">قیمت با تخفیف  <?=number_format($BaseProductOff)?> تومان</span>
+                                        <?php }else{ ?>
+                                            <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
+                                        <?php } ?>
 
-                                            <?php } else { ?>
+
+                                    </div>
+                                    <div  id="pricehide" style="display:none;" >
+                                        <?php   $today=Yii::$app->jdate->date('Y/m/d');
+                                        if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                                            if($today>=$offer->start_date and $today<=$offer->end_date){  ?>
+                                                <input type="hidden" value="<?=$offer->percent?>" id="offfer">
+                                                <del class="mall-price"> قیمت  :<span id="pricefeature"></span> تومان</del>
+                                                <span class="online-price"> قیمت با تخفیف  :<span id="offerprice"></span> تومان</span>
+
+                                            <?php }else{ ?>
                                                 <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span>
                                                 <input type="hidden" value="" id="offfer">
                                             <?php }
-                                        }elseif ($generaloff = \app\models\Off::find()->Where(['status' => 1])->one()){
-                                        $sood = (($product->price * $generaloff->percent) / 100); ?>
-                                        <input type="hidden" value="<?= $generaloff->percent ?>" id="offfer">
+                                        }elseif($generaloff=\app\models\Off::find()->Where(['status'=>1])->one()){
+                                        $sood=(($product->price*$generaloff->percent)/100);?>
+                                        <input type="hidden" value="<?=$generaloff->percent?>" id="offfer">
                                         <div class="price-item d-flex align-items-center">
-                                            <del class="mall-price">:قیمت فروشگاه <span id="pricefeature"></span> تومان
-                                            </del>
+                                            <del class="mall-price">:قیمت فروشگاه <span id="pricefeature"></span> تومان</del>
                                         </div>
                                         <div class="price-item d-flex align-items-center">
-                                            <span class="online-price"> سود خرید آنلاین:  <?= number_format($sood) ?> تومان</span>
+                                            <span class="online-price"> سود خرید آنلاین:  <?=number_format($sood)?> تومان</span>
                                         </div>
                                         <div class="price-item d-flex align-items-center">
                                             <span class="online-price"> قیمت آنلاین  :<span id="offerprice"></span> تومان</span>
-                                            <?php } else { ?>
+                                            <?php }else{ ?>
                                                 <input type="hidden" value="" id="offfer">
+
                                                 <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span>
                                             <?php } ?>
 
-                                            <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket', 'name' => 'submitcart', 'id' => 'callyou']) ?>
+                                            <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart','id'=>'callyou']) ?>
                                         </div>
                                     </div>
                                     <?php ActiveForm::end(); ?>
                                 </div>
 
 
-                            <?php }else{
-                            if ($product->count > 0 && $product->count != null){ ?>
-                            <input type="hidden" value="<?= $product->price ?>" id="offprice1" name="offprice1">
+                            <?php  }else{
+                            if($product->count>0 && $product->count!=null){ ?>
+                            <input type="hidden" value="<?=$product->price?>" id="offprice1" name="offprice1">
 
-                            <?php $today = Yii::$app->jdate->date('Y/m/d');
-                            if ($offer = \app\models\Offer::find()->Where(['planID' => $product->planID])->one()) {
-                                if ($today >= $offer->start_date and $today <= $offer->end_date) { ?>
+                            <?php  $today=Yii::$app->jdate->date('Y/m/d');
+                            if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
+                                if($today>=$offer->start_date and $today<=$offer->end_date){  ?>
                                     <div class="price-item d-flex align-items-center">
-                                        <del class="mall-price"></del>
+                                        <del class="mall-price"> </del>
                                         <span class="mall-price"></span>
-                                        <del class="mall-price">قیمت <?= number_format($product->price) ?> تومان</del>
-                                        <?php $off = ($product->price - ($product->price * $offer->percent) / 100); ?>
-                                        <span class="online-price">قیمت با تخفیف  <?= number_format($off) ?> تومان</span>
-                                        <input type="hidden" value="<?= $off ?> " id="advanceprice" name="advanceprice">
-                                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket', 'name' => 'submitcart']) ?>
+                                        <del class="mall-price">قیمت  <?=number_format($product->price)?> تومان</del>
+                                        <?php   $off=($product->price-($product->price*$offer->percent)/100); ?>
+                                        <span class="online-price">قیمت با تخفیف  <?=number_format($off)?> تومان</span>
+                                        <input type="hidden" value="<?= $off?> " id="advanceprice" name="advanceprice">
+                                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
 
                                     </div>
-                                <?php } else { ?>
+                                <?php }else{ ?>
                                     <div class="price-item d-flex align-items-center">
-                                        <span class="online-price">قیمت  <?= number_format($product->price) ?> تومان</span>
-                                        <input type="hidden" value="<?= $product->price ?>" id="advanceprice"
-                                               name="advanceprice">
-                                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket', 'name' => 'submitcart']) ?>
+                                        <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
+                                        <input type="hidden" value="<?=$product->price?>" id="advanceprice"  name="advanceprice">
+                                        <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
                                     </div>
                                 <?php }
-                            } elseif ($generaloff = \app\models\Off::find()->Where(['status' => 1])->one()) {
-                                $sood = (($product->price * $generaloff->percent) / 100); ?>
+                            }elseif($generaloff=\app\models\Off::find()->Where(['status'=>1])->one()){
+                                $sood=(($product->price*$generaloff->percent)/100);?>
                                 <div class="price-item d-flex align-items-center">
-                                    <del class="mall-price">:قیمت فروشگاه <?= number_format($product->price) ?>تومان
-                                    </del>
+                                    <del class="mall-price">:قیمت فروشگاه  <?=number_format($product->price)?> تومان</del>
                                 </div>
                                 <div class="price-item d-flex align-items-center">
-                                    <span class="online-price"> سود خرید آنلاین:  <?= number_format($sood) ?> تومان</span>
+                                    <span class="online-price"> سود خرید آنلاین:  <?=number_format($sood)?> تومان</span>
                                 </div>
-                                <?php $general = ($product->price - ($product->price * $generaloff->percent) / 100); ?>
+                                <?php   $general=($product->price-($product->price*$generaloff->percent)/100);  ?>
                                 <div class="price-item d-flex align-items-center">
-                                    <span class="online-price">قیمت آنلاین :  <?= number_format($general) ?> تومان</span>
-                                    <input type="hidden" value="<?= $general ?> " id="advanceprice" name="advanceprice">
+                                    <span class="online-price">قیمت آنلاین :  <?=number_format($general)?> تومان</span>
+                                    <input type="hidden" value="<?= $general?> " id="advanceprice" name="advanceprice">
 
-                                    <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket', 'name' => 'submitcart']) ?>
+                                    <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
                                 </div>
-                            <?php } else { ?>
+                            <?php }else{ ?>
                                 <div class="price-item d-flex align-items-center">
-                                    <span class="online-price">قیمت  <?= number_format($product->price) ?> تومان</span>
-                                    <input type="hidden" value="<?= $product->price ?>" id="advanceprice"
-                                           name="advanceprice">
-                                    <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket', 'name' => 'submitcart']) ?>
+                                    <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
+                                    <input type="hidden" value="<?=$product->price?>" id="advanceprice"  name="advanceprice">
+                                    <?= Html::submitButton('  اضافه به سبد', ['class' => 'btn shop-basket','name' => 'submitcart']) ?>
                                 </div>
                             <?php } ?>
                             <?php ActiveForm::end(); ?>
@@ -459,53 +361,52 @@ use yii\helpers\Url;
                     </div>
                     <?php }else{ ?>
                     <div class="price-item d-flex align-items-center">
-                        <del class="mall-price"></del>
+                        <del class="mall-price"> </del>
                         <span class="mall-price"></span>
-                        <span class="online-price">قیمت  <?= number_format($product->price) ?> تومان</span>
+                        <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>
             </div>
 
-            <?php $form = ActiveForm::begin([
+            <?php  $form = ActiveForm::begin([
                 'options' => [
-                    'class' => 'inform',
+                    'class'=>'inform',
                 ]
             ]); ?>
-            <?= $form->field($letme, 'size')->hiddenInput(['id' => 'sizeletme', 'value' => ''])->label(false) ?>
+            <?= $form->field($letme, 'size')->hiddenInput(['id'=>'sizeletme','value'=>''])->label(false) ?>
             <?= $form->field($letme, 'mobile')->textInput([
-                'class' => 'phone',
-                'pattern' => '^(^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)|((\+98|0)?9\d{9})$',
-                'title' => 'لطفا موبایل  خود را صحیح وارد کنید',
-                'oninvalid' => 'this.setCustomValidity("لطفا موبایل  خود را صحیح وارد کنید")',
-                'oninput' => 'this.setCustomValidity("")',
-                'placeholder' => 'شماره همراه خود را وارد کنید . . .'])->label(false) ?>
+                'class'=>'phone',
+                'pattern'=>'^(^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)|((\+98|0)?9\d{9})$',
+                'title'=>'لطفا موبایل  خود را صحیح وارد کنید',
+                'oninvalid'=>'this.setCustomValidity("لطفا موبایل  خود را صحیح وارد کنید")',
+                'oninput'=>'this.setCustomValidity("")',
+                'placeholder'=>'شماره همراه خود را وارد کنید . . .'])->label(false) ?>
             <?= Html::submitButton('به من اطلاع بده', ['class' => 'click m-b16']) ?>
             <?php ActiveForm::end(); ?>
 
 
-            <?php }
-            } ?>
+            <?php } }?>
 
 
 
 
 
-            <?php $form = ActiveForm::begin([
+            <?php  $form = ActiveForm::begin([
                 'options' => [
-                    'class' => 'inform',
-                    'id' => 'callme',
-                    'style' => 'display:none;'
+                    'class'=>'inform',
+                    'id' =>'callme',
+                    'style'=>'display:none;'
                 ]
             ]); ?>
-            <?= $form->field($letme, 'size')->hiddenInput(['id' => 'sizeletme', 'value' => ''])->label(false) ?>
+            <?= $form->field($letme, 'size')->hiddenInput(['id'=>'sizeletme','value'=>''])->label(false) ?>
             <?= $form->field($letme, 'mobile')->textInput([
-                'class' => 'phone',
-                'pattern' => '^(^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)|((\+98|0)?9\d{9})$',
-                'title' => 'لطفا موبایل  خود را صحیح وارد کنید',
-                'oninvalid' => 'this.setCustomValidity("لطفا موبایل  خود را صحیح وارد کنید")',
-                'oninput' => 'this.setCustomValidity("")',
-                'placeholder' => 'شماره همراه خود را وارد کنید . . .'])->label(false) ?>
+                'class'=>'phone',
+                'pattern'=>'^(^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)|((\+98|0)?9\d{9})$',
+                'title'=>'لطفا موبایل  خود را صحیح وارد کنید',
+                'oninvalid'=>'this.setCustomValidity("لطفا موبایل  خود را صحیح وارد کنید")',
+                'oninput'=>'this.setCustomValidity("")',
+                'placeholder'=>'شماره همراه خود را وارد کنید . . .'])->label(false) ?>
             <?= Html::submitButton('به من اطلاع بده', ['class' => 'click m-b16']) ?>
             <?php ActiveForm::end(); ?>
 
@@ -535,37 +436,36 @@ use yii\helpers\Url;
                 <li class="nav-item category-button" data-filter="three">
                     توضیحات
                 </li>
-                <li class="nav-item category-button" data-filter="four">
+                <li class="nav-item category-button" data-filter="four" >
                     راهنمای انتخاب سایز
                 </li>
             </ul>
 
             <section class="filter-sec one">
-                <?php foreach ($details as $detail) { ?>
+                <?php foreach($details as $detail){?>
                     <div class="item">
-                        <span class="title"><?= $detail->value ?></span>
-                        <?php foreach ($detailsvalue as $detv) {
-                            if ($detv->detailsID == $detail->id) { ?>
+                        <span class="title"><?=$detail->value?></span>
+                        <?php    foreach($detailsvalue as $detv){
+                            if($detv->detailsID==$detail->id){    ?>
                                 <div class="body-item">
                                     <div class="item-specification">
                             <span class="titr">
-                            <?= $detv->title ?>
+                            <?=$detv->title?>
                             </span>
                                         <span class="caption">
-                            <?= $detv->value ?>
+                            <?=$detv->value?>
                               </span>
                                     </div>
                                 </div>
-                            <?php }
-                        } ?>
+                            <?php } } ?>
                     </div>
-                <?php } ?>
+                <?php     } ?>
             </section>
 
             <section class="filter-sec two">
 
                 <div class="comment-news">
-                    <?php foreach ($comments as $comment) { ?>
+                    <?php foreach($comments as $comment){ ?>
                         <div class="item-comment d-flex">
                             <div class="img">
                                 <div class="image-person">
@@ -574,14 +474,14 @@ use yii\helpers\Url;
                             </div>
                             <div class="detail-comment">
                                 <div class="top d-flex">
-                                    <span class="name">  <?= $comment->name ?></span>
+                                    <span class="name">  <?=$comment->name?></span>
                                     <!-- <a href="" class="reply">   </a> -->
-                                    <a href="" class=""> </a>
-                                    <span class="time"> <?= $comment->submitDate ?>  </span>
+                                    <a href="" class="">   </a>
+                                    <span class="time"> <?=$comment->submitDate?>  </span>
 
                                 </div>
 
-                                <p class="text"><?= $comment->usercheck ?></p>
+                                <p class="text"><?=$comment->usercheck?></p>
                             </div>
                         </div>
                     <?php } ?>
@@ -639,22 +539,22 @@ use yii\helpers\Url;
            <span class="title">
                نظر خود را ارسال کنید
            </span>
-                        <div class="body">
+                        <div class="body"  >
                             <!-- <form class="form- form-comment" action="#"> -->
                             <?php $form = ActiveForm::begin(['options' => ['class' => 'form- form-comment']]); ?>
-                            <?= $form->field($checkit, 'usercheck')->textarea(['class' => 'name-input', 'placeholder' => 'متن پیام خود را بنویسید ...', 'required' => 'required'])->label(false) ?>
+                            <?= $form->field($checkit,'usercheck')->textarea(['class'=>'name-input','placeholder' => 'متن پیام خود را بنویسید ...','required'=>'required'])->label(false)  ?>
                             <div class="d-flex justify-content-between flex-wrap">
                                 <div class="form">
-                                    <?= $form->field($checkit, 'name', ['options' => ['style' => 'display:inline-block;']])->textInput(['class' => 'name-input', 'placeholder' => 'نام و نام خانوادگی', 'required' => 'required'])->label(false) ?>
-                                    <?= $form->field($checkit, 'userEmail', ['options' => ['style' => 'display:inline-block;']])->textInput(['class' => 'name-input', 'placeholder' => 'پست الکترونیک', 'required' => 'required'])->label(false) ?>
-                                    <?= $form->field($checkit, 'rate', ['options' => ['style' => 'display:inline-block;color:#a3cced;']])->widget('kl83\widgets\RatingInput', [
+                                    <?= $form->field($checkit, 'name',['options' => ['style' => 'display:inline-block;']])->textInput(['class'=>'name-input','placeholder' => 'نام و نام خانوادگی','required'=>'required'])->label(false)  ?>
+                                    <?= $form->field($checkit, 'userEmail',['options'=>['style'=>'display:inline-block;']])->textInput(['class'=>'name-input','placeholder' => 'پست الکترونیک','required'=>'required'])->label(false)  ?>
+                                    <?=$form->field($checkit, 'rate',['options' => ['style' => 'display:inline-block;color:#a3cced;']])->widget('kl83\widgets\RatingInput', [
                                         'containerOptions' => [
-                                            'id' => "starhalf",
-                                            'class' => 'name-input',
+                                            'id'=>"starhalf",
+                                            'class'=>'name-input',
                                         ], // HTML attributes
                                         'maxRating' => 5,
                                         // stars count, default - 5
-                                    ])->label(false); ?>
+                                    ])->label(false);?>
                                 </div>
                                 <?= Html::submitButton('ارسال کنید', ['class' => 'btn btn-send']) ?>
                             </div>
@@ -668,11 +568,11 @@ use yii\helpers\Url;
 
             </section>
 
-            <section class="filter-sec three">
+            <section class="filter-sec three" >
                 <!--text-->
                 <section class="text-section">
                     <div class="container">
-                        <p class="text"><?= $product->description ?></p>
+                        <p class="text"><?=$product->description?></p>
                     </div>
                 </section>
             </section>
@@ -686,17 +586,17 @@ use yii\helpers\Url;
                                 <th>ارتفاع (سانتی متر)</th>
                                 <th>وزن (کیلوگرم)</th>
                             </tr>
-                            <?php foreach ($sizes as $size) { ?>
+                            <?php foreach($sizes as $size){ ?>
                             <tr>
-                                <td><?= $size->age ?> </td>
-                                <td><?= $size->height ?> </td>
-                                <td><?= $size->width ?> </td>
+                                <td><?=$size->age?> </td>
+                                <td><?=$size->height?> </td>
+                                <td><?=$size->width?> </td>
                             </tr>
                             <?php } ?>
-                           
+
                         </table> -->
-                        <?php foreach (\app\models\Sizeimg::find()->all() as $size) { ?>
-                            <img class="table-img" src="/uploads/<?= $size->img ?>" alt="">
+                        <?php foreach(\app\models\Sizeimg::find()->all() as $size){ ?>
+                            <img class="table-img" src="/uploads/<?=$size->img?>" alt="">
                         <?php } ?>
 
                     </div>
