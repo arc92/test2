@@ -294,6 +294,7 @@ class EndstepController extends Controller
 
     public function actionBackmellat($id)
     {
+        var_dump(\yii::$app->request->post());die();
         if (\yii::$app->mellatbank->Callback(\yii::$app->request->post())) {
             $model = \app\models\Bascket::find()->where(['id' => $id])->one();
 
@@ -334,6 +335,7 @@ class EndstepController extends Controller
                 // return $this->redirect('/site/confirm?orderID='.$model->refID);
                 return $this->redirect('/thankyou/');
             } else {
+
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
                 return $this->redirect('/failed/');
             }

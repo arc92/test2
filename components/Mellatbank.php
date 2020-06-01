@@ -10,7 +10,7 @@ use yii\helpers\Json;
 class Mellatbank extends Component
 {
 
-  public $terminalId		= "1987903";							//-- شناسه ترمینال
+  public $terminalId	= "1987903";							//-- شناسه ترمینال
   public  $userName		= "bcc73"; 							//-- نام کاربری
   public $userPassword	= "99863608"; 
 
