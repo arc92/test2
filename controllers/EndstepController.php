@@ -294,8 +294,9 @@ class EndstepController extends Controller
 
     public function actionBackmellat($id)
     {
+        var_dump(\yii::$app->mellatbank->Callback(\yii::$app->request->post()));die();
         if (\yii::$app->mellatbank->Callback(\yii::$app->request->post())) {
-            var_dump(\yii::$app->request->post());die();
+
             $model = \app\models\Bascket::find()->where(['id' => $id])->one();
 
             // $model->refID=\yii::$app->session['ref_code'];
@@ -340,6 +341,7 @@ class EndstepController extends Controller
                 return $this->redirect('/failed/');
             }
         }
+
     }
 
     public function actionVerify($Authority, $Status, $parameter)
