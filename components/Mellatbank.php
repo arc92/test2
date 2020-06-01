@@ -95,12 +95,10 @@ class Mellatbank extends Component
 
       $result = $client->call('bpVerifyRequest', $parameters, $namespace);
 
-      if($result == 0)
-      {
+      if($result == 0){
         $result = $client->call('bpSettleRequest', $parameters, $namespace);
 
-        if($result == 0)
-        {
+        if($result == 0){
           return true;
           //-- تمام مراحل پرداخت به درستی انجام شد.
        //   die("عملیات پرداخت با موفقیت انجام شد, شناسه پیگیری تراکنش : {$verifySaleReferenceId}");
@@ -109,19 +107,22 @@ class Mellatbank extends Component
 
           //-- نمایش خطا
           $error_msg = (isset($result) && $result != "") ? $result : "خطا در ثبت درخواست واریز وجه";
-          die($error_msg);
+//          die($error_msg);
+            return false;
         }
       } else {
         $client->call('bpReversalRequest', $parameters, $namespace);
         
         //-- نمایش خطا
         $error_msg = (isset($result) && $result != "") ? $result : "خطا در عملیات وریفای تراکنش";
-        die($error_msg);
+//        die($error_msg);
+          return false;
       }
     } else {
       //-- نمایش خطا
       $error_msg = (isset($ResCode) && $ResCode != "") ? $ResCode : "تراکنش ناموفق";
-      die($error_msg);
+//      die($error_msg);
+        return false;
     }
   }
 

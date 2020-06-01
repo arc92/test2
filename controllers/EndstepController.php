@@ -294,7 +294,6 @@ class EndstepController extends Controller
 
     public function actionBackmellat($id)
     {
-        var_dump(\yii::$app->request->post());die();
         if (\yii::$app->mellatbank->Callback(\yii::$app->request->post())) {
 
             $model = \app\models\Bascket::find()->where(['id' => $id])->one();
@@ -325,7 +324,7 @@ class EndstepController extends Controller
                     }
                 }
                 $user = \app\models\Users::find()->where(['id' => $cartitem->userID])->one();
-                \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
+                !empty($user->email) && \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
                     ->setFrom('info@bccstyle.com')
                     ->setTo($user->email)
                     ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
@@ -340,6 +339,8 @@ class EndstepController extends Controller
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
                 return $this->redirect('/failed/');
             }
+        }else{
+            return $this->redirect('/failed/');
         }
 
     }
