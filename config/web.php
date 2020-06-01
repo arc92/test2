@@ -353,7 +353,11 @@ $config = [
                 'route' => 'site/failed',
                 'suffix' => '/',
             ],
-          
+            [
+                'pattern' => 'failPayment',
+                'route' => 'site/failPayment',
+                'suffix' => '/',
+            ],
             [
                 'pattern' => 'endstep',
                 'route' => 'endstep/index',
