@@ -354,8 +354,8 @@ $config = [
                 'suffix' => '/',
             ],
             [
-                'pattern' => 'failPayment',
-                'route' => 'site/failPayment',
+                'pattern' => 'failpayment',
+                'route' => 'site/failpayment',
                 'suffix' => '/',
             ],
             [
