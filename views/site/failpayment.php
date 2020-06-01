@@ -16,7 +16,7 @@ $this->title = 'خطا!!!';
                                   </div>
                                 </div>
                             </div>
-                        <h2 class="title" stye="padding-bottom: 50px;">  خطا در ثبت سفارش !!! </h2>
+                        <h2 class="title" stye="padding-bottom: 50px;">در ثبت سفارش شما خطایی رخ داده است،لطفا با پشتیبانی تماس حاصل فرمایید.</h2>
                         <div class="price-item">
 <!--                         <a class="btn shop-basket" href="/login" style="float: right; margin-right: 161px;"> پیگیری سفارش </a>-->
                          <!-- <a class="btn shop-basket" href="/" style="float: right; margin-right: 161px;background-ground:#007bff;"> صفحه اصلی </a> -->
