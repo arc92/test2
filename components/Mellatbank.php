@@ -96,7 +96,8 @@ class Mellatbank extends Component
       $result = $client->call('bpVerifyRequest', $parameters, $namespace);
 
       if($result == 0){
-        $result = $client->call('bpSettleRequest', $parameters, $namespace);
+//        $result = $client->call('bpSettleRequest', $parameters, $namespace);
+        $result = 0;
 
         if($result == 0){
           return true;
