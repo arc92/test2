@@ -262,7 +262,7 @@ class EndstepController extends Controller
                     if ($bank == 'melli') {
                         return \yii::$app->payment->melli_request($amount, time(), "https://www.bccstyle.com/endstep/callback?id=" . $bascketID);
                     } elseif ($bank == 'mellat') {
-                        return \yii::$app->mellatbank->Request($amount, "https://www.bccstyle.com/endstep/backmellat?id=" . $bascketID);
+                        return \yii::$app->mellatbank->Request(1000, "https://www.bccstyle.com/endstep/backmellat?id=" . $bascketID);
                         //  return \yii::$app->payment->Request($amount,"https://www.bccstyle.com/endstep/callbackmelat?id=".intval($bascket->id));
                     } elseif ($bank == 'zarinpal') {
                         if ($zarinpal->request($amount, 'بی سی سی', null, null, ['parameter' => intval($bascket->id)])->getStatus() == '100') {
@@ -337,7 +337,7 @@ class EndstepController extends Controller
             } else {
 
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
-                return $this->redirect('/failed/');
+                return $this->redirect('/failpayment/');
             }
         }else{
             return $this->redirect('/failpayment/');
