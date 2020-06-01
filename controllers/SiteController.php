@@ -723,7 +723,7 @@ class SiteController extends Controller
         return $this->render('thankyou');
     }
 
-    public function failpayment()
+    public function actionfailpayment()
     {
         return $this->render('failpayment');
     }
