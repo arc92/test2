@@ -294,7 +294,7 @@ class EndstepController extends Controller
 
     public function actionBackmellat($id)
     {
-        var_dump(\yii::$app->mellatbank->Callback(\yii::$app->request->post()));die();
+        var_dump(\yii::$app->request->post());die();
         if (\yii::$app->mellatbank->Callback(\yii::$app->request->post())) {
 
             $model = \app\models\Bascket::find()->where(['id' => $id])->one();
