@@ -324,11 +324,11 @@ class EndstepController extends Controller
                     }
                 }
                 $user = \app\models\Users::find()->where(['id' => $cartitem->userID])->one();
-                !empty($user->email) && \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
-                    ->setFrom('info@bccstyle.com')
-                    ->setTo($user->email)
-                    ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
-                    ->send();
+//                !empty($user->email) && \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
+//                    ->setFrom('info@bccstyle.com')
+//                    ->setTo($user->email)
+//                    ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
+//                    ->send();
                 $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $model->refID;
                 \yii::$app->sms->Send($model->mobile, $text);
 
