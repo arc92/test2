@@ -262,7 +262,7 @@ class EndstepController extends Controller
                     if ($bank == 'melli') {
                         return \yii::$app->payment->melli_request($amount, time(), "https://www.bccstyle.com/endstep/callback?id=" . $bascketID);
                     } elseif ($bank == 'mellat') {
-                        return \yii::$app->mellatbank->Request(100, "https://www.bccstyle.com/endstep/backmellat?id=" . $bascketID);
+                        return \yii::$app->mellatbank->Request($amount, "https://www.bccstyle.com/endstep/backmellat?id=" . $bascketID);
                         //  return \yii::$app->payment->Request($amount,"https://www.bccstyle.com/endstep/callbackmelat?id=".intval($bascket->id));
                     } elseif ($bank == 'zarinpal') {
                         if ($zarinpal->request($amount, 'بی سی سی', null, null, ['parameter' => intval($bascket->id)])->getStatus() == '100') {
