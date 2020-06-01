@@ -722,6 +722,11 @@ class SiteController extends Controller
     {
         return $this->render('thankyou');
     }
+
+    public function failpayment()
+    {
+        return $this->render('failpayment');
+    }
     public function actionCertificates()
     {
         $setting=\app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one(); 
