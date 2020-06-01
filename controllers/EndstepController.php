@@ -337,10 +337,10 @@ class EndstepController extends Controller
             } else {
 
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
-                return $this->redirect('/thankyou/');
+                return $this->redirect('/failed/');
             }
         }else{
-            return $this->redirect('/failed/');
+            return $this->redirect('/thankyou/');
         }
 
     }
