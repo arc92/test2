@@ -340,7 +340,7 @@ class EndstepController extends Controller
                 return $this->redirect('/failed/');
             }
         }else{
-            return $this->redirect('/thankyou/');
+            return $this->redirect('/failPayment/');
         }
 
     }
