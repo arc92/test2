@@ -7,7 +7,6 @@ use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 
-
 ?>
 
 <main class="product-list catfilter">
