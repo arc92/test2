@@ -442,7 +442,15 @@ class ProductController extends Controller
         }
         $contentcategory = \app\models\Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
 
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['catproductID' => $catproducts->id])->orderBy(['id' => SORT_DESC]);
+//        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['catproductID' => $catproducts->id])->orderBy(['id' => SORT_DESC]);
+        $products = \app\models\Product::find();
+
+        $products->joinWith('featurevalues');
+        $products->select(['product.id', 'product.name', 'product.catproductID', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->where(['product.catproductID' => $catproducts->id]);
+        $products->groupBy(['product.id', 'product.name', 'product.catproductID', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->orderBy(['product_Count' => SORT_DESC]);
+
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
@@ -451,9 +459,9 @@ class ProductController extends Controller
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
-        $articles = $products->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
         $catproduct = \app\models\Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
