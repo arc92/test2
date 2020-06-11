@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Featurevalue;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -452,6 +453,9 @@ class ProductController extends Controller
         $products->orderBy(['product_Count' => SORT_DESC]);
         $products->orderBy(['count' => SORT_DESC]);
 
+        if((Featurevalue::find()->select(['productID','sum(count) product_count'])->where(['productID' => 318])->groupBy(['productID'])->asArray()->one())['product_count']){
+            $products->orderBy(['count' => SORT_DESC]);
+        }
 
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
