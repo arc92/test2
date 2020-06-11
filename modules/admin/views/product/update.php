@@ -16,12 +16,13 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'multiupload'=>$multiupload,  
-             'aboutproductitem'=>$aboutproductitem,
-            'featurevaluemodel'=>$featurevaluemodel,
-            'detailsvaluemodel'=>$detailsvaluemodel, 
-            'categoryrelationmodel'=>$categoryrelationmodel, 
-            'subcatrelationemodel'=>$subcatrelationemodel, 
+        'multiupload' => $multiupload,
+        'aboutproductitem' => $aboutproductitem,
+        'featurevaluemodel' => $featurevaluemodel,
+        'detailsvaluemodel' => $detailsvaluemodel,
+        'categoryrelationmodel' => $categoryrelationmodel,
+        'subcatrelationemodel' => $subcatrelationemodel,
+        'productCategory' => $productCategory,
     ]) ?>
 
 </div>

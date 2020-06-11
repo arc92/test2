@@ -446,11 +446,12 @@ class ProductController extends Controller
         $products = \app\models\Product::find();
 
         $products->joinWith('featurevalues');
-        $products->select(['product.id', 'product.name', 'product.catproductID', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
-        $products->where(['product.catproductID' => $catproducts->id]);
-        $products->groupBy(['product.id', 'product.name', 'product.catproductID', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
-        $products->orderBy(['product_Count' => SORT_DESC]);
+        $products->select(['product.id', 'product.name',  'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->joinWith('catproducts');
+        $products->where(['catproduct_product.category_product_id' => $catproducts->id]);
+        $products->groupBy(['product.id', 'product.name',  'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['count' => SORT_DESC]);
+        $products->orderBy(['product_Count' => SORT_DESC]);
 
 
         $category = new \app\models\Category();

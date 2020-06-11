@@ -59,6 +59,7 @@ class Catproduct extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::className(), ['catproductID' => 'id']);
+        return $this->hasMany(Product::className(), ['id' => 'product_id'])
+            ->viaTable('catproduct_product', ['category_product_id' => 'id']);
     }
 }
