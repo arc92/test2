@@ -45,4 +45,60 @@ services:
       - ./vol-share/:/v-share/
 
 
+  elasticsearch:
+    build:
+      context: ./docker/elasticsearch
+      dockerfile: Dockerfile
+      args:
+        - UID=1000
+        - GID=1000
+    ports:
+      - "127.0.0.1:9202:9200"
+    environment:
+      - cluster.name=irantalent
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xmx2g -Xms2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
+    expose:
+        - "9200"
 
+
+      ## --------------------------------------------
+      ## | 7 : Kibana visualization
+      ## --------------------------------------------
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.2
+    volumes:
+      - ./docker/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      - elasticsearch
+
+    environment:
+      #        - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
+      #        - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    ports:
+      - "127.0.0.1:5602:5601"
+
+
+  ## --------------------------------------------
+  ## | 5 : PhpMyAdmin
+  ## --------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysqldb
+    expose:
+      - '80'
+      - '443'
+    environment:
+      - PMA_HOST=mysqldb
+    volumes:
+      - /sessions
+    ports:
+    - 8006:80

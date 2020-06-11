@@ -7,7 +7,6 @@ use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 
-
 ?>
 
 <main class="product-list catfilter">
@@ -298,7 +297,7 @@ use yii\widgets\LinkPager;
                                             <i class="icon-046-crop-button"></i>
                                         </li> -->
                                         <li class="nav-item">
-                                            <a href="/product/<?= str_replace(' ', '-', $article->name) ?>/"
+                                            <a href="/product/<?= $article->name ?>/"
                                                target="_blank"> <i class="icon-003-buy"></i></a>
                                         </li>
                                         <li class="nav-item icon-like">
@@ -326,7 +325,7 @@ use yii\widgets\LinkPager;
                                     </script>
 
 
-                                    <a href="/product/<?= str_replace(' ', '-', $article->name) ?>/" target="_blank">
+                                    <a href="/product/<?= $article->name ?>/" target="_blank">
                                         <img src="/<?= $article->productimgs->img ?>" alt="">
                                     </a>
                                     <div class="text">
@@ -385,7 +384,7 @@ use yii\widgets\LinkPager;
             <?php foreach ($articles as $article) { ?>
                 <div class="item item-line">
                     <div class="d-flex flex-wrap justify-content-around align-items-center">
-                        <a href="/product/<?= str_replace(' ', '-', $article->name) ?>/" target="_blank">
+                        <a href="/product/<?= $article->name ?>/" target="_blank">
 
                             <img src="/<?= $article->productimgs->img ?>" alt="">
                         </a>
@@ -406,7 +405,7 @@ use yii\widgets\LinkPager;
                                 <?php }
                             } ?>
                         </ul>
-                        <a href="/product/<?= str_replace(' ', '-', $article->name) ?>/" target="_blank" class="show">
+                        <a href="/product/<?= $article->name ?>/" target="_blank" class="show">
     <span>
     مشاهده محصول
     </span>

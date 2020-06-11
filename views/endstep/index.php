@@ -288,27 +288,34 @@ use hoomanMirghasemi\jdf\Jdf;
                     نحوه ارسال<?php if($sum >100000){?>(ارسال برای  خرید بالای 100 تومان رایگان است)<?php } ?>
                     </span>
                     <div class="d-flex flex-wrap">
-                    <?php foreach($express as $send){ ?>
-                        <div class="w-100 d-flex">
-                        <?php if($send->id==3){  ?>
-                        <input type="radio" class="expressx" name="express" value="<?=$send->id?>" id="3" style="display:none"  >
-                        <?php }else{ 
-                            if($send->id==1){?>
-                        <input type="radio" class="expressx" name="express" value="<?=$send->id?>" id="<?=$send->id?>"  required="required"  oninvalid="this.setCustomValidity('لطفا انتخاب کنید')" oninput="setCustomValidity('')"    >
-                        <?php }elseif($send->id==2){ ?>
-                        <input type="radio" class="expressx" name="express" value="<?=$send->id?>" id="<?=$send->id?>"   >
-                        <?php } }?>
-                        <?php if($send->id==3){  ?>
-                            <label for="post3"> 
-                            <?=$send->send?>
-                                ( رایگان )
-                            </label>
-                        <?php }else{ ?>
-                            <label for="post<?=$send->id?>">
-                                <?=$send->send?>
-                                <?php if($sum > 100000){?> (رایگان)<?php }else{?> ( <?=$send->price ?> تومان )<?php } ?>
-                            </label>
-                        </div>
+                        <?php foreach ($express as $send) { ?>
+                            <div class="w-100 d-flex">
+                            <?php if ($send->id == 3) { ?>
+                                <input type="radio" class="expressx" name="express" required value="<?= $send->id ?>" id="3"
+                                       style="display:none">
+                            <?php } else {
+                                if ($send->id == 1) {
+                                    ?>
+                                    <input type="radio" class="expressx" name="express" required value="<?= $send->id ?>"
+                                           id="<?= $send->id ?>"
+                                           oninvalid="this.setCustomValidity('لطفا انتخاب کنید')"
+                                           oninput="setCustomValidity('')">
+                                <?php } elseif ($send->id == 2) { ?>
+                                    <input type="radio" class="expressx" name="express" value="<?= $send->id ?>"
+                                           id="<?= $send->id ?>">
+                                <?php }
+                            } ?>
+                            <?php if ($send->id == 3) { ?>
+                                <label for="post3">
+                                    <?= $send->send ?>
+                                    ( رایگان )
+                                </label>
+                            <?php } else { ?>
+                                <label for="post<?= $send->id ?>">
+                                    <?= $send->send ?>
+                                    <?php if ($sum > 100000) { ?> (رایگان)<?php } else { ?> ( <?= $send->price ?> تومان )<?php } ?>
+                                </label>
+                                </div>
                     <?php } ?>
                     <?php } ?>
                     
@@ -454,13 +461,17 @@ use hoomanMirghasemi\jdf\Jdf;
                             <label for="psg" class="bank-logo">
                                 <img src="/img/bank/melli.png" class="bank-logo active" alt="">
                             </label>-->
-                            
+                            <input type="radio" name="bank" value="mellat" id="mlt" checked  >
 
-                            <input type="radio" name="bank" value="zarinpal" id="zarin"  checked>
-
-                            <label for="zarin" class="bank-logo">
-                                <img src="/img/zarinpal-logo-2.png" class="bank-logo active" alt="">
+                            <label for="mlt" class="bank-logo">
+                                <img src="/img/bank/mellat.jpg" class="bank-logo active" alt="">
                             </label>
+
+<!--                            <input type="radio" name="bank" value="zarinpal" id="zarin"  checked>-->
+<!---->
+<!--                            <label for="zarin" class="bank-logo">-->
+<!--                                <img src="/img/zarinpal-logo-2.png" class="bank-logo active" alt="">-->
+<!--                            </label>-->
 
                         </div>
                         <div style="padding: 7px">

@@ -38,7 +38,10 @@
         "kl83/yii2-rating-widget": "2.0",
         "himiklab/yii2-recaptcha-widget": "*",
         "amirasaran/zarinpal": "*",  
-         "yiisoft/yii2-bootstrap4": "^2.0"
+         "yiisoft/yii2-bootstrap4": "^2.0",
+        "yiisoft/yii2-elasticsearch": "^2.0",
+        "elasticsearch/elasticsearch": "^7.6",
+        "morilog/jalali": "^3.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

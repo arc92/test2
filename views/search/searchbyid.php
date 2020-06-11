@@ -257,22 +257,7 @@ use yii\helpers\Url;
                                     <div id="masterprice">
                                         <del class="mall-price"> </del>
                                         <span class="mall-price"></span>
-                                        <?php
-                                        if($offer=\app\models\Offer::find()->Where(['planID'=>$product->planID])->one()){
-                                            $BaseProductOff=($product->price-($product->price*$offer->percent)/100);
-                                            ?>
-                                            <del class="mall-price">
-                                                قیمت  :
-                                                <span id="pricefeature"><?=$product->price?></span>
-                                                تومان
-                                            </del>
-                                            <BR>
-                                            <span class="online-price">قیمت با تخفیف  <?=number_format($BaseProductOff)?> تومان</span>
-                                        <?php }else{ ?>
-                                            <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
-                                        <?php } ?>
-
-
+                                        <span class="online-price">قیمت  <?=number_format($product->price)?> تومان</span>
                                     </div>
                                     <div  id="pricehide" style="display:none;" >
                                         <?php   $today=Yii::$app->jdate->date('Y/m/d');
@@ -299,7 +284,6 @@ use yii\helpers\Url;
                                             <span class="online-price"> قیمت آنلاین  :<span id="offerprice"></span> تومان</span>
                                             <?php }else{ ?>
                                                 <input type="hidden" value="" id="offfer">
-
                                                 <span class="online-price"> قیمت  :<span id="pricefeature"></span> تومان</span>
                                             <?php } ?>
 

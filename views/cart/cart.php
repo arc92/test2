@@ -44,11 +44,10 @@ use yii\widgets\ActiveForm;
     </div>
     <section class="boxes">
         <div class="container p-0 over-flow-responsive" >
-        <?php foreach($carts as $cart){ 
-                 foreach($cartoptions as $cartoption){
-                    if($cartoption->cartID==$cart->id){
-                    foreach($products as $product){
-                        if($product->id==$cartoption->productID){?> 
+        <?php
+            foreach($cartoptions as $cartoption){
+                foreach($cartoption->product as $product){
+        ?>
             <div class="item" style="justify-content: space-evenly;">
           
                 <div class="img">
@@ -59,7 +58,7 @@ use yii\widgets\ActiveForm;
                     <h3 class="title">
                     <?=$product->name ?> 
                     </h3>
-                    <?php if(\app\models\Featurevalue::find()->Where(['productID'=>$product->id])->all()){?>
+                    <?php  if($product->featurevalues){?>
                     <h4 class="model">
 
                         <?=$product->plan->name.'- سایز    ' ?>
@@ -76,41 +75,40 @@ use yii\widgets\ActiveForm;
                             <div class="btn btn-minus down" id="adddown<?=$cartoption->id?>"  data-adddown="<?=$cartoption->id?>">
                                 <i class="icon-006-left-chevron"></i>
                             </div> 
-                     <?php if($x=\app\models\Fvoption::find()->Where(['cartoptionID'=>$cartoption->id])->andWhere(['not',['featurevID'=>null]])->one()){
-                              if($num=\app\models\Featurevalue::find()->Where(['id'=>$x->featurevID])->one()){ 
-                                if($cartoption->count>$num->count && $num->count >0){
-                                    Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");  
-                                    $cartoptioncount=\app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->count=$num->count;
-                                    if($cartoptioncount->save()){  ?>
-                                    <script> location.reload(); </script>
-                               <?php  }  ?> 
-                            <input type="number" class="count" min="1" max="<?=$num->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
-                               <?php  }elseif($num->count ==0 || $num->count < 0){
-                                    Yii::$app->session->setFlash('error', "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");  
-                                    $cartoptioncount=\app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->delete(); 
-                               }else{ ?>
-                                    <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
-                               <?php }  }  
-                                            }else{
-                                   if($cartoption->count>$product->count && $product->count>0){
-                                    Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");  
-                                       $cartoptioncount=\app\models\Cartoption::findOne($cartoption->id);
-                                       $cartoptioncount->count=$product->count;
-                                       if($cartoptioncount->save()){  ?>
-                                       <script> location.reload(); </script>
-                                  <?php   } ?>
-                                  <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
-                                 <?php  }elseif($product->count==0){
-                                       Yii::$app->session->setFlash('error2',"  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");  
-                                       $cartoptioncount=\app\models\Cartoption::findOne($cartoption->id);
-                                      if($cartoptioncount->delete()){?>
+                                 <?php
+                                 $cartoptioncount=\app\models\Cartoption::findOne($cartoption->id);
+                                 if($x=\app\models\Fvoption::find()->Where(['cartoptionID'=>$cartoption->id])->andWhere(['not',['featurevID'=>null]])->one()){
+                                          if($num=\app\models\Featurevalue::find()->Where(['id'=>$x->featurevID])->one()){
+                                            if($cartoption->count>$num->count && $num->count >0){
+                                                Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                                                $cartoptioncount->count=$num->count;
+                                                if($cartoptioncount->save()){  ?>
+                                                <script> location.reload(); </script>
+                                           <?php  }  ?>
+                                        <input type="number" class="count" min="1" max="<?=$num->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
+                                           <?php  }elseif($num->count ==0 || $num->count < 0){
+                                                Yii::$app->session->setFlash('error', "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
+                                                $cartoptioncount->delete();
+                                           }else{ ?>
+                                                <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
+                                           <?php }  }
+                                }else{
+                                    if($cartoption->count>$product->count && $product->count>0){
+                                        Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                                        $cartoptioncount->count=$product->count;
+                                        if($cartoptioncount->save()){  ?>
                                         <script> location.reload(); </script>
-                                        <?php } 
-                                             }else{ ?>
-                                <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
-                               <?php } }?>
+                                        <?php   } ?>
+                                        <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
+                                    <?php  }elseif($product->count==0){
+                                        Yii::$app->session->setFlash('error2',"  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
+                                        if($cartoptioncount->delete()){?>
+                                            <script> location.reload(); </script>
+                                        <?php }
+                                    }else{ ?>
+                                        <input type="number" class="count" min="1" max="<?=$product->count?>" value="<?=$cartoption->count?>" readonly  title=""/>
+                                    <?php }
+                                 }?>
                             <div class="btn btn-plus up"  id="addup<?=$cartoption->id?>"  data-addup="<?=$cartoption->id?>">
                                 <i class="icon-005-right-chevron"></i>
                             </div>
@@ -156,7 +154,7 @@ use yii\widgets\ActiveForm;
                 <?= Html::a(' <i class="icon-dump"></i>',['/cart/delete?id='.$cartoption->id], ['class' => 'btn deleted bg-transparent']) ?>
 
             </div>
-                <?php } }  } } }?>
+                <?php }    } ?>
      
         </div>
     </section>
@@ -175,13 +173,9 @@ use yii\widgets\ActiveForm;
                     <span class="price"> 
                      <?php
                      $sumprice=0;
-                     foreach($carts as $cart){ 
                         foreach($cartoptions as $cartoption){
-                           if($cartoption->cartID==$cart->id){
                          $sumprice+=$cartoption->amount*$cartoption->count;
-                     }
                     }
-                }
                     echo $sumprice;
                     ?>
             تومان

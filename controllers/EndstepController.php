@@ -295,6 +295,7 @@ class EndstepController extends Controller
     public function actionBackmellat($id)
     {
         if (\yii::$app->mellatbank->Callback(\yii::$app->request->post())) {
+
             $model = \app\models\Bascket::find()->where(['id' => $id])->one();
 
             // $model->refID=\yii::$app->session['ref_code'];
@@ -323,21 +324,25 @@ class EndstepController extends Controller
                     }
                 }
                 $user = \app\models\Users::find()->where(['id' => $cartitem->userID])->one();
-                \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
-                    ->setFrom('info@bccstyle.com')
-                    ->setTo($user->email)
-                    ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
-                    ->send();
+//                !empty($user->email) && \Yii::$app->mailer->compose('factor/index', ['model' => $model, 'user' => $user])
+//                    ->setFrom('info@bccstyle.com')
+//                    ->setTo($user->email)
+//                    ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
+//                    ->send();
                 $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $model->refID;
                 \yii::$app->sms->Send($model->mobile, $text);
 
                 // return $this->redirect('/site/confirm?orderID='.$model->refID);
                 return $this->redirect('/thankyou/');
             } else {
+
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
-                return $this->redirect('/failed/');
+                return $this->redirect('/failpayment/');
             }
+        }else{
+            return $this->redirect('/failpayment/');
         }
+
     }
 
     public function actionVerify($Authority, $Status, $parameter)
