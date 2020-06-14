@@ -19,7 +19,8 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?> 
 
-    <?= $form->field($model, 'catproductID')->dropDownList(ArrayHelper::map(\app\models\Catproduct::find()->Where(['staus'=>1])->all(), 'id', 'name')) ?>  
+    <?php $catProductItems =ArrayHelper::map(\app\models\Catproduct::find()->Where(['staus'=>1])->all(), 'id', 'name'); ?>
+    <?= $form->field($model, 'catproductID')->dropDownList($catProductItems) ?>
 
     <?= $form->field($model, 'titlemeta')->textInput(['maxlength' => true]) ?> 
 
