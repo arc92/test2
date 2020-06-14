@@ -2219,7 +2219,21 @@ body {
     }
 }
 
+#nav-detail-product > div.owl-prev{
+    top: 1% !important;
 
+}
+
+#nav-detail-product > div.owl-next{
+    top: 1% !important;
+
+}
+
+#nav-detail-product{
+    direction: rtl !important;
+    /*float: left !important;*/
+    position: relative !important;
+}
 
 
 

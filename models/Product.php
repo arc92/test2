@@ -39,6 +39,7 @@ class Product extends \yii\db\ActiveRecord
 {
    public $cat_relation=[];
    public $subcat_relation=[];
+   public $product_category_relation=[];
     /**
      * {@inheritdoc}
      */
@@ -53,8 +54,8 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','catproductID','status','planID','colorID', 'submitDate'], 'required'],
-            [['catproductID','status','planID','colorID', 'storePrice', 'price', 'count', 'likes'], 'integer'],
+            [['name','status','planID','colorID', 'submitDate'], 'required'],
+            [['status','planID','colorID', 'storePrice', 'price', 'count', 'likes'], 'integer'],
             [['description'], 'string'],
             [['cat_relation','subcat_relation'], 'safe'],
             [['name'], 'string', 'max' => 50],
@@ -62,7 +63,7 @@ class Product extends \yii\db\ActiveRecord
             [['submitDate'], 'string', 'max' => 20],
             [['planID'], 'exist', 'skipOnError' => true, 'targetClass' => Plan::className(), 'targetAttribute' => ['planID' => 'id']],
             [['colorID'], 'exist', 'skipOnError' => true, 'targetClass' => Color::className(), 'targetAttribute' => ['colorID' => 'id']],
-            [['catproductID'], 'exist', 'skipOnError' => true, 'targetClass' => Catproduct::className(), 'targetAttribute' => ['catproductID' => 'id']],
+//            [['catproductID'], 'exist', 'skipOnError' => true, 'targetClass' => Catproduct::className(), 'targetAttribute' => ['catproductID' => 'id']],
         ];
     }
 
@@ -74,7 +75,6 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'نام محصول',
-            'catproductID' => 'دسته بندی اصلی',
             'status' => 'نمایش',
             'planID' => 'طرح',
             'colorID' => 'رنگ',
@@ -176,9 +176,10 @@ class Product extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
 
-    public function getCatproduct()
+    public function getCatproducts()
     {
-        return $this->hasOne(Catproduct::className(), ['id' => 'catproductID']);
+        return $this->hasMany(Catproduct::className(), ['id' => 'category_product_id'])
+            ->viaTable('catproduct_product', ['product_id' => 'id']);
     }
 
 
