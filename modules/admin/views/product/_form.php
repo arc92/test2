@@ -61,7 +61,7 @@ use kartik\select2\Select2;
             </select>
         </div>
     <?php } ?>
-    <!--    --><?//= $form->field($model, 'catproducts')->dropDownList(ArrayHelper::map(\app\models\Catproduct::find()->Where(['staus' => 1])->all(), 'id', 'name')) ?>
+
 
     <?= $form->field($model, 'titlemeta')->textInput(['maxlength' => true]) ?>
 
