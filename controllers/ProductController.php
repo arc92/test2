@@ -452,6 +452,7 @@ class ProductController extends Controller
         $products->groupBy(['product.id', 'product.name', 'product.catproductID', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['product_Count' => SORT_DESC]);
 
+
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
