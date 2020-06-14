@@ -62,7 +62,7 @@ use kartik\select2\Select2;
         </div>
     <?php } ?>
 
-
+<?php echo "nimaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" ?>
 
     <?= $form->field($model, 'titlemeta')->textInput(['maxlength' => true]) ?>
 
