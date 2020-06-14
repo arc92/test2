@@ -25,10 +25,43 @@ use kartik\select2\Select2;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?> 
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?php $catProductItems =ArrayHelper::map(\app\models\Catproduct::find()->Where(['staus'=>1])->all(), 'id', 'name'); ?>
-    <?= $form->field($model, 'catproductID')->dropDownList($catProductItems) ?>
+
+    <?php if ($model->isNewRecord == false && ($productCategory)) { ?>
+        <?php
+        foreach ($productCategory as $product) {
+            foreach ($product->catproducts as $catproduct) {
+                $categoryProduct[$catproduct->id] = $catproduct->id;
+            }
+        }
+        ?>
+
+        <div class="form-group field-product-cat_relation">
+            <label class="control-label" for="product_category">دسته بندی اصلی</label>
+            <select id="product_category" class="form-control " name="product_category_relation[]" multiple="multiple"
+                    krajee-select2="select2_da38a72a">
+                <?php
+                foreach (\app\models\Catproduct::find()->all() as $cat_product) {
+                    ?>
+                    <option value="<?= $cat_product->id ?>" <?= (isset($categoryProduct[$cat_product->id])) ? ' selected="selected"' : '' ?> ><?= $cat_product->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+    <?php } else { ?>
+        <div class="form-group field-product-cat_relation">
+            <label class="control-label" for="product_category">دسته بندی اصلی</label>
+            <select id="product_category" class="form-control " name="product_category_relation[]" multiple="multiple"
+                    krajee-select2="select2_da38a72a">
+                <?php
+                foreach (\app\models\Catproduct::find()->all() as $cat_product) {
+                    ?>
+                    <option value="<?= $cat_product->id ?>" <?= (isset($categoryProduct[$cat_product->id])) ? ' selected="selected"' : '' ?> ><?= $cat_product->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+    <?php } ?>
+    <!--    --><?//= $form->field($model, 'catproducts')->dropDownList(ArrayHelper::map(\app\models\Catproduct::find()->Where(['staus' => 1])->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'titlemeta')->textInput(['maxlength' => true]) ?>
 
