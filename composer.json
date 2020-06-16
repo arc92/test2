@@ -41,7 +41,8 @@
          "yiisoft/yii2-bootstrap4": "^2.0",
         "yiisoft/yii2-elasticsearch": "^2.0",
         "elasticsearch/elasticsearch": "^7.6",
-        "morilog/jalali": "^3.1"
+        "morilog/jalali": "^3.1",
+        "symfony/var-dumper": "^5.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

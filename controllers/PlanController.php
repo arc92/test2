@@ -155,10 +155,7 @@ class PlanController extends Controller
 
     }
     public function actionCollections($name)
-
     {
-        $category=new \app\models\Category();
-
         $subcat=new \app\models\Subcat(); 
         $size=new \app\models\Size();
 
@@ -167,20 +164,23 @@ class PlanController extends Controller
         $model=new \app\models\Product();
         $strname=str_replace('-', ' ',$name);
         $plan=\app\models\Plan::find()->where(['like','name',$strname])->one();
-       
-        $products=\app\models\Product::find()->where(['planID'=>$plan->id])->orderBy(['id' => SORT_DESC]);
+
+        $products = \app\models\Product::find();
+        $products->joinWith(['featurevalues','catproducts']);
+        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->where(['product.planID' => $plan->id]);
+        $products->orderBy(['product_Count' => SORT_DESC]);
 
         $countQuery = clone $products;
 
         $count = $countQuery->count();
 
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>9]);
 
-        $articles = $products->offset($pagination->offset)
-
-        ->limit($pagination->limit)
-
-         ->all(); 
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 9]);
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
          $aboutproducts=\app\models\Aboutproduct::find()->all();
 

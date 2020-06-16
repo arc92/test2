@@ -226,7 +226,7 @@ class Product extends \yii\db\ActiveRecord
         if(Product::find()->where(['id'=>$this->id,'count'=>0])->count()){
             $count=1;
         }
-        return $count;
+        return false;
     }
 
 }
