@@ -319,15 +319,16 @@ $str .= ($urls['path']);
                             </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a href="https://www.bccstyle.com/baby-clothing/discounts/" class="nav-link" id="navbarDropdown">
-                                تخفیفی
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="https://www.bccstyle.com/baby-clothing/newborn-set/" class="nav-link" id="navbarDropdown">
                                 ست نوزادی
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="https://www.bccstyle.com/baby-clothing/discounts/" class="nav-link" id="navbarDropdown">
+                                تخفیفی
+                            </a>
+                        </li>
+
 
                     </ul>
                     <?php if (\yii::$app->users->GetRole() == 'admin'){
