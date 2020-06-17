@@ -328,6 +328,11 @@ $str .= ($urls['path']);
                                     تخفیفی
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://www.bccstyle.com/baby-clothing/newborn-set/" class="nav-link" id="navbarDropdown">
+                                    ست نوزادی
+                                </a>
+                            </li>
 
                         </ul>
 
