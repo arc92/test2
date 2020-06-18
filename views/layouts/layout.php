@@ -324,7 +324,7 @@ $str .= ($urls['path']);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://www.bccstyle.com/baby-clothing/discounts/" class="nav-link" id="navbarDropdown" style="color: #ed008c!important;">
+                            <a href="https://www.bccstyle.com/baby-clothing/outlet/" class="nav-link" id="navbarDropdown" style="color: #ed008c!important;">
                                 تخفیفی
                             </a>
                         </li>
