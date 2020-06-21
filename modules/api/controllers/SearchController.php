@@ -97,7 +97,7 @@ class SearchController extends Controller
             ];
         }
 
-        $client = ClientBuilder::create()->setHosts(["elasticsearch:9200"])->build();
+        $client = elasticSearchClient();
         $result = $client->search([
             'index' => 'product',
             'scroll' => '10s',

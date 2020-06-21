@@ -377,7 +377,7 @@ class SearchController extends Controller
         $searchKeyword = $request->get('search_keyword','');
         $categoryName = $request->get('category_name','');
 
-        $client = ClientBuilder::create()->setHosts(["elasticsearch:9200"])->build();
+        $client = elasticSearchClient();
         $result = $client->search([
             'index' => 'product',
             'scroll' => '10s',
