@@ -107,29 +107,42 @@ $str .= ($urls['path']);
 
     <div class="topheader">
         <div class="container p-0 d-flex  justify-content-between align-items-center">
-            <?php $form = ActiveForm::begin([
-                'action' => 'search',
-                'fieldConfig' => [
-                    'template' => '{input}{label}{hint}',
-                    'horizontalCssClasses' => [
-                        'label' => '',
-                        'offset' => '',
-                        'wrapper' => '',
-                        'error' => '',
-                        'hint' => '',
-                    ],
-                ]
-            ]); ?>
+<!--            --><?php //$form = ActiveForm::begin([
+//                'action' => 'search',
+//                'fieldConfig' => [
+//                    'template' => '{input}{label}{hint}',
+//                    'horizontalCssClasses' => [
+//                        'label' => '',
+//                        'offset' => '',
+//                        'wrapper' => '',
+//                        'error' => '',
+//                        'hint' => '',
+//                    ],
+//                ]
+//            ]); ?>
             <div class="search">
-                <?= $form->field($model, 'name')->textInput(["placeholder" => "برای جستجو همین حالا شروع کنید . . ."])->label(false) ?>
-                <?= Html::submitButton('', ['class' => 'btn']) ?>
+                <img id="close" src="/uploads/close-button-big-white-black.png">
+<!--                --><?//= $form->field($model, 'name', [
+//                    'options' => [
+//                        'class' => 'elasticsearch'
+//                    ]])->textInput(["placeholder" => "برای جستجو همین حالا شروع کنید . . ."])->label(false) ?>
+<!--                --><?//= Html::submitButton('', ['class' => 'btn']) ?>
+
+                <input type="text" id="product-name" class="form-control" name="Product[name]" placeholder="برای جستجو همین حالا شروع کنید . . ." aria-required="true" aria-invalid="false">
+
+                <div id="search_result" >
+
+                    <ul id="result">
+
+                    </ul>
+                </div>
             </div>
-            <?php ActiveForm::end(); ?>
+<!--            --><?php //ActiveForm::end(); ?>
 
             <div class="info">
                 <ul class="nav">
                     <li class="nav-item call" style="cursor: pointer;"><a href="tel:02166962957" style="color:white;">
-                            پشتیبانی خرید اینترنتی - شماره تماس66962957 - داخلی 201
+                            شماره تماس66962957 - داخلی 201
                         </a></li>
                     <!-- <li class="nav-item gift">
                         <a href="#" class="nav-link p-0">
@@ -319,12 +332,14 @@ $str .= ($urls['path']);
                             </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a href="https://www.bccstyle.com/baby-clothing/newborn-set/" class="nav-link" id="navbarDropdown">
+                            <a href="https://www.bccstyle.com/baby-clothing/newborn-set/" class="nav-link"
+                               id="navbarDropdown">
                                 ست نوزادی
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://www.bccstyle.com/baby-clothing/outlet/" class="nav-link" id="navbarDropdown" style="color: #ed008c!important;">
+                            <a href="https://www.bccstyle.com/baby-clothing/outlet/" class="nav-link"
+                               id="navbarDropdown" style="color: #ed008c!important;">
                                 تخفیفی
                             </a>
                         </li>
@@ -782,82 +797,7 @@ $str .= ($urls['path']);
     </section>
 </footer>
 <script>
-    $(".navbar .navbar-nav .nav-item .nav-link").hover(
-        function () {
-            $(this).addClass('active-hover');
-        },
-        function () {
-            $(this).removeClass("active-hover");
-        }
-    );
 
-    // fixed header
-    $(document).on("scroll", function () {
-        if ($(document).scrollTop() > 33) {
-            $(".main-header").removeClass("large").addClass("small");
-        } else {
-            $(".main-header").removeClass("small").addClass("large");
-        }
-    });
-    // Shop Box
-    $('#cart').hover(function () {
-        $(this).find('.header-index .drop-menu-box-shop').fadeIn()
-    });
-
-    $('#cart').mouseleave(function () {
-        $(this).find('.header-index .dropdown-menu').fadeOut()
-    });
-
-
-    // Order Mp
-
-    $(function () {
-        $('.count-product').on('click', '.btn', function (e) {
-            var input = $(this).parents('div.count-product').children('input');
-            var value = parseInt(input.attr('value'));
-            var min = parseInt(input.attr('min'));
-            var max = parseInt(input.attr('max'));
-            if ($(this).hasClass('up')) {
-                var op = +1;
-            } else {
-                var op = -1;
-            }
-            if (!(min == value && op == -1) && !(max == value && op == +1)) {
-                input.attr('value', value + op)
-            }
-        })
-    });
-
-
-    // Order Mp
-
-    $('.item-order-map .tr').click(function () {
-        $(this).parent().find('.drop-down').slideToggle();
-        $(this).find('.td .btn i').toggleClass('d-none')
-    });
-
-
-    $('.porofile .navigation .nav-item').click(function () {
-        $('.porofile .navigation .active').removeClass('active');
-        $(this).addClass('active')
-    });
-
-
-    // Shop Box
-    $('#cart').hover(function () {
-        $(this).find('.drop-menu-box-shop').fadeIn()
-    });
-
-    $('#cart').mouseleave(function () {
-        $(this).find('.drop-menu-box-shop').fadeOut()
-    });
-
-    // $('.navbar .dropdown').hover(function() {
-    //     $(this).find('.dropdown-menu').stop(true, true).delay(60).fadeIn(60);
-    // }, function() {
-    //     $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
-
-    // });
 
 </script>
 <!--<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="642709d0-bdbb-4c92-be13-61d8b725d594";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>-->

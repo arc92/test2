@@ -101,4 +101,4 @@ services:
     volumes:
       - /sessions
     ports:
-    - 8006:80
+    - 8008:80
