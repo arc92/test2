@@ -2256,7 +2256,14 @@ body {
     z-index: 50;
     border-radius: 20px;
     overflow-y: scroll;
-    height: 450px;
+    max-height: 450px;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+
+}
+
+#search_result::-webkit-scrollbar {
+    width: 0px; /* For Chrome, Safari, and Opera */
 }
 
 #result hr{

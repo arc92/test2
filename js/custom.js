@@ -478,6 +478,12 @@ $('#close').click(function (e) {
     $('#product-name').val('');
 });
 
+$('#close').click(function (e) {
+    $("#close").fadeOut();
+    $('#search_result').fadeOut();
+    $('#product-name').val('');
+});
+
 
 //
 // out += '</table>';

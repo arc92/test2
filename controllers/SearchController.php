@@ -4,6 +4,8 @@
 namespace app\controllers;
 
 
+use app\models\Product;
+use Morilog\Jalali\CalendarUtils;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -284,92 +286,6 @@ class SearchController extends Controller
         elasticSearchClient()->indices()->create($this->schema);
     }
 
-    public function actionIndexdata()
-    {
-        $allProduct = Product::find()->with('catproducts', 'allproductimgs', 'plan', 'plan.offers', 'color', 'featurevalues', 'detailsvalues', 'aboutproducts', 'categoryRelationsMany.cat', 'offer', 'subcatRelations.subcat')->all();
-
-
-        foreach ($allProduct as $key => $eachProduct) {
-
-            $catproducts = [];
-            foreach ($eachProduct->catproducts as  $index => $catproduct){
-                $catproducts[$index]['name'] = $catproduct->name;
-                $catproducts[$index]['urltitle'] = $catproduct->urltitle;
-            }
-
-            $productDetails = [];
-            foreach ($eachProduct->featurevalues as $index => $featurevalue) {
-                $productDetails[$index]['size'] = $featurevalue->value;
-                $productDetails[$index]['price'] = $featurevalue->price;
-                $productDetails[$index]['discount'] = $eachProduct->plan->offers[0]->percent;
-                $productDetails[$index]['price_with_discount'] = ($featurevalue->price * (100 - $eachProduct->plan->offers[0]->percent)) / 100;
-                $productDetails[$index]['count'] = $featurevalue->count;
-            }
-
-            $product_more_details = [];
-            foreach ($eachProduct->detailsvalues as $index => $detailsvalue) {
-                $product_more_details[$index]['detail_title'] = $detailsvalue->title;
-                $product_more_details[$index]['detail_description'] = $detailsvalue->value;
-            }
-
-            $aboutProducts = [];
-            foreach ($eachProduct->aboutproducts as $index => $aboutProduct) {
-                array_push($aboutProducts, $aboutProduct->details);
-            }
-
-            $imgs = [];
-            if ($eachProduct->allproductimgs) {
-                foreach ($eachProduct->allproductimgs as $index => $image) {
-                    $imgs[$index]['id'] = $image->id;
-                    $imgs[$index]['url'] = $image->img;
-                }
-            }
-
-
-            $product_category_name = [];
-            foreach ($eachProduct->categoryRelationsMany as $index => $productCat){
-                $product_category_name[$index]['id'] = $productCat->cat->id;
-                $product_category_name[$index]['name'] = $productCat->cat->name;
-            }
-
-
-
-            $params = [
-                'index' => 'product',
-                'id' => $eachProduct->id,
-                'body' => [
-                    'product_id' => $eachProduct->id,
-                    'product_name' => $eachProduct->name,
-                    'product_gender' => $eachProduct->subcatRelations->subcat->name,
-                    'product_category' => $product_category_name,
-                    'product_status' => $eachProduct->status,
-                    'product_plan_id' => $eachProduct->planID,
-                    'product_plan_name' => $eachProduct->plan->name,
-                    'product_discount_end_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', $eachProduct->plan->offers[0]->start_date)->format("Y-m-d"),
-                    'product_discount_start_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', $eachProduct->plan->offers[0]->end_date)->format("Y-m-d"),
-                    'product_color_id' => $eachProduct->colorID,
-                    'product_color_name' => $eachProduct->color->value,
-                    'product_storePrice' => $eachProduct->price,
-                    'product_storePrice_discount' => ($eachProduct->price * (100 - $eachProduct->plan->offers[0]->percent)) / 100,
-                    'product_submitDate' => CalendarUtils::createDatetimeFromFormat('Y/m/d', $eachProduct->submitDate)->format("Y-m-d"),
-                    'product_off' => $eachProduct->off,
-                    'product_images' => $imgs,
-                    'product_details' => $productDetails,
-                    'product_more_details' => $product_more_details,
-                    'about_product' => $aboutProducts,
-                    'cat_products' => $catproducts,
-                ]
-            ];
-
-
-
-            $response = elasticSearchClient()->index($params);
-        }
-
-
-        print_r($response);
-
-    }
 
     public function actionSearchincategory()
     {
