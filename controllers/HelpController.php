@@ -369,7 +369,7 @@ class HelpController extends Controller
 
     public function actionSearch()
     {
-        $client = ClientBuilder::create()->setHosts(["elasticsearch:9200"])->build();
+        $client = elasticSearchClient();
         $r = $client->search([
             'index' => getIndexName(),
             'scroll' => '10s',

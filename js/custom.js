@@ -354,9 +354,6 @@ $(function () {
         mouseMove.apply(this, arguments);
         ui.glass.on('mousemove', mouseMove);
     });
-    ui.glass.on('mouseout', function () {
-        ui.glass.off('mousemove', mouseMove);
-    });
 });
 $('.nav .nav-item').click(function () {
     $('.nav').find('.active').removeClass('active');
@@ -374,10 +371,121 @@ $(document).ready(function () {
         $(".filter-sec").filter('.' + filterValue).show();
     });
 });
-
-
 $('.dropdown').hover(function () {
     $(this).find('.dropdown-menu').stop(true, true).delay(50).show();
 }, function () {
     $(this).find('.dropdown-menu').stop(true, true).delay(50).hide();
 });
+$(document).ready(function () {
+    $('#product-name').focus();
+    $('#product-name').keyup(function (e) {
+
+        if ((this.value.length) > 1) {
+            var settings = {
+                "url": "/api/search/?search=" + this.value,
+                "method": "GET",
+                "timeout": 0,
+            };
+
+
+            $.ajax(settings).done(function (response,) {
+                var out = '';
+
+
+                if (response['data']['products'].length === 0 && response['data']['categories'].length === 0) {
+
+                    out += "<li>\n" +
+                        "<div class='item'>\n" +
+                        "<span style='padding: 5px'>موردی یافت نشد</span>" +
+                        "</div>\n" +
+                        "</li>";
+                }
+                //category like بادی و دستکش
+                $.each(response['data']['categories'], function (key, value) {
+                    var categoryTitle = value['category_name'];
+                    var categoryUrl = "/search/searchincategory?search_keyword=" + response['searchedKeyword'] + "&category_name=" + value['category_name'];
+
+                    out +=
+                    "<li>" +
+                        "<div class='item'>" +
+                            "<div class='product-item-image'>" +
+                                "<img src='/uploads/icon21561444275.png'>" +
+                            "</div>" +
+                            "<div class='product-item-details' style='max-width: 300px;'>" +
+                                    "<span id='title' style='float: right;width: 100%;'>" +
+                                        "<a href='" + categoryUrl + "'>" +
+                                            "<span style='color: black'> جستجوی </span>" +
+                                                response['searchedKeyword'] +
+                                            "<span style='color: black'> در دسته بندی </span>" +
+                                            categoryTitle +
+                                        "</a>"+
+                                    "</span>" +
+                            "</div>" +
+                        "</div>" +
+                    "</li>" +
+                    "<hr>"
+                });
+
+                //products
+                $.each(response['data']['products'], function (key, value) {
+                    var productTitle = value['_source']['product_name'];
+                    var productUrl = '/product/' + value['_source']['product_name'] + '/';
+                    var categoryTitle = value['_source']['cat_products'][0]['name'];
+                    var categoryUrl = '/baby-clothing/' + value['_source']['cat_products'][0]['urltitle'] + '/';
+                    var productImage = '/' + value['_source']['product_images'][0]['url'];
+                    out +=
+
+                        "<li>\n" +
+                            "<div class='item'>\n" +
+                                "<div class='product-item-image'>" +
+                                    "<img src='" + productImage + "'> " +
+                                "</div>\n" +
+                            "<div class='product-item-details'>\n" +
+                                "<span id='title' style='float: right;width: 100%;'>" +
+                                    "<a href='" + productUrl + "'>" + productTitle + "</a>" +
+                                "</span>\n" +
+                                "<span class='product-item-category'>" +
+                                    "<label>دسته بندی:</lable>" +
+                                    " <a href='" + categoryUrl + "'>" + categoryTitle + "</a>" +
+                                "</span>\n" +
+                                "</div>\n" +
+                            "</div>\n" +
+                        "</li>" +
+                        "<hr>"
+
+                });
+
+                $('#search_result').fadeIn();
+                $("#result").html(out);
+                $("#close").fadeIn();
+            });
+        } else {
+            $('#search_result').fadeOut();
+            $("#close").fadeOut();
+        }
+    });
+});
+
+$(document).click(function (e) {
+    if (!$(e.target).closest('#search_result').length) {
+        $('#search_result').fadeOut(1000);
+    }
+});
+
+$('#close').click(function (e) {
+    $("#close").fadeOut();
+    $('#search_result').fadeOut();
+    $('#product-name').val('');
+});
+
+$('#close').click(function (e) {
+    $("#close").fadeOut();
+    $('#search_result').fadeOut();
+    $('#product-name').val('');
+});
+
+
+//
+// out += '</table>';
+//
+// //append out to your div
