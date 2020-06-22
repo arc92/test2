@@ -390,7 +390,6 @@ $(document).ready(function () {
 
             $.ajax(settings).done(function (response) {
                 var out = '';
-                console.log(response);
 
                 if (response['data']['products'].length === 0 && response['data']['categories'].length === 0) {
 

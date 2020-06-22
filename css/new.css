@@ -2402,7 +2402,7 @@ body {
         width: auto;
         margin:5px;
         height: 60px;
-        max-width: 170px;
+        max-width: 170px !important;
     }
 
     #search_result ul li #title a{
@@ -2474,7 +2474,7 @@ body {
         width: auto;
         margin:5px;
         height: 60px;
-        max-width: 330px;
+        max-width: 279px;
     }
 
     #search_result ul li #title a{
