@@ -219,8 +219,8 @@ class SearchController extends Controller
             $response = elasticSearchClient()->index($params);
         }
 
-        if($response)
-            return['status'=>true,'code'=>200,'message'=>null];
+
+            return['status'=>true,'code'=>200,'message'=>$response];
     }
 
 }
