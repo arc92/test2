@@ -147,10 +147,15 @@ class SearchController extends Controller
 
             $productDetails = [];
             foreach ($eachProduct->featurevalues as $index => $featurevalue) {
+                $offPercent = empty($eachProduct->plan->offers[0]) ? null : $eachProduct->plan->offers[0]->percent;
                 $productDetails[$index]['size'] = $featurevalue->value;
                 $productDetails[$index]['price'] = $featurevalue->price;
-                $productDetails[$index]['discount'] = $eachProduct->plan->offers[0]->percent;
-                $productDetails[$index]['price_with_discount'] = ($featurevalue->price * (100 - $eachProduct->plan->offers[0]->percent)) / 100;
+                $productDetails[$index]['discount'] = $offPercent;
+                if($offPercent){
+                    $productDetails[$index]['price_with_discount'] = ($featurevalue->price * (100 - $eachProduct->plan->offers[0]->percent)) / 100;
+                }else{
+                    $productDetails[$index]['price_with_discount'] = $featurevalue->price ;
+                }
                 $productDetails[$index]['count'] = $featurevalue->count;
             }
 
@@ -193,8 +198,8 @@ class SearchController extends Controller
                     'product_status' => $eachProduct->status,
                     'product_plan_id' => $eachProduct->planID,
                     'product_plan_name' => $eachProduct->plan->name,
-                    'product_discount_end_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', $eachProduct->plan->offers[0]->start_date)->format("Y-m-d"),
-                    'product_discount_start_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', $eachProduct->plan->offers[0]->end_date)->format("Y-m-d"),
+                    'product_discount_end_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', empty($eachProduct->plan->offers[0]) ? null: $eachProduct->plan->offers[0]->start_date)->format("Y-m-d"),
+                    'product_discount_start_date' => CalendarUtils::createDatetimeFromFormat('Y/m/d', empty($eachProduct->plan->offers[0])? null : $eachProduct->plan->offers[0]->end_date)->format("Y-m-d"),
                     'product_color_id' => $eachProduct->colorID,
                     'product_color_name' => $eachProduct->color->value,
                     'product_storePrice' => $eachProduct->price,
