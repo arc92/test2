@@ -138,11 +138,7 @@ $str .= ($urls['path']);
 //                ]); ?>
                 <div class="search">
                     <img id="close" src="/uploads/close-button-big-white-black.png">
-<!--                    --><?//= $form->field($model, 'name', [
-//                        'options' => [
-//                            'class' => 'elasticsearch'
-//                        ]])->textInput(["placeholder" => "برای جستجو همین حالا شروع کنید . . ."])->label(false) ?>
-<!--                    --><?//= Html::submitButton('', ['class' => 'btn']) ?>
+
                     <input type="text" id="product-name" class="form-control" name="Product[name]" placeholder="برای جستجو همین حالا شروع کنید . . ." aria-required="true" aria-invalid="false">
 <!--                    <button type="submit" disabled class="btn"></button>-->
                     <div id="search_result">
