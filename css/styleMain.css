@@ -374,12 +374,12 @@ button:focus, button:active, input:focus, input:active, select:focus, select:act
 .notification .box i{height:64px;font-size:64px;color:#ffffff;display:flex;justify-content:center;margin-bottom:25px;}
 .notification .box .title{font-size:20px;color:#ffffff;font-weight:bold;display:block;text-align:center;margin-bottom:5px;}
 .notification .box .error{font-size:18px;color:#ffffff;font-weight:300;display:block;text-align:center;}.header-index .topheader{width:100%;height:auto;background-color:#a3cced;position:relative;z-index:9999;padding-top:10px;padding-bottom:10px;background-image:linear-gradient(to right, #a3cced 50%, #c8e0f4 50%);background-position:bottom;background-size:10px 1px;background-repeat:repeat-x;}
-.header-index .topheader .search{width:438px;height:37px;border-radius:20px;background-color:#9dc4e4;position:relative;display:flex;align-items:center;}
+.header-index .topheader .search{width:600px;height:37px;border-radius:20px;background-color:#9dc4e4;position:relative;display:flex;align-items:center;}
 .header-index .topheader .search .form-group{margin-bottom:0;}
-.header-index .topheader .search input{width:438px;height:37px;background-color:#9dc4e4;border-radius:20px;border:none;text-indent:10px;font-size:13px;font-weight:300;color:#ffffff;border:none !important;}
+.header-index .topheader .search input{width:600px;height:37px;background-color:#9dc4e4;border-radius:20px;border:none;text-indent:10px;font-size:13px;font-weight:300;color:#ffffff;border:none !important;}
 .header-index .topheader .search input:focus{border:none !important;box-shadow:none !important;}
 .header-index .topheader .search input::placeholder{font-size:13px;font-weight:300;opacity:0.8;color:#ffffff;}
-.header-index .topheader .search .btn{position:relative;background-color:#9dc4e4;width:17px;height:30px;display:flex;align-items:center;border-radius:20px;right:-34px;}
+.header-index .topheader .search .btn{position:absolute;z-index:100;background-color:#9dc4e4;width:17px;height:30px;display:flex;align-items:center;border-radius:20px;left:9px;}
 .header-index .topheader .search .btn:before{content:'\004e';font-family:Font;position:absolute;font-size:17px;display:block;height:17px;color:#ffffff;left:4px;top:39%;transform:translateY(-50%);}
 .header-index .topheader .info .nav{padding:0;}
 .header-index .topheader .info .nav .nav-item{font-size:16px;color:#FFFFFF;font-weight:300;position:relative;padding-left:30px;padding-right:30px;}

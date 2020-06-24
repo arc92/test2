@@ -8,11 +8,14 @@
                     </div>
 <div class="row" style="margin-top:50px">
                     <!-- Column -->
-                    <div class="col-md-6 col-lg-3 col-xlg-3">
+                    <div class="col-md-6 col-lg-3 col-xlg-3" id="sync-data" style="cursor: pointer;">
                         <div class="card card-inverse card-info">
                             <div class="box bg-info text-center">
-                                <h1 class="font-light text-white">10</h1>
-                                <h6 class="text-white">اخبار</h6>
+                                <h1 class="font-light text-white">
+                                    <img style="max-width: 100px;" src="/uploads/sync-data.png">
+                                    <img id="sync-loding-img" style="max-width: 38px;position: absolute;left: 5px;top: 5px; display: none;" src="/uploads/loading-gear-3.gif">
+                                </h1>
+                                <h6 class="text-white">همگام سازی اطلاعات</h6>
                             </div>
                         </div>
                     </div>

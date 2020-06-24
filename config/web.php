@@ -117,6 +117,7 @@ $config = [
         ],
         'db' => $db,
         'assetManager' => [
+            'appendTimestamp' => true,
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
@@ -176,6 +177,8 @@ $config = [
                 'api/featurev/<id:\d+>' => 'api/featurev/show',
                 'api/limit/<id:\d+>' => 'api/limit/show',
                 'api/subject' => 'api/subject/show',
+                'api/search' => 'api/search/index',
+                'api/search/index-data' => 'api/search/indexdata',
                 'search' => 'site/search',
                 'login' => '/site/login',
                 // 'blogsingle/<id:\d+>'=>'site/blogsingle',
