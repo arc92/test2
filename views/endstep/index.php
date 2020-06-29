@@ -285,7 +285,7 @@ use hoomanMirghasemi\jdf\Jdf;
              
                 <div class="deliver" >
                     <span class="title">
-                    نحوه ارسال<?php if($sum >100000){?>(ارسال برای  خرید بالای 100 تومان رایگان است)<?php } ?>
+                    نحوه ارسال<?php if($sum >200000){?>(ارسال برای  خرید بالای 200 هزار تومان رایگان است)<?php } ?>
                     </span>
                     <div class="d-flex flex-wrap">
                         <?php foreach ($express as $send) { ?>
@@ -313,7 +313,7 @@ use hoomanMirghasemi\jdf\Jdf;
                             <?php } else { ?>
                                 <label for="post<?= $send->id ?>">
                                     <?= $send->send ?>
-                                    <?php if ($sum > 100000) { ?> (رایگان)<?php } else { ?> ( <?= $send->price ?> تومان )<?php } ?>
+                                    <?php if ($sum > 200000) { ?> (رایگان)<?php } else { ?> ( <?= $send->price ?> تومان )<?php } ?>
                                 </label>
                                 </div>
                     <?php } ?>
@@ -436,7 +436,7 @@ use hoomanMirghasemi\jdf\Jdf;
                         <span class="total-product">
                          هزینه ارسال
                     </span>
-                        <span class="number" id="pricesend" > <?=( $sum > 100000)?'0':'' ?>  </span> 
+                        <span class="number" id="pricesend" > <?=( $sum > 200000)?'0':'' ?>  </span> 
                         <span class="price number" id="priceall">
                         <?php echo number_format($sum); ?> تومان
                     </span>
@@ -628,7 +628,7 @@ $(".expressx").click(function(){
         html+='<span class="number">'+ToRial(value.price)+'    تومان</span>'; 
         var b=0;
 
-        if(parseInt($("#sumexpress").val())>100000){
+        if(parseInt($("#sumexpress").val())>200000){
     b= parseInt($("#sumexpress").val())+parseInt(0); 
       $("#oneexpress").attr({
             "value" : +b,  
