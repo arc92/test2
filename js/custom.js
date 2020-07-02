@@ -390,7 +390,7 @@ $(document).ready(function () {
 
             $.ajax(settings).done(function (response) {
                 var out = '';
-
+                $(".main-header").css('z-index',9999);
                 if (response['data']['products'].length === 0 && response['data']['categories'].length === 0) {
                     out += "<li>\n" +
                         "<div class='item'>\n" +
@@ -470,22 +470,19 @@ $(document).ready(function () {
 
 $(document).click(function (e) {
     if (!$(e.target).closest('#search_result').length) {
-        $(".main-header").css('z-index','9999 !important');
+        $(".main-header").css('z-index',9999);
         $('#search_result').fadeOut(1000);
     }
 });
 
 $('#close').click(function (e) {
+    $(".main-header").css('z-index',9999);
     $("#close").fadeOut();
     $('#search_result').fadeOut();
     $('#product-name').val('');
 });
 
-$('#close').click(function (e) {
-    $("#close").fadeOut();
-    $('#search_result').fadeOut();
-    $('#product-name').val('');
-});
+
 
 
 //
