@@ -6,7 +6,7 @@ use Elasticsearch\ClientBuilder;
 if (!function_exists('elasticSearchClient')) {
     function elasticSearchClient()
     {
-        return ClientBuilder::create()->setHosts(["localhost:9202"])->build();
+        return ClientBuilder::create()->setHosts(["elasticsearch:9200"])->build();
     }
 }
 

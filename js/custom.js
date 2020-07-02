@@ -392,15 +392,16 @@ $(document).ready(function () {
                 var out = '';
 
                 if (response['data']['products'].length === 0 && response['data']['categories'].length === 0) {
-
                     out += "<li>\n" +
                         "<div class='item'>\n" +
                         "<span style='padding: 5px'>موردی یافت نشد</span>" +
                         "</div>\n" +
                         "</li>";
                 }
+
                 //category like بادی و دستکش
                 $.each(response['data']['categories'], function (key, value) {
+                    $(".main-header").css('z-index',100);
                     var categoryTitle = value['category_name'];
                     var categoryUrl = "/search/searchincategory?search_keyword=" + response['searchedKeyword'] + "&category_name=" + value['category_name'];
 
@@ -427,6 +428,7 @@ $(document).ready(function () {
 
                 //products
                 $.each(response['data']['products'], function (key, value) {
+                    $(".main-header").css('z-index',100);
                     var productTitle = value['_source']['product_name'];
                     var productUrl = '/product/' + value['_source']['product_name'] + '/';
                     var categoryTitle = value['_source']['cat_products'][0]['name'];
@@ -459,6 +461,7 @@ $(document).ready(function () {
                 $("#close").fadeIn();
             });
         } else {
+            $(".main-header").css('z-index',9999);
             $('#search_result').fadeOut();
             $("#close").fadeOut();
         }
@@ -467,6 +470,7 @@ $(document).ready(function () {
 
 $(document).click(function (e) {
     if (!$(e.target).closest('#search_result').length) {
+        $(".main-header").css('z-index','9999 !important');
         $('#search_result').fadeOut(1000);
     }
 });

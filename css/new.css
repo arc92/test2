@@ -2235,9 +2235,7 @@ body {
     position: relative !important;
 }
 
-.main-header{
-    z-index: 100 !important;
-}
+
 
 #search_result ul li #title a{
     display:block;
