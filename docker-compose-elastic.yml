@@ -25,11 +25,6 @@ services:
       - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
     expose:
         - "9200"
-
-
-      ## --------------------------------------------
-      ## | 7 : Kibana visualization
-      ## --------------------------------------------
   kibana:
     image: docker.elastic.co/kibana/kibana:6.3.2
     volumes:
@@ -42,4 +37,4 @@ services:
 #      - ELASTICSEARCH_PASSWORD=Arcsin_360
       - ELASTICSEARCH_URL=http://elasticsearch:9200
     ports:
-      - "5602:5601"
+      - "0.0.0.0:5602:5601"
