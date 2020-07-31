@@ -102,3 +102,22 @@ services:
       - /sessions
     ports:
     - 8008:80
+
+  ## --------------------------------------------
+  ## | 8 : cache server
+  ## --------------------------------------------
+  redis:
+    image: redis:4.0.10-alpine
+    expose:
+      - "6379"
+    volumes:
+      - ./docker/redis/default.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: [
+      "sh", "-c",
+      '
+       docker-entrypoint.sh
+       --requirepass "bccstyle"
+      '
+    ]
