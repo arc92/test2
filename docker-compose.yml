@@ -97,8 +97,13 @@ services:
       - '80'
       - '443'
     environment:
-      - PMA_HOST=mysqldb
+      - PMA_HOST=localhost
     volumes:
       - /sessions
     ports:
     - 8008:80
+
+
+networks:
+  default:
+      driver: bridge
