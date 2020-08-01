@@ -25,6 +25,21 @@ services:
       - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
     expose:
       - "9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.3.2
+    volumes:
+      - ./docker/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      - elasticsearch
+
+    environment:
+      #      - ELASTICSEARCH_USERNAME=bccstyle
+      #      - ELASTICSEARCH_PASSWORD=Arcsin_360
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    ports:
+      - "5602:5601"
+      -
   ## --------------------------------------------
   ## | 8 : cache server
   ## --------------------------------------------
