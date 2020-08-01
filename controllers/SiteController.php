@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Jobs\SendSms;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -391,7 +392,10 @@ class SiteController extends Controller
 
                 if ($model->save()) {
                     $text = "وب سایت بی سی سی تغییر رمز عبور شما با موفقیت انجام شد.  \nشماره موبایل : " . $model->mobile . "\n رمز عبور : " . $password;
-                    \yii::$app->sms->Send($model->mobile, $text);
+                    \Yii::$app->queue->push(new SendSms([
+                        'message' => $text,
+                        'number' => $model->mobile,
+                    ]));
                 }
                 \Yii::$app->session->setFlash('messageLogin', 'رمز یکبارمصرف شما ارسال شد جهت ورود از رمز یکبار مصرف استفاده کرده و از منو حساب کاربری اقدام به تغییر رمز نمایید');
 
@@ -430,7 +434,10 @@ class SiteController extends Controller
         if ((\yii::$app->request->post())) {
             if ($activeuser = \app\models\Users::find()->where(['mobile' => \yii::$app->session['mobile']])->one()) {
                 $text = "به بی سی سی خوش آمدید کد تایید شما :" . $activeuser->submitDate;
-                \yii::$app->sms->Send($activeuser->mobile, $text);
+                \Yii::$app->queue->push(new SendSms([
+                    'message' => $text,
+                    'number' => $activeuser->mobile,
+                ]));
                 \Yii::$app->session->setFlash('messageSignup', '  کد تایید به موبایل شما ارسال شد.');
                 return $this->redirect(['/site/activeaccount']);
             } else {

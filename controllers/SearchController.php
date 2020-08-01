@@ -4,9 +4,7 @@
 namespace app\controllers;
 
 
-use app\models\Jobs\SendSms;
 use app\models\Product;
-use Codeception\Module\Yii2;
 use Morilog\Jalali\CalendarUtils;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -284,17 +282,7 @@ class SearchController extends Controller
 
 
 
-    public function actionCreateshema()
-    {
-
-//        if (\Yii::$app->queue->push(new SendSms([
-//            'message' => 'nima',
-//            'number' => '09363223600',
-//        ]))){
-//            var_dump(12);
-//        }else{
-//            var_dump("ni");
-//        }
+    public function actionCreateshema(){
         elasticSearchClient()->indices()->create($this->schema);
     }
 

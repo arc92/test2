@@ -23,8 +23,9 @@
                     <div class="col-md-6 col-lg-3 col-xlg-3">
                         <div class="card card-primary card-inverse">
                             <div class="box text-center">
-                                <h1 class="font-light text-white">2</h1>
-                                <h6 class="text-white">دسته بندی ها</h6>
+                                <h1 class="font-light text-white">پیامک</h1>
+                                <h6 class="text-white">در ۳۰ روز گذشته:<span style="padding: 10px"><?=$currentMountSmsStatistics?></span></h6>
+                                <h6 class="text-white">آمار کل:<span style="padding: 10px"><?=$currentMountSmsStatistics?></span></h6>
                             </div>
                         </div>
                     </div>

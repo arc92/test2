@@ -15,6 +15,9 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index',[
+            "currentMountSmsStatistics" => \Yii::$app->redis->get('currentMonthSms'),
+            "TotalSmsStatistics" => \Yii::$app->redis->get('totalSms')
+        ]);
     }
 }

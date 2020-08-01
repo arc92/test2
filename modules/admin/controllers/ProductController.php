@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Jobs\SendSms;
 use app\models\ProductCategory;
 use Yii;
 use app\models\Product;
@@ -395,7 +396,10 @@ class ProductController extends Controller
 
                         if (\app\models\Product::find()->Where(['id' => $id])->andWhere(['>', 'count', 0])->one()) {
                             $text = "بی سی سی \n" . "محصول: \n" . $letme->products->name . "موجود شد \n" . "http://www.bccstyle.com/product/" . $letme->productID;
-                            \yii::$app->sms->Send($letme->mobile, $text);
+                            \Yii::$app->queue->push(new SendSms([
+                                'message' => $text,
+                                'number' => $letme->mobile,
+                            ]));
                             $letme->status = 1;
                             $letme->save();
                         }
@@ -411,7 +415,10 @@ class ProductController extends Controller
                             if (($size->count) > '0') {
                                 $feature = \app\models\Featurevalue::find()->Where(['id' => $size->id])->one();
                                 $text = "بی سی سی \n" . "محصول: \n" . $letme->products->name . "سایز\n" . $feature->value . "موجود شد \n" . "http://www.bccstyle.com/product/" . $letme->productID;
-                                \yii::$app->sms->Send($letme->mobile, $text);
+                                \Yii::$app->queue->push(new SendSms([
+                                    'message' => $text,
+                                    'number' => $letme->mobile,
+                                ]));
                                 $letme->status = 1;
                                 $letme->save();
 

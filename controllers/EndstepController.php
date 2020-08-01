@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Bascket;
+use app\models\Jobs\SendSms;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -190,7 +191,10 @@ class EndstepController extends Controller
                         }
                     }
                     $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $bascket->refID;
-                    \yii::$app->sms->Send($bascket->mobile, $text);
+                    \Yii::$app->queue->push(new SendSms([
+                        'message' => $text,
+                        'number' => $bascket->mobile,
+                    ]));
                     return $this->redirect('/thankyou/');
                 } else {
                     return $this->redirect('/failed/');
@@ -330,7 +334,10 @@ class EndstepController extends Controller
 //                    ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
 //                    ->send();
                 $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $model->refID;
-                \yii::$app->sms->Send($model->mobile, $text);
+                \Yii::$app->queue->push(new SendSms([
+                    'message' => $text,
+                    'number' => $model->mobile,
+                ]));
 
                 // return $this->redirect('/site/confirm?orderID='.$model->refID);
                 return $this->redirect('/thankyou/');
@@ -384,7 +391,10 @@ class EndstepController extends Controller
                         ->setSubject(' سفارش شما با موفقیت ثبت شد. ')
                         ->send();
                     $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $model->refID;
-                    \yii::$app->sms->Send($model->mobile, $text);
+                    \Yii::$app->queue->push(new SendSms([
+                        'message' => $text,
+                        'number' => $model->mobile,
+                    ]));
                 }
                 return $this->redirect('/thankyou/');
             } elseif ($zarinpal->getStatus() == '101') {
@@ -428,7 +438,10 @@ class EndstepController extends Controller
                         }
                     }
                     $text = "بی سی سی : سفارش شما با موفقیت ثبت شد. شماره سفارش" . $model->refID;
-                    \yii::$app->sms->Send($model->mobile, $text);
+                    \Yii::$app->queue->push(new SendSms([
+                        'message' => $text,
+                        'number' => $model->mobile,
+                    ]));
                 }
                 return $this->redirect('/thankyou/');
             } else {

@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Jobs\SendSms;
 use Yii;
 use app\models\Users;
 use app\models\UsersSearch;
@@ -11,6 +12,7 @@ use yii\filters\VerbFilter;
 use app\models\Uploads;
 use yii\web\UploadedFile;
 use yii\data\ActiveDataProvider;
+
 /**
  * UsersController implements the CRUD actions for Users model.
  */
@@ -69,20 +71,23 @@ class UsersController extends Controller
         $model = new Users();
         $upload = new Uploads();
         if ($model->load(Yii::$app->request->post())) {
-            $pass=$model->password;
-            $model->password=\Yii::$app->getSecurity()->generatePasswordHash($model->password);
-            $model->has_mobile='mobile';
-            $model->submitDate=time();
-         if($model->save()){
-            $model->password=$pass;
-            \Yii::$app->mailer->compose()
-            ->setFrom('info@bccstyle.com')
-            ->setTo($model->email)
-            ->setSubject('به بی سی سی خوش آمدید   ')
-            ->send();
-            $text="به بی سی سی خوش آمدید کد تایید شما :".$model->submitDate;
-          \yii::$app->sms->Send($model->mobile,$text);
-         }
+            $pass = $model->password;
+            $model->password = \Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            $model->has_mobile = 'mobile';
+            $model->submitDate = time();
+            if ($model->save()) {
+                $model->password = $pass;
+                \Yii::$app->mailer->compose()
+                    ->setFrom('info@bccstyle.com')
+                    ->setTo($model->email)
+                    ->setSubject('به بی سی سی خوش آمدید   ')
+                    ->send();
+                $text = "به بی سی سی خوش آمدید کد تایید شما :" . $model->submitDate;
+                \Yii::$app->queue->push(new SendSms([
+                    'message' => $text,
+                    'number' => $model->mobile,
+                ]));
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,15 +109,15 @@ class UsersController extends Controller
         $model = $this->findModel($id);
         $upload = new Uploads();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $upload->imageFile = UploadedFile::getInstance($upload, 'imageFile');
-            if($upload->imageFile!=null)
-            $model->img=$upload->upload(); 
-            $pass=$model->password;
-            $model->password=\Yii::$app->getSecurity()->generatePasswordHash($model->password);
-           if($model->save()){
-            $model->password=$pass;
-           }
+            if ($upload->imageFile != null)
+                $model->img = $upload->upload();
+            $pass = $model->password;
+            $model->password = \Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            if ($model->save()) {
+                $model->password = $pass;
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
