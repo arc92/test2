@@ -97,7 +97,7 @@ services:
       - '80'
       - '443'
     environment:
-      - PMA_HOST=mysqldb
+      - PMA_HOST=localhost
     volumes:
       - /sessions
     ports:
