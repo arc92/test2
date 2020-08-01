@@ -92,7 +92,7 @@ $config = [
         ],
         'redis' => [
             'class'=>'yii\redis\Connection',
-            'hostname' => 'redis', // the swarm service name
+            'hostname' => 'localhost', // the swarm service name
             'password' => 'bccstyle',
             'port' => 6379,
             'database' => 0,

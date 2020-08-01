@@ -17,7 +17,7 @@ class DefaultController extends Controller
     {
         return $this->render('index',[
             "currentMountSmsStatistics" => \Yii::$app->redis->get('currentMonthSms'),
-            "TotalSmsStatistics" => \Yii::$app->redis->get('totalSms')
+            "TotalSmsStatistics" => \Yii::$app->redis->get('currentMonthSms')
         ]);
     }
 }
