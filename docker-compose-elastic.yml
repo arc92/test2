@@ -24,17 +24,24 @@ services:
     volumes:
       - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
     expose:
-        - "9200"
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+        - "9200
+
+  ## --------------------------------------------
+  ## | 8 : cache server
+ ## --------------------------------------------
+
+  redis:
+    image: redis:4.0.10-alpine
     expose:
-      - '80'
-      - '443'
-    environment:
-      - PMA_HOST=localhost
-      - PMA_PORT=3306
-#      - PMA_ARBITRARY=1
+      - "6379"
     volumes:
-      - /sessions
+      - ./docker/redis/default.conf:/usr/local/etc/redis/redis.conf
     ports:
-      - 8008:80
+      - "127.0.0.1:6379:6379"
+    command: [
+      "sh", "-c",
+      '
+       docker-entrypoint.sh
+       --requirepass "bccstyle"
+      '
+    ]"
