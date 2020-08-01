@@ -39,6 +39,5 @@ services:
     volumes:
       - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
     expose:
-        - "9200
-
+        - "9200"
 
