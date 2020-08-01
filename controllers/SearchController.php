@@ -20,11 +20,24 @@ class SearchController extends Controller
                 'number_of_shards' => 3,
                 'number_of_replicas' => 2,
                 'analysis' => [
+                    'filter' => [
+                      'arabic_keywords' =>[
+                          'type' => 'synonym',
+                          'synonyms' => [
+                              "سرهمي,سرهمی",
+                              "ركابي,رکابی",
+                              "ست نوزادي,ست نوزادی",
+                              "سرهمي بندي,سرهمی بندی",
+                              "سرهمي شورتي,سرهمی شورتی",
+                              "بادي,بادی"
+                          ]
+                      ]
+                    ],
                     'analyzer' => [
                         'special_character_analyzer' => [
                             'type' => 'custom',
-                            'filter' => ['lowercase'],
-                            'tokenizer' => 'whitespace'
+                            'filter' => ['lowercase','arabic_keywords'],
+                            'tokenizer' => 'standard'
                         ]
                     ],
                     "normalizer" => [
