@@ -34,7 +34,7 @@ $config = [
         ],
         'queue' => [
             'class' => 'yii\queue\redis\Queue',
-            'redis' => 'redis', // Redis connection component or its config
+            'redis' => 'localhost', // Redis connection component or its config
             'channel' => 'queue', // Queue channel key
         ],
     ],
