@@ -24,8 +24,7 @@
                         <div class="card card-primary card-inverse">
                             <div class="box text-center">
                                 <h1 class="font-light text-white">پیامک</h1>
-                                <h6 class="text-white">در ۳۰ روز گذشته:<span style="padding: 10px"><?=$currentMountSmsStatistics?></span></h6>
-                                <h6 class="text-white">آمار کل:<span style="padding: 10px"><?=$currentMountSmsStatistics?></span></h6>
+                                <h6 class="text-white"><?="در $month ماه "?><span style="padding: 10px"><?=$currentMountSmsStatistics?></span></h6>
                             </div>
                         </div>
                     </div>
