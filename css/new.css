@@ -2113,7 +2113,7 @@ body {
 }
 
 .product-list .list .row .item .details-item img {
-    max-width: 100% !important;
+    max-width: 55% !important;
     max-height: 100% !important;
     width: unset !important;
 }
