@@ -27,14 +27,14 @@ $config = [
         'db' => $db,
         'redis' => [
             'class'=>'yii\redis\Connection',
-            'hostname' => 'redis', // the swarm service name
-            'password' => 'bccstyle',
+            'hostname' => env('REDIS_HOST'), // the swarm service name
+            'password' => env('REDIS_PASSWORD'),
             'port' => 6379,
             'database' => 0,
         ],
         'queue' => [
             'class' => 'yii\queue\redis\Queue',
-            'redis' => 'redis', // Redis connection component or its config
+            'redis' =>  env('REDIS_HOST'), // Redis connection component or its config
             'channel' => 'queue', // Queue channel key
         ],
     ],

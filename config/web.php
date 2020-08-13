@@ -99,7 +99,7 @@ $config = [
         ],
         'queue' => [
             'class' => \yii\queue\redis\Queue::class,
-            'redis' => 'redis', // Redis connection component or its config
+            'redis' => env('REDIS_HOST'), // Redis connection component or its config
             'channel' => 'queue', // Queue channel key
         ],
         'mailer' => [
