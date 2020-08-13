@@ -792,14 +792,103 @@ $str .= ($urls['path']);
 <!--    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="642709d0-bdbb-4c92-be13-61d8b725d594";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>-->
 <!--     Hotjar Tracking Code for www.bccstyle.com-->
     <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:1167565,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        $(".navbar .navbar-nav .nav-item .nav-link").hover(
+            function () {
+                $(this).addClass('active-hover');
+            },
+//   function () {
+//     $(this).removeClass("active-hover");
+//   }
+        );
+        $(".navbar .navbar-nav .nav-item .nav-link").mouseout(
+            function () {
+                $(this).removeClass('active-hover');
+            },
+//   function () {
+//     $(this).removeClass("active-hover");
+//   }
+        );
+        // fixed header
+        $(document).on("scroll", function () {
+            if ($(document).scrollTop() > 33) {
+                $(".main-header").removeClass("large").addClass("small");
+            } else {
+                $(".main-header").removeClass("small").addClass("large");
+            }
+        });
+        // Shop Box
+        $('#cart').hover(function () {
+            $(this).find('.header-index .drop-menu-box-shop').fadeIn()
+        });
+
+        $('#cart').mouseleave(function () {
+            $(this).find('.header-index .dropdown-menu').fadeOut()
+        });
+
+        // $('.navbar .dropdown').hover(function() {
+        //     $(this).find('.dropdown-menu').stop(true, true).delay(60).fadeIn(60);
+        // }, function() {
+        //     $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
+
+        // });
+
+        // Shop Box
+        $('#cart').hover(function () {
+            $(this).find('.drop-menu-box-shop').fadeIn()
+        });
+
+        $('#cart').mouseleave(function () {
+            $(this).find('.drop-menu-box-shop').fadeOut()
+        });
+        // Order Mp
+
+        $(function () {
+            $('.count-product').on('click', '.btn', function (e) {
+                var input = $(this).parents('div.count-product').children('input');
+                var value = parseInt(input.attr('value'));
+                var min = parseInt(input.attr('min'));
+                var max = parseInt(input.attr('max'));
+                if ($(this).hasClass('up')) {
+                    var op = +1;
+                } else {
+                    var op = -1;
+                }
+                if (!(min == value && op == -1) && !(max == value && op == +1)) {
+                    input.attr('value', value + op)
+                }
+            })
+        });
+
+
+        // Order Mp
+
+        $('.item-order-map .tr').click(function () {
+            $(this).parent().find('.drop-down').slideToggle();
+            $(this).find('.td .btn i').toggleClass('d-none')
+        });
+
+
+        $('.porofile .navigation .nav-item').click(function () {
+            $('.porofile .navigation .active').removeClass('active');
+            $(this).addClass('active')
+        });
+
+
+        // Shop Box
+        $('#cart').hover(function () {
+            $(this).find('.drop-menu-box-shop').fadeIn()
+        });
+
+        $('#cart').mouseleave(function () {
+            $(this).find('.drop-menu-box-shop').fadeOut()
+        });
+        // $('#click').click(function () {
+        //     $('#qwe').show();
+        //     $('#hide').hide();
+        //     $('#click').hide();
+
+        // });
+
     </script>
     <?php $this->endBody() ?>
     </body>
