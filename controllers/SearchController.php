@@ -5,7 +5,6 @@ namespace app\controllers;
 
 
 use app\models\Product;
-use GuzzleHttp\Client;
 use Morilog\Jalali\CalendarUtils;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -297,17 +296,7 @@ class SearchController extends Controller
 
 
     public function actionCreateshema(){
-        $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
-            'headers' => [
-                'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
-            ],
-            'json' => [
-                'message' => 1111,
-                'sender' => '30005066962957',
-                'Receptor' => '09363223600',
-            ]
-        ]);
-//        elasticSearchClient()->indices()->create($this->schema);
+        elasticSearchClient()->indices()->create($this->schema);
     }
 
 
