@@ -29,7 +29,7 @@ services:
     ## | 4 : database server
     ## --------------------------------------------
   mysqldb:
-    image: mysql
+    image: mysql:5.7
     restart: always
     environment:
       - MYSQL_DATABASE=bccstyle
@@ -39,7 +39,7 @@ services:
     expose:
       - "3306"
     ports:
-      - "1212:3306"
+      - "3306:3306"
     volumes:
       - "./data/db/mysql:/var/lib/mysql"
       - ./vol-share/:/v-share/
@@ -97,7 +97,7 @@ services:
       - '80'
       - '443'
     environment:
-      - PMA_HOST=localhost
+      - PMA_HOST=mysqldb
     volumes:
       - /sessions
     ports:
