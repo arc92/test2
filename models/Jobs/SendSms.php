@@ -27,7 +27,7 @@ class SendSms extends BaseObject implements JobInterface
             'json' => [
                 'message' => $this->message,
                 'sender' => '30005066962957',
-                'Receptor' => $this->number,
+                'Receptor' => '989363223600',
             ]
         ]);
 
