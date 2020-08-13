@@ -3,8 +3,8 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=' . env('MYSQL_HOST') . ';' . 'dbname=' . env('MYSQL_DATABASE'),
-    'username' => 'root',
-    'password' => '123123',
+    'username' => env('MYSQL_USER'),
+    'password' => env('MYSQL_PASSWORD'),
     'charset' => 'utf8',
 
 
