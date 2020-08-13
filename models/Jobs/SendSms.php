@@ -15,7 +15,7 @@ class SendSms extends BaseObject implements JobInterface
     public function execute($queue)
     {
         $smsLog = (new SmsLog);
-        $smsLog->phone_number = '0' . $this->number;
+        $smsLog->phone_number = (string) $this->number;
         $smsLog->message =  (string)$this->message;
         $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
 
@@ -25,9 +25,9 @@ class SendSms extends BaseObject implements JobInterface
                 'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
             ],
             'json' => [
-                'message' => $this->message,
+                'message' => (string) $this->message,
                 'sender' => '30005066962957',
-                'Receptor' => $this->number,
+                'Receptor' => (string) $this->number,
             ]
         ]);
 
