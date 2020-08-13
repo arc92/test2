@@ -7,14 +7,6 @@ $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log','queue'],
-    'modules' => [
-        'debug' => [
-            'class' => \yii\debug\Module::class,
-            'panels' => [
-                'queue' => \zhuravljov\yii\queue\debug\Panel::class,
-            ],
-        ],
-    ],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -42,7 +34,7 @@ $config = [
         ],
         'queue' => [
             'class' => 'yii\queue\redis\Queue',
-            'redis' =>  'redis', // Redis connection component or its config
+            'redis' => 'redis', // Redis connection component or its config
             'channel' => 'queue', // Queue channel key
         ],
     ],

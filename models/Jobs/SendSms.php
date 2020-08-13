@@ -14,8 +14,6 @@ class SendSms extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-        \Yii::error('nima');
-
         $smsLog = (new SmsLog);
         $smsLog->phone_number = (string) $this->number;
         $smsLog->message =  (string)$this->message;
@@ -32,6 +30,7 @@ class SendSms extends BaseObject implements JobInterface
                 'Receptor' => $this->number,
             ]
         ]);
+
 
         $smsLog->state = (string) (json_decode($response->getBody()->getContents())->result);
         $smsLog->save();
