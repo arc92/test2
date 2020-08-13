@@ -8,5 +8,5 @@ assets/*
 uploads/*
 composer.lock
 /squirrelmail
-config/db.php
 index.php
+.env

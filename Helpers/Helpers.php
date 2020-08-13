@@ -17,3 +17,9 @@ if (!function_exists('getIndexName')) {
         return "product";
     }
 }
+
+if(!function_exists('env')){
+    function env($key,$default = null){
+        return !empty($_ENV[$key]) ? $_ENV[$key] : $default;
+    }
+}

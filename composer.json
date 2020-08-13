@@ -45,11 +45,11 @@
         "symfony/var-dumper": "^5.1",
         "yiisoft/yii2-redis": "^2.0",
         "yiisoft/yii2-queue": "^2.3",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "vlucas/phpdotenv": "^5.1"
     },
     "require-dev": {
         "codeception/codeception": "^4.0.0",
-        "vlucas/phpdotenv": "^3.0",
         "league/factory-muffin": "^3.0",
         "fzaninotto/faker": "^1.8",
         "codeception/module-phpbrowser": "^1.0.0",
