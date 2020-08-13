@@ -27,12 +27,12 @@ class SendSms extends BaseObject implements JobInterface
             'json' => [
                 'message' => $this->message,
                 'sender' => '30005066962957',
-                'Receptor' => '989363223600',
+                'Receptor' => $this->number,
             ]
         ]);
 
-
         $smsLog->state = (string) (json_decode($response->getBody()->getContents())->result);
         $smsLog->save();
+        \Yii::info('blah blah');
     }
 }
