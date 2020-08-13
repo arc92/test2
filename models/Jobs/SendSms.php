@@ -25,9 +25,9 @@ class SendSms extends BaseObject implements JobInterface
                 'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
             ],
             'json' => [
-                'message' => (string) $this->message,
+                'message' => $this->message,
                 'sender' => '30005066962957',
-                'Receptor' => (string) $this->number,
+                'Receptor' => $this->number,
             ]
         ]);
 
