@@ -92,14 +92,14 @@ $config = [
         ],
         'redis' => [
             'class'=>'yii\redis\Connection',
-            'hostname' => 'redis', // the swarm service name
+            'hostname' => 'localhost', // the swarm service name
             'password' => 'bccstyle',
             'port' => 6379,
             'database' => 0,
         ],
         'queue' => [
             'class' => \yii\queue\redis\Queue::class,
-            'redis' => env('REDIS_HOST'), // Redis connection component or its config
+            'redis' => 'redis', // Redis connection component or its config
             'channel' => 'queue', // Queue channel key
         ],
         'mailer' => [
