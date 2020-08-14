@@ -16,7 +16,7 @@ class SendSms extends BaseObject implements JobInterface
     {
         $smsLog = (new SmsLog);
         $smsLog->phone_number = (string) $this->number;
-        $smsLog->message =  (string) $this->message;
+//        $smsLog->message =  (string) $this->message;
 //        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
 
 //
@@ -32,7 +32,7 @@ class SendSms extends BaseObject implements JobInterface
 //        ]);
 
 
-        $smsLog->state =  1;
+//        $smsLog->state =  1;
         $smsLog->save();
     }
 }
