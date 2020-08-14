@@ -301,7 +301,7 @@ class SearchController extends Controller
         $smsLog->phone_number = (string) 99;
 //        $smsLog->message =  (string) $this->message;
 //        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
-        $smsLog->save();
+        $smsLog->insert(false);
 //        elasticSearchClient()->indices()->create($this->schema);
     }
 
