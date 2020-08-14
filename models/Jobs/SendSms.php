@@ -14,25 +14,25 @@ class SendSms extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
-//        $smsLog = (new SmsLog);
-//        $smsLog->phone_number = (string) $this->number;
-//        $smsLog->message =  (string)$this->message;
-//        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
+        $smsLog = (new SmsLog);
+        $smsLog->phone_number = (string) $this->number;
+        $smsLog->message =  (string) $this->message;
+        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
+
+//
+//        $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
+//            'headers' => [
+//                'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
+//            ],
+//            'json' => [
+//                'message' => $this->message,
+//                'sender' => '30005066962957',
+//                'Receptor' => (string)$this->number,
+//            ]
+//        ]);
 
 
-        $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
-            'headers' => [
-                'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
-            ],
-            'json' => [
-                'message' => $this->message,
-                'sender' => '30005066962957',
-                'Receptor' => (string)$this->number,
-            ]
-        ]);
-
-
-//        $smsLog->state = (string) 1;
-//        $smsLog->save();
+        $smsLog->state =  1;
+        $smsLog->save();
     }
 }
