@@ -27,11 +27,11 @@ class SmsLog extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-//        return [
-//            [['message'], 'string'],
-//            [['created_at'], 'string'],
-//            [['phone_number'], 'string', 'max' => 255],
-//        ];
+        return [
+            [['message'], 'string'],
+            [['created_at'], 'safe'],
+            [['phone_number'], 'string', 'max' => 255],
+        ];
     }
 
     /**
