@@ -5,7 +5,6 @@ namespace app\controllers;
 
 
 use app\models\Product;
-use app\models\SmsLog;
 use Morilog\Jalali\CalendarUtils;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -297,12 +296,7 @@ class SearchController extends Controller
 
 
     public function actionCreateshema(){
-        $smsLog = (new SmsLog);
-        $smsLog->phone_number = (string) 99;
-//        $smsLog->message =  (string) $this->message;
-//        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
-        $smsLog->insert(false);
-//        elasticSearchClient()->indices()->create($this->schema);
+        elasticSearchClient()->indices()->create($this->schema);
     }
 
 

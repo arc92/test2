@@ -16,9 +16,9 @@ class SendSms extends BaseObject implements JobInterface
     {
         $smsLog = (new SmsLog);
         $smsLog->phone_number = (string) $this->number;
-//        $smsLog->message =  (string) $this->message;
-//        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
-        $smsLog->save();
+        $smsLog->message =  (string)$this->message;
+        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
+
 
         $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
             'headers' => [
@@ -27,12 +27,12 @@ class SendSms extends BaseObject implements JobInterface
             'json' => [
                 'message' => $this->message,
                 'sender' => '30005066962957',
-                'Receptor' => (string)$this->number,
+                'Receptor' => $this->number,
             ]
         ]);
 
 
-//        $smsLog->state =  1;
-
+        $smsLog->state = (string) (json_decode($response->getBody()->getContents())->result);
+        $smsLog->insert(false);
     }
 }
