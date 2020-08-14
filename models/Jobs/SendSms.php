@@ -18,18 +18,18 @@ class SendSms extends BaseObject implements JobInterface
         $smsLog->phone_number = (string) $this->number;
 //        $smsLog->message =  (string) $this->message;
 //        $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
-        $smsLog->save();
-//
-//        $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
-//            'headers' => [
-//                'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
-//            ],
-//            'json' => [
-//                'message' => $this->message,
-//                'sender' => '30005066962957',
-//                'Receptor' => (string)$this->number,
-//            ]
-//        ]);
+
+
+        $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
+            'headers' => [
+                'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
+            ],
+            'json' => [
+                'message' => $smsLog->save(),
+                'sender' => '30005066962957',
+                'Receptor' => (string)$this->number,
+            ]
+        ]);
 
 
 //        $smsLog->state =  1;
