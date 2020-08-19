@@ -11,7 +11,7 @@ function sendRequest(url) {
                 var text=value.name;
                 text=text.replace(/ /g, "-");
                 if(value.count!=1 ){
-                    html='<div class="item" >';
+                    html+='<div class="item" >';
                     html+=' <div class="details-item"> ';
                     html+=' <a target="_blank" href="/product/'+text+'/">';
                     html+='<img src="/'+value.image+'">';
