@@ -124,6 +124,7 @@ class FilterController extends Controller
                 }
             }
         }
+
         if ($categoryID != null && $catID == null && $subcatID != null && $planID != null && $colorID == null && $name == null) {
             $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => $subcatID])->all();
             foreach ($subcatrelations as $subcatrelation) {
@@ -150,7 +151,7 @@ class FilterController extends Controller
         if ($categoryID != null && $catID == null && $subcatID != null && $planID != null && $colorID != null && $name == null) {
             $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => $subcatID])->all();
             foreach ($subcatrelations as $subcatrelation) {
-                foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['id' => $subcatrelation->productID])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
+                foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['product.id' => $subcatrelation->productID])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
                     $productItem[$i]['id'] = $product->id;
                     $productItem[$i]['name'] = $product->name;
                     $productItem[$i]['price'] = $product->price;
@@ -199,7 +200,7 @@ class FilterController extends Controller
                 $arraysub[$subcatrelation->productID] = $subcatrelation->productID;
             }
 
-            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['id' => $array])->andWhere(['id' => $arraysub])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
+            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['product.id' => $array])->andWhere(['id' => $arraysub])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
                 $productItem[$i]['id'] = $product->id;
                 $productItem[$i]['name'] = $product->name;
                 $productItem[$i]['price'] = $product->price;
@@ -228,7 +229,7 @@ class FilterController extends Controller
                 $arraysub[$subcatrelation->productID] = $subcatrelation->productID;
             }
 
-            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['id' => $array])->andWhere(['id' => $arraysub])->andWhere(['planID' => $planID])->all() as $product) {
+            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['product.id' => $array])->andWhere(['product.id' => $arraysub])->andWhere(['planID' => $planID])->all() as $product) {
                 $productItem[$i]['id'] = $product->id;
                 $productItem[$i]['name'] = $product->name;
                 $productItem[$i]['price'] = $product->price;
@@ -257,8 +258,8 @@ class FilterController extends Controller
                 $arraysub[$subcatrelation->productID] = $subcatrelation->productID;
             }
 
-            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['id' => $array])->andWhere(['id' => $arraysub])->all() as $product) {
-                $productItem[$i]['id'] = $product->id;
+            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['product.id' => $array])->andWhere(['product.id' => $arraysub])->all() as $product) {
+                $productItem[$i]['product.id'] = $product->id;
                 $productItem[$i]['name'] = $product->name;
                 $productItem[$i]['price'] = $product->price;
                 $productItem[$i]['image'] = $product->productimgs->img;
@@ -281,7 +282,7 @@ class FilterController extends Controller
             foreach ($features as $feature) {
                 $array[$feature->productID] = $feature->productID;
             }
-            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->Where(['id' => $array])->andWhere(['colorID' => $colorID])->all() as $product) {
+            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->Where(['product.id' => $array])->andWhere(['colorID' => $colorID])->all() as $product) {
                 $productItem[$i]['id'] = $product->id;
                 $productItem[$i]['name'] = $product->name;
                 $productItem[$i]['price'] = $product->price;
@@ -306,7 +307,7 @@ class FilterController extends Controller
                 $array[$feature->productID] = $feature->productID;
             }
 
-            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['id' => $array])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
+            foreach (\app\models\Product::find()->joinWith('catproducts')->where(['catproduct_product.category_product_id' => $categoryID])->andWhere(['product.id' => $array])->andWhere(['planID' => $planID])->andWhere(['colorID' => $colorID])->all() as $product) {
                 $productItem[$i]['id'] = $product->id;
                 $productItem[$i]['name'] = $product->name;
                 $productItem[$i]['price'] = $product->price;
