@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Jobs\SendSms;
 use Yii;
 use app\models\Bascket;
 use app\models\BascketSearch;
@@ -108,8 +109,9 @@ class BascketController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $currentBasketCondition = $model->condition;
         if ($model->load(Yii::$app->request->post())) {
+            $this->changeConditionStatus($model,$currentBasketCondition);
             $model->sendDate = Yii::$app->jdate->date('Y/m/d');
             $model->save();
             return $this->redirect('index');
@@ -148,5 +150,18 @@ class BascketController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    private function changeConditionStatus($model,$currentCondition)
+    {
+        if((int)$model->condition != $currentCondition){
+            if((int)$model->condition == 3 OR (int)$model->condition == 4){
+                $text = $model->commentadmin;
+                \Yii::$app->queue->push(new SendSms([
+                    'message' => trim(strip_tags($text)),
+                    'number' => '0'.$model->mobile,
+                ]));
+            }
+        }
     }
 }
