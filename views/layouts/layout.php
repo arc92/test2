@@ -661,11 +661,11 @@ $str .= ($urls['path']);
                                 جدول سایز
                             </a>
                         </li>
-<!--                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item">
+                            <a href="/privacy/" class="nav-link">
                                 باشگاه مشتریان
                             </a>
-                        </li> -->
+                        </li>
                         <!--                        <li class="nav-item">-->
                         <!--                            <a href="/blog/" class="nav-link">-->
                         <!--                                وبلاگ-->
@@ -692,11 +692,11 @@ $str .= ($urls['path']);
                                 تماس با ما
                             </a>
                         </li>
-                        <li class="nav-item">
+<!--                         <li class="nav-item">
                             <a class="nav-link" href="/privacy/">
                                 باشگاه مشتریان
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="/help/">
                                 راهنما
