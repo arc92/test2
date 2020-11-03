@@ -11,7 +11,7 @@ use yii\widgets\LinkPager;
 <section class="privecy page-footer">
     <div class="container">
         <h2 class="title">
-         حریم خصوصی
+         باشگاه مشتریان
         </h2>
         <p class="text"><?=$privacy->text?> </p>
       
