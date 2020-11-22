@@ -8,7 +8,7 @@ $this->title = 'ثبت موفق';
          <div class="border d-flex flex-wrap justify-content-between">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 p-0">  </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 p-0">  
-                 <div class="details-img">
+                 <div class="details-img" style="text-align: center">
                         <div class="sync2">
                             <div id="sync2" class="owl-carousel owl-theme"> 
                                 <div class="item">
@@ -16,7 +16,7 @@ $this->title = 'ثبت موفق';
                                   </div>
                                 </div>
                             </div>
-                        <a class="btn btn-success" style="margin-bottom: 5px" href="/"> باز گشت به صفحه اصلی</a>
+                        <a class="btn btn-success" style="margin-bottom: 5px" href="/"> بازگشت به صفحه اصلی</a>
                         <h2 class="title" stye="padding-bottom: 50px;">  سفارش شما با موفقیت ثبت شد، از خرید شما متشکریم </h2>
                         <div class="price-item">
 <!--                         <a class="btn shop-basket" href="/login" style="float: right; margin-right: 161px;"> پیگیری سفارش </a>-->
