@@ -16,6 +16,7 @@ $this->title = 'ثبت موفق';
                                   </div>
                                 </div>
                             </div>
+                        <a class="btn btn-success" style="margin-bottom: 5px" href="/"> باز گشت به صفحه اصلی</a>
                         <h2 class="title" stye="padding-bottom: 50px;">  سفارش شما با موفقیت ثبت شد، از خرید شما متشکریم </h2>
                         <div class="price-item">
 <!--                         <a class="btn shop-basket" href="/login" style="float: right; margin-right: 161px;"> پیگیری سفارش </a>-->
