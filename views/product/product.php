@@ -670,6 +670,7 @@ jQuery('#fvoption-featurevid').change(()=>{
         console.log(a); 
         var b=parseInt($('#offfer').val());
         console.log(b)
+console.log(Math.round((a*b)/100))
         var c=a-((a*b)/100);
         console.log(c)
 
