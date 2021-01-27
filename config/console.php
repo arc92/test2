@@ -6,11 +6,15 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log','queue'],
+    'bootstrap' => [
+        'log',
+        'queue',
+        \insolita\opcache\Bootstrap::class
+    ],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'cache' => [
@@ -39,13 +43,15 @@ $config = [
         ],
     ],
     'params' => $params,
-    /*
     'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
+//        'fixture' => [ // Fixture generation command line.
+//            'class' => 'yii\faker\FixtureController',
+//        ],
+        'opcache' => [
+            'class' => \insolita\opcache\commands\OpcacheController::class
+        ]
     ],
-    */
+
 ];
 
 if (YII_ENV_DEV) {

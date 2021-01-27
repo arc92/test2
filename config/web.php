@@ -7,28 +7,18 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'language' => 'fa-IR',
-    'bootstrap' => ['log','queue'],
+    'bootstrap' => [
+        'log',
+        'queue',
+        '\insolita\opcache\Bootstrap::class'
+        ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
     'on beforeAction' => function ($event) {
         ini_set('date.timezone', 'Asia/tehran');
-        $url = Yii::$app->request->getAbsoluteUrl();
-        $item = explode('https://www.', $url);
-//        if($item[0]!=''){
-//                Yii::$app->getResponse()->redirect('https://www.bccstyle.com/');
-//                Yii::$app->end();
-//        }
-        // $pathInfo = Yii::$app->request->pathInfo;
-        // $query = Yii::$app->request->queryString;
-        // if (!empty($pathInfo) && substr($pathInfo, -1) === '/') {
-        //     $url = '/' . substr($pathInfo, 0, -1);
-        //     if ($query) {
-        //         $url .= '?' . $query;
-        //     }
-        //     Yii::$app->response->redirect($url, 301);
-        // }
+
         if (\Yii::$app->controller->module->id == "user" && \yii::$app->users->is_loged() == false) {
             Yii::$app->response->redirect("/login");
         }
@@ -429,6 +419,19 @@ $config = [
             'class' => 'app\modules\user\Module',
         ],
         'gridview' => ['class' => 'kartik\grid\Module'],
+        'opcache'=>[
+            'class'=>'insolita\opcache\OpcacheModule',
+            'as access'=>[
+                'class' => \yii\filters\AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //Protect access
+                        'roles' => ['developer'],
+                    ],
+                ],
+            ]
+        ],
     ],
 ];
 
