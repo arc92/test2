@@ -168,29 +168,33 @@ class ProductController extends Controller
         ]);
         \Yii::$app->view->title = $setting->title_girlgrid;
 
-        $category = new \app\models\Category();
-        $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
-        $model = new Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
-        foreach ($catrelations as $catrelationsitem) {
-            $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
-        }
-        $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 9])->all();
-        foreach ($subcatrelations as $subcatrelationitem) {
-            $arraysub[$subcatrelationitem->productID] = $subcatrelationitem->productID;
-        }
-        $products = Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
+        $products = Product::find()
+            ->joinWith(['featurevalues'])
+            ->with([
+                'productimgs',
+                'aboutproducts',
+                'categoryRelations' => function ($query) {
+                    $query->where(['catID' => 1]);
+                },
+                'subcatRelations' => function ($query) {
+                    $query->where(['subcatID' => 9]);
+                }
+            ]);
+        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->orderBy(['product_Count' => SORT_DESC]);
+
         $countQuery = clone $products;
         $count = $countQuery->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 21]);
-        $articles = $products->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
-        $imgs = \app\models\Productimg::find()->all();
-        return $this->render('girlgrid', compact('catrelations', 'subcatrelations', 'subcat', 'imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'aboutproducts'));
+        \Yii::$app->view->title = 'baby girl';
+        return $this->render('girlgrid',
+            compact('contentcategory', 'articles', 'pagination', 'category', 'size', 'count'));
+
     }
 
     /**
@@ -203,33 +207,36 @@ class ProductController extends Controller
         $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
-            'content' => $setting->description_boygrid
+            'content' => $setting->description_girlgrid
         ]);
-        \Yii::$app->view->title = $setting->title_boygrid;
+        \Yii::$app->view->title = $setting->title_girlgrid;
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $category = new \app\models\Category();
-        $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $model = new Product();
-        $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
-        foreach ($catrelations as $catrelationsitem) {
-            $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
-        }
-        $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 10])->all();
-        foreach ($subcatrelations as $subcatrelationitem) {
-            $arraysub[$subcatrelationitem->productID] = $subcatrelationitem->productID;
-        }
-        $products = Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
+        $products = Product::find()
+            ->joinWith(['featurevalues'])
+            ->joinWith(['subcatRelations'])
+            ->with([
+                'productimgs',
+                'aboutproducts',
+                'categoryRelations' => function ($query) {
+                    $query->where(['catID' => 1]);
+                }
+            ])
+            ->where(['subcat_relation.subcatID' => 10]);
+        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->orderBy(['product_Count' => SORT_DESC]);
+
         $countQuery = clone $products;
         $count = $countQuery->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 21]);
-        $articles = $products->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
-        $imgs = \app\models\Productimg::find()->all();
-        return $this->render('boygrid', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        \Yii::$app->view->title = 'baby boy';
+        return $this->render('girlgrid',
+            compact('contentcategory', 'articles', 'pagination', 'category', 'size', 'count'));
+
     }
 
     /**
