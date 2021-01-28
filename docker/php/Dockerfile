@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     && docker-php-ext-install -j$(nproc) pdo pdo_mysql bcmath zip pcntl gd soap
 
+RUN pecl install xdebug-2.6.1 && docker-php-ext-enable xdebug
+
 
 # Installing composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

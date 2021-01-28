@@ -9,8 +9,7 @@ $config = [
     'language' => 'fa-IR',
     'bootstrap' => [
         'log',
-        'queue',
-        \insolita\opcache\Bootstrap::class
+        'queue'
         ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -41,7 +40,7 @@ $config = [
             'cookieValidationKey' => '60-jJvLblFM9YHYWlr0bJGEyBWShhYX1',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' =>  'yii\redis\Cache',
         ],
         'jdate' => [
             'class' => 'jDate\DateTime'
@@ -327,21 +326,11 @@ $config = [
                     'route' => 'product/index2',
                     'suffix' => '/',
                 ],
-                //  [
-                //     'pattern' => 'baby-clothing/baby-clothes-gift-set/<name>',
-                //     'route' => 'product/menulink',
-                //     'suffix' => '/',
-                // ],
                 [
                     'pattern' => 'baby-clothing/baby-clothes-gift-set/<name>',
                     'route' => 'product/towel',
                     'suffix' => '/',
                 ],
-                //  [
-                //     'pattern' => 'baby-clothing/baby-clothes-gift-set',
-                //     'route' => 'product/set',
-                //     'suffix' => '/',
-                // ],
                 [
                     'pattern' => 'baby-clothing/baby-clothes-gift-set',
                     'route' => 'product/sets',
@@ -419,19 +408,6 @@ $config = [
             'class' => 'app\modules\user\Module',
         ],
         'gridview' => ['class' => 'kartik\grid\Module'],
-        'opcache'=>[
-            'class'=>'insolita\opcache\OpcacheModule',
-            'as access'=>[
-                'class' => \yii\filters\AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        //Protect access
-                        'roles' => ['@'],
-                    ],
-                ],
-            ]
-        ],
     ],
 ];
 

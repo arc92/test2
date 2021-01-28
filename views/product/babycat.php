@@ -145,7 +145,7 @@ use yii\widgets\LinkPager;
     <span class="title">
         ویژگی
     </span>
-                            <?php foreach ($aboutproducts as $aboutproduct) {
+                            <?php foreach ($article->aboutproducts as $aboutproduct) {
                                 if ($aboutproduct->productID == $article->id) { ?>
                                     <li class="nav-item">
                                         <i class="icon-023-tick"></i>

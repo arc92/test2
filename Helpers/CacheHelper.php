@@ -1,8 +1,12 @@
 <?php
 
 use app\models\Category;
+use app\models\City;
 use app\models\Color;
+use app\models\Footer;
 use app\models\Menu;
+use app\models\Menu2;
+use app\models\Province;
 use app\models\Size;
 use app\models\Subcat;
 use Elasticsearch\ClientBuilder;
@@ -60,29 +64,80 @@ if(!function_exists('cacheColorList')){
     }
 }
 
-if(!function_exists('cacheMenuList')){
-    function cacheMenuList(){
 
-        if(!Yii::$app->cache->exists('cacheMenuList')) {
-            Yii::$app->cache->set('cacheMenuList', Menu::find()->Where(['parent'=>0])->orWhere(['parent'=>null])->all() ,3600 * 24 * 7);
+if(!function_exists('cacheSlider')){
+    function cacheSlider(){
+
+        if(!Yii::$app->cache->exists('cacheSlider')) {
+            Yii::$app->cache->set('cacheSlider', \app\models\Slider::find()->all() ,3600 * 24 * 7);
         }
 
-        $category = Yii::$app->cache->get('cacheMenuList');
+        $category = Yii::$app->cache->get('cacheSlider');
 
         return $category;
     }
 }
 
-if(!function_exists('cacheMenu2List')){
-    function cacheMenu2List(){
+if(!function_exists('cacheFooter')){
+    function cacheFooter(){
 
-        if(!Yii::$app->cache->exists('cacheMenu2List')) {
-            Yii::$app->cache->set('cacheMenu2List', Menu::find()->all() ,3600 * 24 * 7);
+        if(!Yii::$app->cache->exists('cacheFooter')) {
+            Yii::$app->cache->set('cacheFooter', Footer::find()->all() ,3600 * 24 * 7);
         }
 
-        $category = Yii::$app->cache->get('cacheMenu2List');
+        $category = Yii::$app->cache->get('cacheFooter');
 
         return $category;
     }
 }
 
+if(!function_exists('subMenu')){
+    function subMenu(){
+
+        if(!Yii::$app->cache->exists('subMenu')) {
+            Yii::$app->cache->set('subMenu', Menu2::find()->where(['has_Submenu' => 0])->all() ,3600 * 24 * 7);
+        }
+
+        $category = Yii::$app->cache->get('subMenu');
+
+        return $category;
+    }
+}
+if(!function_exists('menu')){
+    function menu(){
+
+        if(!Yii::$app->cache->exists('menu')) {
+            Yii::$app->cache->set('menu', Menu2::find()->all() ,3600 * 24 * 7);
+        }
+
+        $category = Yii::$app->cache->get('menu');
+
+        return $category;
+    }
+}
+
+if(!function_exists('cacheProvince')){
+    function cacheProvince(){
+
+        if(!Yii::$app->cache->exists('cacheProvince')) {
+            Yii::$app->cache->set('cacheProvince', Province::find()->all() ,3600 * 24 * 365);
+        }
+
+        $category = Yii::$app->cache->get('cacheProvince');
+
+        return $category;
+    }
+}
+
+if(!function_exists('cacheCity')){
+    function cacheCity(){
+
+        if(!Yii::$app->cache->exists('cacheCity')) {
+            Yii::$app->cache->set('cacheCity', City::find()->all() ,3600 * 24 * 365);
+        }
+
+        $category = Yii::$app->cache->get('cacheCity');
+
+        return $category;
+    }
+}

@@ -149,27 +149,6 @@ use hoomanMirghasemi\jdf\Jdf;
                                          $sum += $strsum;
                                     }
                                 } ?>
-                                 <?php  
-                            //      $text='';
-                            //     foreach($carts as $cart){
-                            //         foreach($cartoptions as $request){
-                            //          if($request->cartID==$cart->id){
-                            //             $text.='-'.$request->product->name.'-';
-                            //         }
-                            //     }
-                            // }
-
-
-                    //              foreach($carts as $cart){
-                    //                 foreach($cartoptions as $request){
-                    //                  if($request->cartID==$cart->id){
-                    //                    // $text[$request->productID]=$request->productID;
-                    //                    echo $form->field($bascket, 'nameproduct[]')->hiddenInput(['value' =>$request->productID])->label(false);
-                    //                 }
-                    //             }
-                    //         }
-                    //   // var_dump($text);exit;
-                            ?>
                     <?= $form->field($bascket, 'cartID')->hiddenInput(['value' =>$carts->id])->label(false) ?>
                     <?= $form->field($bascket, 'authority')->hiddenInput(['value' =>rand(1000,5000)])->label(false) ?>
                     <?= $form->field($bascket, 'refID')->hiddenInput(['value' =>rand(600,9000)])->label(false) ?>
@@ -185,13 +164,12 @@ use hoomanMirghasemi\jdf\Jdf;
                     <div id="sync3" class="owl-carousel owl-theme">
                 <?php    
                             foreach($cartoptions as $cartoption){
-                            if($cartoption->cartID==$carts->id){ 
-                                    foreach($products as $product){
-                                        if($product->id==$cartoption->productID){  ?>
-                        <div class="item">
-                            <img  src="/<?=$product->productimgs->img ?>" alt="">
-                        </div>
-                        <?php }  } } }   ?>
+                                $product = $cartoption->product[0];
+                                ?>
+                                <div class="item">
+                                    <img  src="/<?=$product->productimgs->img ?>" alt="">
+                                </div>
+                        <?php }     ?>
                     </div>
                     <div class="nav" id="nav-detail-product">
 
@@ -199,15 +177,14 @@ use hoomanMirghasemi\jdf\Jdf;
                 </div>
                 <div class="sync4">
                     <div id="sync4" class="owl-carousel owl-theme">
-                    <?php  
-                    foreach($cartoptions as $cartoption){
-                        if($cartoption->cartID==$carts->id){ 
-                              foreach($products as $product){
-                                     if($product->id==$cartoption->productID){  ?>
-                        <div class="item"> 
-                            <img src="/<?=$product->productimgs->img ?>" alt=""> 
-                        </div>
-                        <?php }  } } }     ?>
+                    <?php
+                        foreach($cartoptions as $cartoption){
+                            $product = $cartoption->product[0];
+                            ?>
+                            <div class="item">
+                                <img  src="/<?=$product->productimgs->img ?>" alt="">
+                            </div>
+                        <?php }     ?>
                     </div>
                 </div>
             </div>
@@ -229,13 +206,11 @@ use hoomanMirghasemi\jdf\Jdf;
                             مبلغ
                         </td>
                     </tr>
-            <?php  
+                <?php
                     foreach($cartoptions as $cartoption){
-                        if($cartoption->cartID==$carts->id){ 
-                              foreach($products as $product){
-                                     if($product->id==$cartoption->productID){ 
-                                                $sum= \app\models\Cartoption::find()->Where(['cartID'=>$carts->id])->sum('amount*count');
-                                                $sumcount= \app\models\Cartoption::find()->Where(['cartID'=>$carts->id])->sum('count');  ?>
+                        $product = $cartoption->product[0];
+                         if($product->id==$cartoption->productID) {
+//                            ?>
                     <tr>
                         <td  class="name"><?=$product->name.' - سایز  '?>
                         <?php if(\app\models\Featurevalue::find()->Where(['productID'=>$product->id])->all()){
@@ -245,43 +220,11 @@ use hoomanMirghasemi\jdf\Jdf;
                         <td class="number"><?=$cartoption->count?></td>
                         <td class="price"> <?=$cartoption->amount*$cartoption->count?></td>
                     </tr>
-                  <?php }   }   }  }  ?>
+                  <?php }   }    ?>
                 </table> 
                
 
-                
-                <!-- <form action="#" class="off"> -->
-                    <div class="item item-off">
-                        <label for="off">
-                            اعمال کد تخفیف
-                        </label>
-                        <span class="d-flex"> 
-                        <!-- <input type="text" id="off"> --> 
-                        <?=$form->field($bascket, 'discount')->textInput(['id'=>'off','value'=>''])->label(false)?>
-                        <a id="btn_offer" class="btn" style="    width: 34px; height: 34px; position: absolute;left: 6px;border-radius: 50%;top: 34px; display: flex; background-color:#a3cced; justify-content: center; align-items: center;}">
-                            <i class="icon-add" style="height: 15px;font-size: 15px;"></i>
-                        </a> 
-                        </span>
-                        <span class="" style="color:red;display:none;" id="offerone" > لطفا کد تخیف را وراد نمایید</span>
-                        <span class="" style="color:red;display:none;" id="offertow">  کد تخیف صحیح نمی باشد</span>
-                        <span class="" style="color:green;display:none;" id="offerthree">  کد تخفیف وارد شده صحیح است </span>
-                    </div>
-                    <div class="item item-member">
-                        <label for="member" class="member">
-                            شماره 16 رقمی کارت باشگاه مشتریان
-                        </label>
-                        <div class="d-flex">
-                            <!-- <input class="member" type="text" id="member"> -->
-                             <?=$form->field($bascket, 'memeber')->textInput(['id'=>'member','class'=>'member','value'=>''])->label(false) ?>
-                            <button class="btn member">
-                                <i class="icon-add"></i>
-                            </button>
 
-                        </div>
-                    </div>
-                 
-<!--               
-                </form> -->
              
                 <div class="deliver" >
                     <span class="title">
@@ -326,47 +269,6 @@ use hoomanMirghasemi\jdf\Jdf;
                 <label for="time" class="label-table" >
                     تاریخ ارسال  /  شهر تهران
                 </label>
-                <table>
-                    <?php     
-                     foreach(\app\models\Send::find()->Where(['status'=>1])->all() as $time){    ?> 
-                        <tr>
-                        <td> <?=$time->date?> </td>
-                        <?php if($time->date==Yii::$app->jdate->date('Y/m/d') ){ ?>
-                        <td>
-                            <input type="radio" class="day" name="day" value="day" id="<?=$time->id?>" disabled >
-                            <label for="<?=$time->id?>" style="color:lightgray;">ساعت <?=$time->time1?> </label>
-                        </td>
-                        <?php }else{
-                               $countsend=\app\models\Bascket::find()->Where(['submitDate'=>Yii::$app->jdate->date('Y/m/d')])->andWhere(['timeID'=>1])->count(); 
-                                if($countsend<=$time->count1 && $time->count1>0){
-                            ?>
-                            <td>
-                            <input type="radio" class="day" name="day" value="1-<?=$time->date?>" id="<?=$time->id?>" >
-                            <label for="<?=$time->id?>">ساعت <?=$time->time1?> </label>
-                            </td>
-                            <?php }else{ ?>
-                              <td>
-                            <input type="radio" class="day" name="day" value="1-<?=$time->date?>" id="<?=$time->id?>" disabled>
-                            <label for="<?=$time->id?>" style="color:lightgray;">ساعت <?=$time->time1?> </label>
-                            </td>
-                            <?php } ?>
-                        <?php } ?>
-                        <?php   $countsend=\app\models\Bascket::find()->Where(['submitDate'=>Yii::$app->jdate->date('Y/m/d')])->andWhere(['timeID'=>2])->count(); 
-                                if($countsend<=$time->count2 && $time->count2>0){?>
-                        <td>
-                            <input type="radio" class="day" name="day" value="2-<?=$time->date?>" id="time<?=$time->id?>" >
-                            <label for="time<?=$time->id?>">ساعت <?=$time->time2?></label>
-                        </td>
-                                <?php }else{ ?>
-                        <td>
-                            <input type="radio" class="day" name="day" value="2-<?=$time->date?>-2" id="time<?=$time->id?>" disabled>
-                            <label for="time<?=$time->id?>" style="color:lightgray;">ساعت <?=$time->time2?></label>
-                        </td>
-                                <?php } ?>
-                    </tr>
-                    <?php } ?>
-
-                </table>
                 </div>
                 </div>
                 <div class="factor ">

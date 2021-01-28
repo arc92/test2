@@ -1,9 +1,7 @@
 <?php
 
 
-
 namespace app\controllers;
-
 
 
 use Yii;
@@ -31,23 +29,12 @@ use yii\web\Linkable;
 use yii\web\Request;
 
 
-
-
-
-
-
 class PlanController extends Controller
-
 {
 
 
-
-
-
     /**
-
      * {@inheritdoc}
-
      */
 
     public function actions()
@@ -75,34 +62,27 @@ class PlanController extends Controller
     }
 
 
-
     /**
-
      * Displays homepage.
-
      *
-
      * @return string
-
      */
 
-  
 
     public function actionIndex()
 
     {
-        $setting=\app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one(); 
+        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
         \Yii::$app->view->registerMetaTag([
-          'name' => 'description',
-          'content' => $setting->description_collection
-      ]);
-      \Yii::$app->view->title=$setting->title_collection;
+            'name' => 'description',
+            'content' => $setting->description_collection
+        ]);
+        \Yii::$app->view->title = $setting->title_collection;
 
-        $plans=\app\models\Plan::find()->orderBy(['id' => SORT_DESC])->all();
+        $plans = \app\models\Plan::find()->orderBy(['id' => SORT_DESC])->all();
 
-      
 
-        return $this->render('index',compact('plans'));
+        return $this->render('index', compact('plans'));
 
     }
 
@@ -111,62 +91,62 @@ class PlanController extends Controller
     public function actionPlanproduct($name)
 
     {
-       
+
         // if(count(explode('%20',$_SERVER['REQUEST_URI'])) > 1){
 
         //     header("Location: ".str_replace("%20","_",$_SERVER['REQUEST_URI']));
-        
+
         //  }
 
-        $category=new \app\models\Category();
+        $category = new \app\models\Category();
 
-        $subcat=new \app\models\Subcat(); 
-        $size=new \app\models\Size();
+        $subcat = new \app\models\Subcat();
+        $size = new \app\models\Size();
 
-        $imgs=\app\models\Productimg::find()->all();
+        $imgs = \app\models\Productimg::find()->all();
 
-        $model=new \app\models\Product();
-        $strname=str_replace('-', ' ',$name);
-        $plan=\app\models\Plan::find()->where(['like','name',$strname])->one();
-       
-        $products=\app\models\Product::find()->where(['planID'=>$plan->id])->orderBy(['id' => SORT_DESC]);
+        $model = new \app\models\Product();
+        $strname = str_replace('-', ' ', $name);
+        $plan = \app\models\Plan::find()->where(['like', 'name', $strname])->one();
+
+        $products = \app\models\Product::find()->where(['planID' => $plan->id])->orderBy(['id' => SORT_DESC]);
 
         $countQuery = clone $products;
 
         $count = $countQuery->count();
 
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize'=>8]);
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
 
         $articles = $products->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
-        ->limit($pagination->limit)
+        $aboutproducts = \app\models\Aboutproduct::find()->all();
 
-         ->all(); 
-
-         $aboutproducts=\app\models\Aboutproduct::find()->all();
-
-         \Yii::$app->view->registerMetaTag([
+        \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $plan->description
         ]);
-        \Yii::$app->view->title=$plan->title;
+        \Yii::$app->view->title = $plan->title;
 
-        return $this->render('planproduct',compact('aboutproducts','imgs','articles','pagination','category','model','size','count','subcat'));
+        return $this->render('planproduct',
+            compact('aboutproducts', 'imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'subcat'));
 
     }
+
     public function actionCollections($name)
     {
-        $subcat=new \app\models\Subcat(); 
-        $size=new \app\models\Size();
+        $subcat = new \app\models\Subcat();
+        $size = new \app\models\Size();
 
-        $imgs=\app\models\Productimg::find()->all();
+        $imgs = \app\models\Productimg::find()->all();
 
-        $model=new \app\models\Product();
-        $strname=str_replace('-', ' ',$name);
-        $plan=\app\models\Plan::find()->where(['like','name',$strname])->one();
+        $model = new \app\models\Product();
+        $strname = str_replace('-', ' ', $name);
+        $plan = \app\models\Plan::find()->where(['like', 'name', $strname])->one();
 
         $products = \app\models\Product::find();
-        $products->joinWith(['featurevalues','catproducts']);
+        $products->joinWith(['featurevalues', 'catproducts']);
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->where(['product.planID' => $plan->id]);
@@ -182,33 +162,32 @@ class PlanController extends Controller
         $products->limit($pagination->limit);
         $articles = $products->all();
 
-         $aboutproducts=\app\models\Aboutproduct::find()->all();
+        $aboutproducts = \app\models\Aboutproduct::find()->all();
 
-         \Yii::$app->view->registerMetaTag([
+        \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $plan->description
         ]);
-        \Yii::$app->view->title=$plan->title;
+        \Yii::$app->view->title = $plan->title;
 
-        return $this->render('collections',compact('aboutproducts','imgs','articles','pagination','category','model','size','count','subcat'));
+        return $this->render('collections',
+            compact('aboutproducts', 'imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'subcat'));
 
     }
 
 
-
     public function actionLike($like)
     {
-        $model =Product::findOne($like);
+        $model = Product::findOne($like);
 
-        if ($model && \yii::$app->session['like']!=$like) {
-            $model->likes +=1;
-            if($model->save()){
+        if ($model && \yii::$app->session['like'] != $like) {
+            $model->likes += 1;
+            if ($model->save()) {
                 return true;
             }
         }
     }
 
-    
 
 }
 

@@ -108,11 +108,7 @@ use yii\widgets\LinkPager;
                     ],
             ]
                     ]); ?>
-        <?= $form->field($category, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList( ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),['prompt'=>'انتخاب دسته بندی','class'=>'js-example-basic-single auto'])->label('') ?>
-        <?= $form->field($subcat, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Subcat::find()->all(), 'id', 'name'),['prompt'=>'انتخاب جنسیت..','class'=>'js-example-basic-single auto'])->label('') ?>
-        <?= $form->field($model, 'planID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Plan::find()->Where(['status'=>1])->orderBy(['id'=>SORT_DESC])->all(), 'id', 'name'),['prompt'=>'انتخاب طرح..','class'=>'js-example-basic-single auto'])->label('') ?>
-        <?= $form->field($model, 'colorID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Color::find()->all(), 'id', 'value'),['prompt'=>'انتخاب رنگ..','class'=>'js-example-basic-single auto'])->label('') ?>
-        <?= $form->field($size, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Size::find()->all(), 'age', 'age'),['prompt'=>'انتخاب سایز..','class'=>'js-example-basic-single auto'])->label('') ?>
+
        
 
             <?php ActiveForm::end(); ?>

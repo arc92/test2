@@ -10,3 +10,4 @@ composer.lock
 /squirrelmail
 index.php
 .env
+/xdebug
