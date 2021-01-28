@@ -427,7 +427,7 @@ $config = [
                     [
                         'allow' => true,
                         //Protect access
-                        'roles' => ['developer'],
+                        'roles' => ['@'],
                     ],
                 ],
             ]
