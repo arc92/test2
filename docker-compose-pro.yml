@@ -25,3 +25,26 @@ services:
        --requirepass "bccstyle"
       '
     ]
+
+  elasticsearch:
+    build:
+      context: ./docker/elasticsearch
+      dockerfile: Dockerfile
+      args:
+        - UID=1000
+        - GID=1000
+    ports:
+      - "127.0.0.1:9202:9200"
+    environment:
+      - cluster.name=irantalent
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xmx2g -Xms2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
+    expose:
+      - "9200"
+

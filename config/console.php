@@ -9,7 +9,6 @@ $config = [
     'bootstrap' => [
         'log',
         'queue',
-        \insolita\opcache\Bootstrap::class
     ],
     'controllerNamespace' => 'app\commands',
     'aliases' => [
@@ -18,7 +17,7 @@ $config = [
     ],
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' =>  'yii\redis\Cache',
         ],
         'log' => [
             'targets' => [
@@ -46,10 +45,7 @@ $config = [
     'controllerMap' => [
 //        'fixture' => [ // Fixture generation command line.
 //            'class' => 'yii\faker\FixtureController',
-//        ],
-        'opcache' => [
-            'class' => \insolita\opcache\commands\OpcacheController::class
-        ]
+//        ]
     ],
 
 ];

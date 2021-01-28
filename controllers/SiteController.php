@@ -87,23 +87,11 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        //    unset(\Yii::$app->session['cart_id']);
-        // unset(\Yii::$app->session['guest_id']);
-        // var_dump( (\Yii::$app->session['cart_id']));
-        // var_dump( (\Yii::$app->session['guest_id']));
-        // exit;
 
-        // var_dump($count=\app\models\Cart::find()->Where(['userID'=>\Yii::$app->session['user_id']])->andWhere(['status'=>0])->andWhere(['submitDate'=>Yii::$app->jdate->date('Y/m/d')])->count());exit;
-
-        // var_dump(Yii::$app->jdate->date('Y/m/d H:m:s'));exit;
         $this->layout = 'layout';
 
-        if (!Yii::$app->cache->exists('setting')) {
-            $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
-            \Yii::$app->cache->set('setting', $setting, 3600 * 24 * 7);
-        }
+        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
 
-        $setting = \Yii::$app->cache->get('setting');
 
         $plans = \app\models\Plan::find()->Where(['status' => 1])->all();
         \Yii::$app->view->registerMetaTag([

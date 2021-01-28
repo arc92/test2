@@ -42,107 +42,109 @@ class EndstepController extends Controller
             \yii::$app->session['afterpage'] = "yes";
             return $this->redirect('/login');
         }
-        $carts = Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
+        $cart = Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
         $user = \app\models\Users::find()->Where(['id' => \yii::$app->session['user_id']])->one();
-        $cartoptions = Cartoption::find()->all();
-        $products = Product::find()->all();
+        $cartoptions = $cart
+            ->getCartoptions()
+            ->with([
+                'product',
+                'product.productimgs',
+            ])
+            ->all();
 
         //for getting address from latest user order
-        $lastSuccessfulCart = Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 1])->orderBy(['id' =>SORT_DESC])->one();
-        if(!empty ($lastSuccessfulCart)){
+        $lastSuccessfulCart = Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 1])->orderBy(['id' => SORT_DESC])->one();
+        if (!empty ($lastSuccessfulCart)) {
             $lastOrderInfo = Bascket::find()->where(['cartID' => $lastSuccessfulCart->id])->orderBy(['id' => SORT_DESC])->one(); //for getting address from latest user order
-        } else{
+        } else {
             $lastOrderInfo = [];
         }
 
 
-
-        $imgs = Productimg::find()->all();
-        $img = Productimg::find()->one();
         $express = \app\models\Expresssend::find()->all();
-        if ($carts == false) {
+        if ($cart == false) {
             return $this->redirect('/site/index');
         } else {
-            $cartoptionss = Cartoption::find()->where(['cartID' => $carts->id])->all();
-            foreach ($cartoptionss as $cartoption) {
-                foreach (\app\models\Product::find()->all() as $product) {
-                    if ($product->id == $cartoption->productID) {
-                        if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
-                            if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
-                                if ($cartoption->count > $num->count && $num->count > 0) {
-                                    Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->count = $num->count;
-                                    if ($cartoptioncount->save()) {
-                                        return $this->redirect('/cart/');
-                                    }
-                                } elseif ($num->count == 0 || $num->count < 0) {
-                                    Yii::$app->session->setFlash('error', "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->delete();
-                                    return $this->redirect('/cart/');
-                                }
+            foreach ($cartoptions as $cartoption) {
+                $product = $cartoption->product[0];
+                if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
+                    if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
+                        if ($cartoption->count > $num->count && $num->count > 0) {
+                            Yii::$app->session->setFlash('error',
+                                "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->count = $num->count;
+                            if ($cartoptioncount->save()) {
+                                return $this->redirect('/cart/');
                             }
-                        } else {
-                            if ($cartoption->count > $product->count && $product->count > 0) {
-                                Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                        } elseif ($num->count == 0 || $num->count < 0) {
+                            Yii::$app->session->setFlash('error',
+                                "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->delete();
+                            return $this->redirect('/cart/');
+                        }
+                    }
+                } else {
+                    if ($cartoption->count > $product->count && $product->count > 0) {
+                        Yii::$app->session->setFlash('error',
+                            "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                        $cartoptioncount->count = $product->count;
+                        if ($cartoptioncount->save()) {
+                            return $this->redirect('/cart/');
+                        }
+                    } elseif ($product->count == 0) {
+                        Yii::$app->session->setFlash('error2',
+                            "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
+                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                        $cartoptioncount->delete();
+                        return $this->redirect('/cart/');
+                    }
+                }
+            }
+            $province = cacheProvince();
+            $city = cacheCity();
+            $bascket = new \app\models\Bascket();
+
+            ///pay in place
+            if ($bascket->load(Yii::$app->request->post()) && Yii::$app->request->post('place')) {
+                $cartoptions = Cartoption::find()->where(['cartID' => $cart->id])->all();
+                foreach ($cartoptions as $cartoption) {
+                    $product = $cartoption->product[0];
+                    if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
+                        if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
+                            if ($cartoption->count > $num->count && $num->count > 0) {
+                                Yii::$app->session->setFlash('error',
+                                    "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
                                 $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                $cartoptioncount->count = $product->count;
+                                $cartoptioncount->count = $num->count;
                                 if ($cartoptioncount->save()) {
                                     return $this->redirect('/cart/');
                                 }
-                            } elseif ($product->count == 0) {
-                                Yii::$app->session->setFlash('error2', "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
+                            } elseif ($num->count == 0 || $num->count < 0) {
+                                Yii::$app->session->setFlash('error',
+                                    "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
                                 $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
                                 $cartoptioncount->delete();
                                 return $this->redirect('/cart/');
                             }
                         }
-                    }
-                }
-            }
-            $province = \app\models\Province::find()->all();
-            $city = \app\models\City::find()->all();
-            $timesend = \app\models\Timesend::find()->all();
-            $bascket = new \app\models\Bascket();
-
-            ///pay in place
-            if ($bascket->load(Yii::$app->request->post()) && Yii::$app->request->post('place')) {
-                $cartoptionss = Cartoption::find()->where(['cartID' => $carts->id])->all();
-                foreach ($cartoptionss as $cartoption) {
-                    foreach (\app\models\Product::find()->all() as $product) {
-                        if ($product->id == $cartoption->productID) {
-                            if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
-                                if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
-                                    if ($cartoption->count > $num->count && $num->count > 0) {
-                                        Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
-                                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                        $cartoptioncount->count = $num->count;
-                                        if ($cartoptioncount->save()) {
-                                            return $this->redirect('/cart/');
-                                        }
-                                    } elseif ($num->count == 0 || $num->count < 0) {
-                                        Yii::$app->session->setFlash('error', "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
-                                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                        $cartoptioncount->delete();
-                                        return $this->redirect('/cart/');
-                                    }
-                                }
-                            } else {
-                                if ($cartoption->count > $product->count && $product->count > 0) {
-                                    Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->count = $product->count;
-                                    if ($cartoptioncount->save()) {
-                                        return $this->redirect('/cart/');
-                                    }
-                                } elseif ($product->count == 0) {
-                                    Yii::$app->session->setFlash('error2', "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->delete();
-                                    return $this->redirect('/cart/');
-                                }
+                    } else {
+                        if ($cartoption->count > $product->count && $product->count > 0) {
+                            Yii::$app->session->setFlash('error',
+                                "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->count = $product->count;
+                            if ($cartoptioncount->save()) {
+                                return $this->redirect('/cart/');
                             }
+                        } elseif ($product->count == 0) {
+                            Yii::$app->session->setFlash('error2',
+                                "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->delete();
+                            return $this->redirect('/cart/');
                         }
                     }
                 }
@@ -206,41 +208,42 @@ class EndstepController extends Controller
                 } else {
                     $_bank = yii::$app->request->post('bank');
                 }
-                $cartoptionss = Cartoption::find()->where(['cartID' => $carts->id])->all();
-                foreach ($cartoptionss as $cartoption) {
-                    foreach (\app\models\Product::find()->all() as $product) {
-                        if ($product->id == $cartoption->productID) {
-                            if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
-                                if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
-                                    if ($cartoption->count > $num->count && $num->count > 0) {
-                                        Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
-                                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                        $cartoptioncount->count = $num->count;
-                                        if ($cartoptioncount->save()) {
-                                            return $this->redirect('/cart/');
-                                        }
-                                    } elseif ($num->count == 0 || $num->count < 0) {
-                                        Yii::$app->session->setFlash('error', "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
-                                        $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                        $cartoptioncount->delete();
-                                        return $this->redirect('/cart/');
-                                    }
-                                }
-                            } else {
-                                if ($cartoption->count > $product->count && $product->count > 0) {
-                                    Yii::$app->session->setFlash('error', "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->count = $product->count;
-                                    if ($cartoptioncount->save()) {
-                                        return $this->redirect('/cart/');
-                                    }
-                                } elseif ($product->count == 0) {
-                                    Yii::$app->session->setFlash('error2', "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
-                                    $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
-                                    $cartoptioncount->delete();
+                $cartoptions = Cartoption::find()->where(['cartID' => $cart->id])->all();
+                foreach ($cartoptions as $cartoption) {
+                    $product = $cartoption->product[0];
+                    if ($x = \app\models\Fvoption::find()->Where(['cartoptionID' => $cartoption->id])->andWhere(['not', ['featurevID' => null]])->one()) {
+                        if ($num = \app\models\Featurevalue::find()->Where(['id' => $x->featurevID])->one()) {
+                            if ($cartoption->count > $num->count && $num->count > 0) {
+                                Yii::$app->session->setFlash('error',
+                                    "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                                $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                                $cartoptioncount->count = $num->count;
+                                if ($cartoptioncount->save()) {
                                     return $this->redirect('/cart/');
                                 }
+                            } elseif ($num->count == 0 || $num->count < 0) {
+                                Yii::$app->session->setFlash('error',
+                                    "  سبد خرید شما تغییر کرده است. این محصول  $product->name   موجود نمی باشد!!");
+                                $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                                $cartoptioncount->delete();
+                                return $this->redirect('/cart/');
                             }
+                        }
+                    } else {
+                        if ($cartoption->count > $product->count && $product->count > 0) {
+                            Yii::$app->session->setFlash('error',
+                                "  تعداد درخواستی شما برای محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->count = $product->count;
+                            if ($cartoptioncount->save()) {
+                                return $this->redirect('/cart/');
+                            }
+                        } elseif ($product->count == 0) {
+                            Yii::$app->session->setFlash('error2',
+                                "  سبد خرید شما تغییر کرده است.  محصول  $product->name   موجود نمی باشد!!");
+                            $cartoptioncount = \app\models\Cartoption::findOne($cartoption->id);
+                            $cartoptioncount->delete();
+                            return $this->redirect('/cart/');
                         }
                     }
                 }
@@ -264,12 +267,15 @@ class EndstepController extends Controller
                     $bank = $_bank;
                     $bascketID = intval($bascket->id);
                     if ($bank == 'melli') {
-                        return \yii::$app->payment->melli_request($amount, time(), "https://www.bccstyle.com/endstep/callback?id=" . $bascketID);
+                        return \yii::$app->payment->melli_request($amount, time(),
+                            "https://www.bccstyle.com/endstep/callback?id=" . $bascketID);
                     } elseif ($bank == 'mellat') {
-                        return \yii::$app->mellatbank->Request($amount, "https://bccstyle.com/endstep/backmellat?id=" . $bascketID);
+                        return \yii::$app->mellatbank->Request($amount,
+                            "https://bccstyle.com/endstep/backmellat?id=" . $bascketID);
                         //  return \yii::$app->payment->Request($amount,"https://www.bccstyle.com/endstep/callbackmelat?id=".intval($bascket->id));
                     } elseif ($bank == 'zarinpal') {
-                        if ($zarinpal->request($amount, 'بی سی سی', null, null, ['parameter' => intval($bascket->id)])->getStatus() == '100') {
+                        if ($zarinpal->request($amount, 'بی سی سی', null, null,
+                                ['parameter' => intval($bascket->id)])->getStatus() == '100') {
                             return $this->redirect($zarinpal->getRedirectUrl());
                         }
                     }
@@ -279,13 +285,10 @@ class EndstepController extends Controller
             }
 
             return $this->render('index', [
-                'carts' => $carts,
+                'carts' => $cart,
                 'cartoptions' => $cartoptions,
-                'products' => $products,
-                'img' => $img,
                 'province' => $province,
                 'city' => $city,
-                'timesend' => $timesend,
                 'bascket' => $bascket,
                 'express' => $express,
                 'user' => $user,
@@ -346,7 +349,7 @@ class EndstepController extends Controller
                 //  echo "تراکنش نا موفق بود در صورت کسر مبلغ از حساب شما حداکثر پس از 72 ساعت مبلغ به حسابتان برمی گردد.";
                 return $this->redirect('/failpayment/');
             }
-        }else{
+        } else {
             return $this->redirect('/index/');
         }
 
@@ -408,8 +411,10 @@ class EndstepController extends Controller
 
     public function actionCallback($id)
     {
-        if (\yii::$app->payment->melli_callback(\yii::$app->request->post('OrderId'), \yii::$app->request->post('token'), \yii::$app->request->post('ResCode'))) {
-            $callbackData = \yii::$app->payment->melli_callback(\yii::$app->request->post('OrderId'), \yii::$app->request->post('token'), \yii::$app->request->post('ResCode'));
+        if (\yii::$app->payment->melli_callback(\yii::$app->request->post('OrderId'),
+            \yii::$app->request->post('token'), \yii::$app->request->post('ResCode'))) {
+            $callbackData = \yii::$app->payment->melli_callback(\yii::$app->request->post('OrderId'),
+                \yii::$app->request->post('token'), \yii::$app->request->post('ResCode'));
             if ($callbackData['status'] == 1) {
                 $model = \app\models\Bascket::find()->where(['id' => $id])->one();
                 $model->refID = $callbackData['data']['referCode'];

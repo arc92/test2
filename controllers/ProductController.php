@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Catproduct;
+use app\models\Contentcategory;
 use app\models\Featurevalue;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -70,9 +73,9 @@ class ProductController extends Controller
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->one();
-        $model = new \app\models\Product();
+        $model = new Product();
         // $products=\app\models\Product::find()->Where(['status'=>1])->orderBy(new Expression('rand()'));
-        $products = \app\models\Product::find()->Where(['status' => 1])->orderBy(['off' => SORT_DESC]);
+        $products = Product::find()->Where(['status' => 1])->orderBy(['off' => SORT_DESC]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -99,8 +102,8 @@ class ProductController extends Controller
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->one();
-        $model = new \app\models\Product();
-        $products = \app\models\Product::find()->Where(['status' => 1])->orderBy(new Expression('rand()'));
+        $model = new Product();
+        $products = Product::find()->Where(['status' => 1])->orderBy(new Expression('rand()'));
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -125,8 +128,8 @@ class ProductController extends Controller
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->one();
-        $model = new \app\models\Product();
-        $products = \app\models\Product::find()->Where(['status' => 2]);
+        $model = new Product();
+        $products = Product::find()->Where(['status' => 2]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -169,7 +172,7 @@ class ProductController extends Controller
         $subcat = new \app\models\Subcat();
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
         foreach ($catrelations as $catrelationsitem) {
             $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
@@ -178,7 +181,7 @@ class ProductController extends Controller
         foreach ($subcatrelations as $subcatrelationitem) {
             $arraysub[$subcatrelationitem->productID] = $subcatrelationitem->productID;
         }
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 21]);
@@ -208,7 +211,7 @@ class ProductController extends Controller
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
         foreach ($catrelations as $catrelationsitem) {
             $arraycat[$catrelationsitem->productID] = $catrelationsitem->productID;
@@ -217,7 +220,7 @@ class ProductController extends Controller
         foreach ($subcatrelations as $subcatrelationitem) {
             $arraysub[$subcatrelationitem->productID] = $subcatrelationitem->productID;
         }
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['id' => $arraycat])->andWhere(['id' => $arraysub]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 21]);
@@ -248,10 +251,10 @@ class ProductController extends Controller
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
         $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 9])->all();
-        $products = \app\models\Product::find()->Where(['status' => 1]);
+        $products = Product::find()->Where(['status' => 1]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 30]);
@@ -281,11 +284,11 @@ class ProductController extends Controller
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
 
         $subcatrelations = \app\models\SubcatRelation::find()->Where(['subcatID' => 10])->all();
-        $products = \app\models\Product::find()->Where(['status' => 1]);
+        $products = Product::find()->Where(['status' => 1]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 100]);
@@ -308,12 +311,12 @@ class ProductController extends Controller
 
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', $name);
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->all();
-        $model = new \app\models\Product();
+        $model = new Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -335,12 +338,12 @@ class ProductController extends Controller
 
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', $name);
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->all();
-        $model = new \app\models\Product();
+        $model = new Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -362,12 +365,12 @@ class ProductController extends Controller
 
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', 'ست-نوزادی');
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->all();
-        $model = new \app\models\Product();
+        $model = new Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -389,12 +392,12 @@ class ProductController extends Controller
 
         $aboutproducts = \app\models\Aboutproduct::find()->all();
         $strname = str_replace('-', ' ', 'ست-نوزادی');
-        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->Where(['status' => 1])->andWhere(['LIKE', 'name', $strname])->orderBy(['id' => SORT_DESC]);
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
         $imgs = \app\models\Productimg::find()->all();
-        $model = new \app\models\Product();
+        $model = new Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
@@ -433,32 +436,22 @@ class ProductController extends Controller
 
     public function actionBabycat($id = null, $urltitle)
     {
-        $categoryName = Yii::$app->getRequest()->getQueryParam('categoryName');
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        // $strname=str_replace('-',' ',$name);
         if ($id != null) {
-            $catproducts = \app\models\Catproduct::find()->Where(['id' => $id])->one();
+            $catproducts = Catproduct::find()->Where(['id' => $id])->one();
         } else {
-            $catproducts = \app\models\Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+            $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         }
-        $contentcategory = \app\models\Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
+        $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
 
-//        $products = \app\models\Product::find()->Where(['status' => 1])->andWhere(['catproductID' => $catproducts->id])->orderBy(['id' => SORT_DESC]);
-        $products = \app\models\Product::find();
 
-        $products->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
+        $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
             $query->where(['catproduct.id' => $catproducts->id]);
-        }]);
+        }])
+        ->with('aboutproducts');
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['product_Count' => SORT_DESC]);
 
-
-        $category = new \app\models\Category();
-        $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->all();
-        $model = new \app\models\Product();
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
@@ -466,13 +459,13 @@ class ProductController extends Controller
         $products->limit($pagination->limit);
         $articles = $products->all();
 
-        $catproduct = \app\models\Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+        $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $catproduct->description
         ]);
         \Yii::$app->view->title = $catproduct->title;
-        return $this->render('babycat', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'contentcategory', 'categoryName'));
+        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
     }
 
     ////product details
@@ -482,9 +475,9 @@ class ProductController extends Controller
         date_default_timezone_set("Asia/tehran");
         $strname = str_replace('-', ' ', $name);
         if ($id != null) {
-            $product = \app\models\Product::find()->where(['id' => $id])->one();
+            $product = Product::find()->where(['id' => $id])->one();
         } else {
-            $product = \app\models\Product::find()->where(['name' => $strname])->one();
+            $product = Product::find()->where(['name' => $strname])->one();
         }
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
@@ -736,9 +729,9 @@ class ProductController extends Controller
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 1])->all();
-        $products = \app\models\Product::find()->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->orderBy(['id' => SORT_DESC]);
         $countQuery = clone $products;
         $count = $countQuery->count();
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 50]);
@@ -768,9 +761,9 @@ class ProductController extends Controller
         $category = new \app\models\Category();
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
-        $model = new \app\models\Product();
+        $model = new Product();
         $catrelations = \app\models\CategoryRelation::find()->Where(['catID' => 2])->all();
-        $products = \app\models\Product::find()->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->orderBy(['id' => SORT_DESC]);
 
         $countQuery = clone $products;
         $count = $countQuery->count();
