@@ -17,6 +17,7 @@ services:
       - ./docker/redis/data:/data
     ports:
       - "127.0.0.1:6379:6379"
+    restart: always
     command: [
       "sh", "-c",
       '
