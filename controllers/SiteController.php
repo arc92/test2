@@ -87,6 +87,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        var_dump(1);die();
         //    unset(\Yii::$app->session['cart_id']);
         // unset(\Yii::$app->session['guest_id']);
         // var_dump( (\Yii::$app->session['cart_id']));
