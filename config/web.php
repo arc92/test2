@@ -10,7 +10,7 @@ $config = [
     'bootstrap' => [
         'log',
         'queue',
-        '\insolita\opcache\Bootstrap::class'
+        \insolita\opcache\Bootstrap::class
         ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
