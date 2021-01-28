@@ -421,6 +421,16 @@ $config = [
         'gridview' => ['class' => 'kartik\grid\Module'],
         'opcache'=>[
             'class'=>'insolita\opcache\OpcacheModule',
+            'as access'=>[
+                'class' => \yii\filters\AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        //Protect access
+                        'roles' => ['@'],
+                    ],
+                ],
+            ]
         ],
     ],
 ];
