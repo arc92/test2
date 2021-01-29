@@ -458,20 +458,6 @@ class ProductController extends Controller
             $articles = $products->all();
 
 
-            Yii::$app->cache->set('Babycat' . $urltitle, [
-                'articles' => $articles,
-                'pagination' => $pagination,
-                'count' => $count,
-                'contentcategor' => $contentcategory,
-            ] ,3600 * 24 * 1);
-        }
-
-        $data = Yii::$app->cache->get('Babycat' . $urltitle);
-
-        $contentcategory =
-        $count =
-        $pagination =
-
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
