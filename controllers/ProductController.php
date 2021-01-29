@@ -439,6 +439,8 @@ class ProductController extends Controller
             $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         }
         $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
+
+
         $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
             $query->where(['catproduct.id' => $catproducts->id]);
         }]);
@@ -448,31 +450,11 @@ class ProductController extends Controller
         $products->orderBy(['product_Count' => SORT_DESC]);
 
         $countQuery = clone $products;
-
-        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_count')) {
-            $count = $countQuery->count();
-            Yii::$app->cache->set('Babycat_' . $urltitle . '_count', $count ,3600 * 24 * 1);
-        }
-        $count = Yii::$app->cache->get('Babycat_' . $urltitle . '_count');
-
-        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_pagination')) {
-            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
-            $products->offset($pagination->offset);
-            $products->limit($pagination->limit);
-            Yii::$app->cache->set( $urltitle . '_count', $pagination ,3600 * 24 * 1);
-        }
-        $pagination = Yii::$app->cache->get('Babycat_' . $urltitle . '_pagination');
-
-
-        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_articles')) {
-            $articles = $products->all();
-            Yii::$app->cache->set('Babycat_' . $urltitle . '_articles' , $articles ,3600 * 24 * 1);
-        }
-        $articles = Yii::$app->cache->get('Babycat_' . $urltitle . '_articles');
-
-
-
-
+        $count = $countQuery->count();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
