@@ -170,7 +170,6 @@ class ProductController extends Controller
 
         $products = Product::find()
             ->joinWith(['featurevalues'])
-            ->joinWith(['subcatRelations'])
             ->with([
                 'productimgs',
                 'aboutproducts',
@@ -179,6 +178,7 @@ class ProductController extends Controller
                 }
             ])
             ->where(['subcat_relation.subcatID' => 9]);
+
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['product_Count' => SORT_DESC]);

@@ -31,6 +31,8 @@ $cart = Cart::find()
     ->orderBy(['id' => SORT_DESC])
     ->one();
 
+$totalAmount = 0;
+$totalCount = 0;
 if ($cart) {
     $totalAmount = $cart->getCartoptions()->sum('amount*count');
     $totalCount = $cart->getCartoptions()->count('id');
