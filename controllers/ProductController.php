@@ -468,13 +468,19 @@ class ProductController extends Controller
 
         $data = Yii::$app->cache->get('Babycat' . $urltitle);
 
+        $contentcategory = $data['contentcategor'];
+        $count = $data['count'];
+        $pagination = $data['pagination'];
+        $articles =  $data['articles'];
+
+
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $catproduct->description
         ]);
         \Yii::$app->view->title = $catproduct->title;
-        return $this->render('babycat', $data);
+        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
     }
 
     ////product details
