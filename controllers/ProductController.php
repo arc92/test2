@@ -462,13 +462,13 @@ class ProductController extends Controller
                 'articles' => $articles,
                 'pagination' => $pagination,
                 'count' => $count,
-                'contentcategor' => $contentcategory,
+                'contentcategory' => $contentcategory,
             ] ,3600 * 24 * 1);
         }
 
         $data = Yii::$app->cache->get('Babycat' . $urltitle);
 
-        $contentcategory = $data['contentcategor'];
+        $contentcategory = $data['contentcategory'];
         $count = $data['count'];
         $pagination = $data['pagination'];
         $articles =  $data['articles'];
