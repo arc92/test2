@@ -119,6 +119,6 @@ services:
       "sh", "-c",
       '
        docker-entrypoint.sh
-       --requirepass "bccstyle"
+       --requirepass "YfiyK04ekrHflZBkFmgtzqnLRqvOiPlPRzy0pahgi0zrbvb0lKKXfvxqGeXDcWj8OMYjy1lysTgE6FqX"
       '
     ]

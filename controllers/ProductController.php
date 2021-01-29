@@ -441,7 +441,7 @@ class ProductController extends Controller
 
     public function actionBabycat($id = null, $urltitle)
     {
-        if (!Yii::$app->cache->exists('Babycat' . $urltitle)) {
+
             if ($id != null) {
                 $catproducts = Catproduct::find()->Where(['id' => $id])->one();
             } else {
@@ -475,7 +475,7 @@ class ProductController extends Controller
             \Yii::$app->view->title = $catproduct->title;
             return $this->render('babycat',
                 compact('contentcategory', 'articles', 'pagination', 'category', 'size', 'count'));
-        }
+
     }
 
     ////product details
