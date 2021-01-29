@@ -56,4 +56,12 @@ class Cart extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Cartoption::className(), ['cartID' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBasckets()
+    {
+        return $this->hasMany(Bascket::className(), ['cartID' => 'id']);
+    }
 }

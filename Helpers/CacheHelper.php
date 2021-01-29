@@ -7,6 +7,7 @@ use app\models\Footer;
 use app\models\Menu;
 use app\models\Menu2;
 use app\models\Province;
+use app\models\Setting;
 use app\models\Size;
 use app\models\Subcat;
 use Elasticsearch\ClientBuilder;
@@ -137,6 +138,18 @@ if(!function_exists('cacheCity')){
         }
 
         $category = Yii::$app->cache->get('cacheCity');
+
+        return $category;
+    }
+}
+if(!function_exists('cacheSetting')){
+    function cacheSetting(){
+
+        if(!Yii::$app->cache->exists('cacheSetting')) {
+            Yii::$app->cache->set('cacheSetting', Setting::find()->orderBy(['id' => SORT_DESC])->one() ,3600 * 24 * 365);
+        }
+
+        $category = Yii::$app->cache->get('cacheSetting');
 
         return $category;
     }

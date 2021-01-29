@@ -123,7 +123,7 @@ class CartController extends Controller
     {
 
         if (!Yii::$app->cache->exists('setting')) {
-            $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+            $setting = cacheSetting();
             \Yii::$app->cache->set('setting', $setting, 24 * 3600 * 7);
         }
 

@@ -71,4 +71,9 @@ class Cartoption extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Product::className(), ['id' => 'productID']);
     }
+
+    public function getFvoption()
+    {
+        return $this->hasMany(Fvoption::className(), ['cartoptionID' => 'id']);
+    }
 }

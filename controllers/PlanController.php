@@ -72,7 +72,7 @@ class PlanController extends Controller
     public function actionIndex()
 
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_collection
@@ -139,14 +139,15 @@ class PlanController extends Controller
         $subcat = new \app\models\Subcat();
         $size = new \app\models\Size();
 
-        $imgs = \app\models\Productimg::find()->all();
 
         $model = new \app\models\Product();
         $strname = str_replace('-', ' ', $name);
         $plan = \app\models\Plan::find()->where(['like', 'name', $strname])->one();
 
         $products = \app\models\Product::find();
-        $products->joinWith(['featurevalues', 'catproducts']);
+        $products->joinWith(['featurevalues'])
+            ->with('productimgs')
+            ->with('catproducts');
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->where(['product.planID' => $plan->id]);
