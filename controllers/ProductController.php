@@ -61,38 +61,31 @@ class ProductController extends Controller
 
     public function actionIndex()
     {
+
         $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_product_index
         ]);
         \Yii::$app->view->title = $setting->title_product_index;
+        $contentcategory = [];
 
-        $category = new \app\models\Category();
-        $subcat = new \app\models\Subcat();
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
-        $size = new \app\models\Size();
-        $imgs = \app\models\Productimg::find()->one();
-        $model = new Product();
-        // $products=\app\models\Product::find()->Where(['status'=>1])->orderBy(new Expression('rand()'));
-        $products = Product::find()->Where(['status' => 1])->orderBy(['off' => SORT_DESC]);
+        $products = Product::find()
+            ->joinWith(['featurevalues'])
+            ->with(['catproducts']);
+        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->orderBy(['product_Count' => SORT_DESC]);
+
         $countQuery = clone $products;
         $count = $countQuery->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 8]);
-        $articles = $products->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+        $products->offset($pagination->offset);
+        $products->limit($pagination->limit);
+        $articles = $products->all();
 
-        return $this->render('index',
-            compact('imgs',
-                'articles',
-                'pagination',
-                'category',
-                'model',
-                'size',
-                'count',
-                'aboutproducts',
-                'subcat'));
+        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
+
     }
 
     public function actionTest()
