@@ -166,6 +166,6 @@ if(!function_exists('cacheMe')){
 
         $category = Yii::$app->cache->get($cacheName);
 
-        return $cacheData;
+        return $category;
     }
 }
