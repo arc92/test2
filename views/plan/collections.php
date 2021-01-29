@@ -9,18 +9,6 @@ use yii\widgets\LinkPager;
 ?>
 
 <main class="product-list catfilter">
-
-    <div class=" container p-0 d-flex justify-content-between align-items-center">
-        <button class="filter-category">
-            <i class="icon-menu-1"></i>
-            <span>
-فیلتر
-</span>
-        </button>
-        <button class="cat-close">
-            ×
-        </button>
-    </div>
     <section class="filter-sec one list">
 
 

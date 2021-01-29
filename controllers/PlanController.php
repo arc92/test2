@@ -163,7 +163,6 @@ class PlanController extends Controller
         $products->limit($pagination->limit);
         $articles = $products->all();
 
-        $aboutproducts = \app\models\Aboutproduct::find()->all();
 
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
@@ -172,7 +171,7 @@ class PlanController extends Controller
         \Yii::$app->view->title = $plan->title;
 
         return $this->render('collections',
-            compact('aboutproducts', 'imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'subcat'));
+            compact( 'articles', 'pagination', 'count'));
 
     }
 
