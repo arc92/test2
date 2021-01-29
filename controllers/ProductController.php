@@ -454,7 +454,7 @@ class ProductController extends Controller
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
         $products->offset($pagination->offset);
         $products->limit($pagination->limit);
-        $articles = $products->all();
+        $articles = cacheMe('Babycat_' . $urltitle,$products->all(),1);
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
