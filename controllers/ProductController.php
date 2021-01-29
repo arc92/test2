@@ -458,10 +458,15 @@ class ProductController extends Controller
             $articles = $products->all();
 
 
-            Yii::$app->cache->set('Babycat' . $urltitle, $articles ,3600 * 24 * 1);
+            Yii::$app->cache->set('Babycat' . $urltitle, [
+                'articles' => $articles,
+                'pagination' => $pagination,
+                'count' => $count,
+                'contentcategor' => $contentcategory,
+            ] ,3600 * 24 * 1);
         }
 
-        $articles = Yii::$app->cache->get('Babycat' . $urltitle);
+        $data = Yii::$app->cache->get('Babycat' . $urltitle);
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
@@ -469,7 +474,7 @@ class ProductController extends Controller
             'content' => $catproduct->description
         ]);
         \Yii::$app->view->title = $catproduct->title;
-        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
+        return $this->render('babycat', $data);
     }
 
     ////product details
