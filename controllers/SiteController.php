@@ -90,7 +90,7 @@ class SiteController extends Controller
 
         $this->layout = 'layout';
 
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
 
 
         $plans = \app\models\Plan::find()->Where(['status' => 1])->all();
@@ -152,7 +152,7 @@ class SiteController extends Controller
 
     public function actionBlog()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_blog
@@ -190,7 +190,7 @@ class SiteController extends Controller
 
     public function actionBlogsingle($id)
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_blogsingle
@@ -541,7 +541,7 @@ class SiteController extends Controller
 
     public function actionPrivacy()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_privacy
@@ -555,7 +555,7 @@ class SiteController extends Controller
 
     public function actionTransport()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_transport
@@ -579,7 +579,7 @@ class SiteController extends Controller
 
     public function actionSize()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_size
@@ -663,7 +663,7 @@ class SiteController extends Controller
             }
         }
 
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_contactus
@@ -685,7 +685,7 @@ class SiteController extends Controller
     public function actionAbout()
     {
         $aboutus = \app\models\Aboutus::find()->orderBy(['id' => SORT_DESC])->one();
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_aboutus
@@ -718,7 +718,7 @@ class SiteController extends Controller
 
     public function actionCategory()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_baby_clothing
@@ -753,7 +753,7 @@ class SiteController extends Controller
 
     public function actionCertificates()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_certificates

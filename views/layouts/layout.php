@@ -11,7 +11,7 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 
 $category = \app\models\Category::find()->all();
-$setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+$setting = cacheSetting();
 $virtuals = \app\models\Virtuals::find()->orderBy(['id' => SORT_DESC])->all();
 $menu = menu();
 $subMenu = subMenu();
@@ -95,7 +95,7 @@ $str .= ($urls['path']);
     <?php $this->head() ?>
 </head>
 <body>
-<header class="header">
+<header class="header-index">
     <?php if (Yii::$app->session->hasFlash('filter')): ?>
         <div class="alert alert-danger alert-dismissable"
              style="margin-bottom:0!important;text-align: center;color: #fff;background: #ed008c;">
@@ -103,40 +103,40 @@ $str .= ($urls['path']);
             <?= Yii::$app->session->getFlash('filter') ?>
         </div>
     <?php endif; ?>
+
     <div class="topheader">
-        <div class="container p-0 d-flex justify-content-between align-items-center">
-            <!--                --><?php //$form = ActiveForm::begin([
-            //                    'action' => '/search',
-            //                    'fieldConfig' => [
-            //                        'template' => '{input}{label}{hint}',
-            //                        'horizontalCssClasses' => [
-            //                            'label' => '',
-            //                            'offset' => '',
-            //                            'wrapper' => '',
-            //                            'error' => '',
-            //                            'hint' => '',
-            //                        ],
-            //                    ]
-            //                ]); ?>
+        <div class="container p-0 d-flex  justify-content-between align-items-center">
+            <!--            --><?php //$form = ActiveForm::begin([
+            //                'action' => 'search',
+            //                'fieldConfig' => [
+            //                    'template' => '{input}{label}{hint}',
+            //                    'horizontalCssClasses' => [
+            //                        'label' => '',
+            //                        'offset' => '',
+            //                        'wrapper' => '',
+            //                        'error' => '',
+            //                        'hint' => '',
+            //                    ],
+            //                ]
+            //            ]); ?>
             <div class="search">
                 <img id="close" src="/uploads/close-button-big-white-black.png">
 
-                <input type="text" id="product-name" class="form-control" name="Product[name]"
-                       placeholder="برای جستجو همین حالا شروع کنید . . ." aria-required="true" aria-invalid="false">
-                <!--                    <button type="submit" disabled class="btn"></button>-->
-                <div id="search_result">
+
+                <input type="text" id="product-name" class="form-control" name="Product[name]" placeholder="برای جستجو همین حالا شروع کنید . . ." aria-required="true" aria-invalid="false">
+
+                <div id="search_result" >
+
                     <ul id="result">
 
                     </ul>
                 </div>
             </div>
-
-            <!--                --><?php //ActiveForm::end(); ?>
+            <!--            --><?php //ActiveForm::end(); ?>
 
             <div class="info">
                 <ul class="nav">
-                    <li class="nav-item call" style="cursor: pointer;"><a href="tel:02166962957"
-                                                                          style="color:white;">
+                    <li class="nav-item call" style="cursor: pointer;"><a href="tel:02166962957" style="color:white;">
                             شماره تماس66962957 - داخلی 201
                         </a></li>
                     <!-- <li class="nav-item gift">
@@ -258,8 +258,23 @@ $str .= ($urls['path']);
                                                             } ?>
                                                         </ul>
                                                     </div>
+
                                                 </article>
 
+
+                                                <!-- <?php if ($menus->id == 1) { ?>
+                                <article style="margin-top:auto;margin-right: auto;">
+                                    <div class="d-flex">
+                                        <ul class="list" style="padding:0; margin-left:0 !important; ">
+                                            <li class="item">
+                                                <a href="/baby-clothing/" class="link" style="font-weight: bold!important;color: #a3cced;!importantpadding-top: 11px!important;">
+                                                 تمام محصولات>>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                          <?php } ?> -->
 
                                             </div>
                                             <!-- N E W  A L L P R O U D U C T -->
@@ -277,8 +292,7 @@ $str .= ($urls['path']);
 
 
                                         <?php if ($menus->id == 1) { ?>
-                                            <article class="article-mega"
-                                                     style="margin-top:auto;margin-right: auto;">
+                                            <article class="article-mega" style="margin-top:auto;margin-right: auto;">
                                                 <div class="mega-img" style="width:526px!important;">
                                                     <img src="<?= (isset($menus->picture) ? '/uploads/' . $menus->picture : '') ?>"
                                                          alt="">
@@ -287,8 +301,7 @@ $str .= ($urls['path']);
                                             </article>
                                         <?php } ?>
                                         <?php if ($menus->id == 14) { ?>
-                                            <article class="article-mega"
-                                                     style="margin-top:auto;margin-right: auto;">
+                                            <article class="article-mega" style="margin-top:auto;margin-right: auto;">
                                                 <div class="mega-img">
                                                     <img src="<?= (isset($menus->picture) ? '/uploads/' . $menus->picture : '') ?>"
                                                          alt="">
@@ -297,8 +310,7 @@ $str .= ($urls['path']);
                                             </article>
                                         <?php } ?>
                                         <?php if ($menus->id == 27) { ?>
-                                            <article class="article-mega"
-                                                     style="margin-top:auto;margin-right: auto;">
+                                            <article class="article-mega" style="margin-top:auto;margin-right: auto;">
                                                 <div class="mega-img">
                                                     <img src="<?= (isset($menus->picture) ? '/uploads/' . $menus->picture : '') ?>"
                                                          alt="">
@@ -423,11 +435,8 @@ $str .= ($urls['path']);
                     </div>
                 </div>
             </div>
-            <div>
-            </div>
         </div>
 
-    </div>
     </div>
     <div class="slider">
         <div class="owl-carousel owl-theme" id="slider">
@@ -448,7 +457,7 @@ $str .= ($urls['path']);
 
 <footer class="footer">
     <section class="top-footer d-flex align-items-center">
-        <div class="container p-0 d-flex   align-items-center justify-content-between">
+        <div class="container p-0 d-flex align-items-center justify-content-between">
             <?php foreach (\app\models\Icon::find()->Where(['status' => 1])->all() as $icon) { ?>
                 <div class="item" style="width:150px;height:150px;">
                     <a href="/<?= $icon->link ?>/" class="box">
@@ -508,11 +517,11 @@ $str .= ($urls['path']);
                                 جدول سایز
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="/privacy/" class="nav-link">
                                 باشگاه مشتریان
                             </a>
-                        </li>
                         </li>
                         <!--                        <li class="nav-item">-->
                         <!--                            <a href="/blog/" class="nav-link">-->
@@ -540,6 +549,12 @@ $str .= ($urls['path']);
                                 تماس با ما
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/privacy/" class="nav-link">
+                                باشگاه مشتریان
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/help/">
                                 راهنما
@@ -579,6 +594,13 @@ $str .= ($urls['path']);
                 <img src="<?= (isset($footer2) ? '/uploads/' . $footer2->img : '') ?>" alt=""
                      onclick="window.open(&quot;https://trustseal.enamad.ir/Verify.aspx?id=30679&amp;p=pB3M5FniFOeBLp3Q&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)"
                      style="cursor:pointer" id="pB3M5FniFOeBLp3Q">
+
+                <!-- <a href="#">
+                    <img src="http://s8.picofile.com/file/8347395668/img_footer_1.png" alt=""> -->
+
+                <!-- <img src="https://logo.samandehi.ir/logo.aspx?id=44343&amp;p=shwlshwlqftishwlqfti" alt="" onclick="window.open(&quot;https://logo.samandehi.ir/Verify.aspx?id=44343&amp;p=aodsaodsxlaoaodsxlao&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)" style="cursor:pointer" id ="wlaowlaorgvjwlaorgvj">
+
+                <img src="https://trustseal.enamad.ir/logo.aspx?id=30679&amp;p=pB3M5FniFOeBLp3Q" alt="" onclick="window.open(&quot;https://trustseal.enamad.ir/Verify.aspx?id=30679&amp;p=pB3M5FniFOeBLp3Q&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)" style="cursor:pointer" id="pB3M5FniFOeBLp3Q"> -->
 
                 <a href="#">
                     <img src="<?= (isset($footer3) ? '/uploads/' . $footer3->img : '') ?>" alt="">
@@ -630,110 +652,14 @@ $str .= ($urls['path']);
         </div>
     </section>
 </footer>
-
-
-<!--    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="642709d0-bdbb-4c92-be13-61d8b725d594";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>-->
-<!--     Hotjar Tracking Code for www.bccstyle.com-->
 <script>
-    $(".navbar .navbar-nav .nav-item .nav-link").hover(
-        function () {
-            $(this).addClass('active-hover');
-        },
-//   function () {
-//     $(this).removeClass("active-hover");
-//   }
-    );
-    $(".navbar .navbar-nav .nav-item .nav-link").mouseout(
-        function () {
-            $(this).removeClass('active-hover');
-        },
-//   function () {
-//     $(this).removeClass("active-hover");
-//   }
-    );
-    // fixed header
-    $(document).on("scroll", function () {
-        if ($(document).scrollTop() > 33) {
-            $(".main-header").removeClass("large").addClass("small");
-        } else {
-            $(".main-header").removeClass("small").addClass("large");
-        }
-    });
-    // Shop Box
-    $('#cart').hover(function () {
-        $(this).find('.header-index .drop-menu-box-shop').fadeIn()
-    });
 
-    $('#cart').mouseleave(function () {
-        $(this).find('.header-index .dropdown-menu').fadeOut()
-    });
-
-    // $('.navbar .dropdown').hover(function() {
-    //     $(this).find('.dropdown-menu').stop(true, true).delay(60).fadeIn(60);
-    // }, function() {
-    //     $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
-
-    // });
-
-    // Shop Box
-    $('#cart').hover(function () {
-        $(this).find('.drop-menu-box-shop').fadeIn()
-    });
-
-    $('#cart').mouseleave(function () {
-        $(this).find('.drop-menu-box-shop').fadeOut()
-    });
-    // Order Mp
-
-    $(function () {
-        $('.count-product').on('click', '.btn', function (e) {
-            var input = $(this).parents('div.count-product').children('input');
-            var value = parseInt(input.attr('value'));
-            var min = parseInt(input.attr('min'));
-            var max = parseInt(input.attr('max'));
-            if ($(this).hasClass('up')) {
-                var op = +1;
-            } else {
-                var op = -1;
-            }
-            if (!(min == value && op == -1) && !(max == value && op == +1)) {
-                input.attr('value', value + op)
-            }
-        })
-    });
-
-
-    // Order Mp
-
-    $('.item-order-map .tr').click(function () {
-        $(this).parent().find('.drop-down').slideToggle();
-        $(this).find('.td .btn i').toggleClass('d-none')
-    });
-
-
-    $('.porofile .navigation .nav-item').click(function () {
-        $('.porofile .navigation .active').removeClass('active');
-        $(this).addClass('active')
-    });
-
-
-    // Shop Box
-    $('#cart').hover(function () {
-        $(this).find('.drop-menu-box-shop').fadeIn()
-    });
-
-    $('#cart').mouseleave(function () {
-        $(this).find('.drop-menu-box-shop').fadeOut()
-    });
-    // $('#click').click(function () {
-    //     $('#qwe').show();
-    //     $('#hide').hide();
-    //     $('#click').hide();
-
-    // });
 
 </script>
+<!--<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="642709d0-bdbb-4c92-be13-61d8b725d594";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>-->
+
 <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
+

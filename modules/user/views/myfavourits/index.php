@@ -201,14 +201,11 @@ $this->title = 'خرید های قبلی من';
                     <div class="detail-dashboard d-flex flex-wrap">
 
                         <?php   foreach($carts as $cart){   
-                                    foreach(\app\models\Cartoption::find()->Where(['cartID'=>$cart->id])->all() as $option){   
-                                    foreach(\app\models\Product::find()->Where(['id'=>$option->productID])->all() as $product){ 
-                                          foreach($fvoption as $foption){
-                                        if($foption->cartoptionID==$option->id){ 
-                                    foreach($features as $feature){
-                                        if($feature->id==$foption->featurevID){ 
+                                    foreach($cart->cartoptions as $option){
+                                    foreach($option->product as $product){
 
-                                    foreach(\app\models\Bascket::find()->Where(['cartID'=>$cart->id])->all() as $bascket){   
+
+                                    foreach($cart->basckets as $bascket){
                                         ?>
                         <div class="col-xl-12">
 
@@ -218,7 +215,9 @@ $this->title = 'خرید های قبلی من';
 
                                     <div class="image">
 
-                                        <img src="/<?=$product->productimgs->img?>" alt="">
+                                        <a href="/product/<?=$product->name?>/">
+                                            <img src="/<?=$product->productimgs->img?>" alt="">
+                                        </a>
 
                                     </div>
 
@@ -292,7 +291,7 @@ $this->title = 'خرید های قبلی من';
                             
                         </div>
 
-                        <?php  } } } } } } } }?>
+                        <?php  } }   } }?>
 
                     </div>
 

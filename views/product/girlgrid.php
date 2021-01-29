@@ -12,17 +12,38 @@ use yii\widgets\LinkPager;
 
 <main class="product-list catfilter">
 
-    <div class=" container p-0 d-flex justify-content-between align-items-center">
-        <button class="filter-category">
-            <i class="icon-menu-1"></i>
-            <span>
-فیلتر
-</span>
-        </button>
-        <button class="cat-close">
-            ×
-        </button>
-    </div>
+
+    <article class="header-list-grid ">
+
+
+        <!-- <section class="filter container p-0 d-flex flex-wrap  justify-content-around align-items-center">
+        <span class="title">
+        انتخاب فیلتر ها بر اساس  :
+        </span>
+        $form = ActiveForm::begin([
+        'action'=>'search',
+        'fieldConfig' => [
+        'template' => '{input}{label}{hint}',
+        'horizontalCssClasses' => [
+        'label' => '',
+        'offset' => '',
+        'wrapper' => '',
+        'error' => '',
+        'hint' => '',
+        ],
+        ]
+        ]); ?>
+        $form->field($category, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList( ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),['prompt'=>'انتخاب دسته بندی','class'=>'js-example-basic-single auto'])->label('') ?>
+        $form->field($subcat, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Subcat::find()->all(), 'id', 'name'),['prompt'=>'انتخاب جنسیت..','class'=>'js-example-basic-single auto'])->label('') ?>
+        $form->field($model, 'planID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Plan::find()->Where(['status'=>1])->orderBy(['id'=>SORT_DESC])->all(), 'id', 'name'),['prompt'=>'انتخاب طرح..','class'=>'js-example-basic-single auto'])->label('') ?>
+        $form->field($model, 'colorID', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Color::find()->all(), 'id', 'value'),['prompt'=>'انتخاب رنگ..','class'=>'js-example-basic-single auto'])->label('') ?>
+        $form->field($size, 'id', ['options' => ['style' => 'display:inline-block;']])->dropDownList(ArrayHelper::map(\app\models\Size::find()->all(), 'age', 'age'),['prompt'=>'انتخاب سایز..','class'=>'js-example-basic-single auto'])->label('') ?>
+
+
+        ActiveForm::end(); ?>
+        </section> -->
+    </article>
+
 
     <section class="filter-sec one list">
 
@@ -135,17 +156,6 @@ use yii\widgets\LinkPager;
                             <h3 class="title">  <?= $article->name ?> </h3>
                             <span class="price ">  <?= number_format($article->price) ?>  تومان </span>
                         </div>
-                        <ul class="nav attr d-block">
-    <span class="title">
-        ویژگی
-    </span>
-                            <?php foreach ($article->aboutproducts as $aboutproduct){  ?>
-                                    <li class="nav-item">
-                                        <i class="icon-023-tick"></i>
-                                        <?= $aboutproduct->details ?>
-                                    </li>
-                                <?php } ?>
-                        </ul>
                         <a href="/product/<?= str_replace(' ', '-', $article->name) ?>/" target="_blank" class="show">
     <span>
     مشاهده محصول

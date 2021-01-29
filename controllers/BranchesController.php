@@ -39,7 +39,7 @@ class BranchesController extends Controller
     public function actionIndex()
 
     {
-        $setting=\app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one(); 
+        $setting=cacheSetting();
         \Yii::$app->view->registerMetaTag([
           'name' => 'description',
           'content' => $setting->description_branches

@@ -145,8 +145,8 @@ $this->title = 'پیگیری سفارشات';
                                         
                                         <div class="tbody">
                                         <?php  foreach($carts as $cart){
-                                                 foreach($basckets as $bascket){ 
-                                                     if($bascket->cartID==$cart->id) { ?>
+                                            $bascket = $cart->basckets[0]
+                                            ?>
                                             <div class="item item-order-map">
                                                 <div class="tr d-flex">
                                                     <div class="td">
@@ -161,7 +161,7 @@ $this->title = 'پیگیری سفارشات';
                                                     <div class="td">
                                                     <?php if($bascket->status==1){?>
                                                        موفق
-                                                    <?php }elseif($bascket->status==2){ ?> 
+                                                    <?php }elseif($bascket->status==2){ ?>
                                                     پرداخت در محل
                                                     <?php }else{ ?>
                                                         انجام نشده است
@@ -180,14 +180,8 @@ $this->title = 'پیگیری سفارشات';
                                                     </div>
                                                 </div>
                                                 <div class="drop-down">
-                                                <?php foreach($cartoptions as $cartoption){
-                                                    if($cartoption->cartID==$cart->id){ 
-                                                        foreach($products as $product){
-                                                            if($product->id==$cartoption->productID){ 
-                                                        foreach($fvoption as $option){
-                                                            if($option->cartoptionID==$cartoption->id){ 
-                                                        foreach($features as $feature){
-                                                            if($feature->id==$option->featurevID){ 
+                                                <?php foreach($cart->cartoptions as $cartoption){
+                                                    foreach ($cartoption->product as $product){
                                                         ?>
                                                     <div class="top-drop-down d-flex justify-content-between align-items-center">
                                                    
@@ -240,7 +234,7 @@ $this->title = 'پیگیری سفارشات';
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <?php } } } } } } } } ?>
+                                                    <?php }  }?>
                                                     <div class="middle-drop-down">
                                                     <?php if($bascket->recived==0){ ?>
                                                         <ul class="nav">
@@ -349,7 +343,7 @@ $this->title = 'پیگیری سفارشات';
                                                   
                                                 </div>
                                             </div>
-                                                    <?php } } } ?>
+                                                    <?php } ?>
                                   
                             <ul class="nav justify-content-end w-100">
                             <li class="nav-item">

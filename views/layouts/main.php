@@ -11,7 +11,7 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 
 $category = \app\models\Category::find()->all();
-$setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+$setting = cacheSetting();
 $virtuals = \app\models\Virtuals::find()->orderBy(['id' => SORT_DESC])->all();
 $menu = menu();
 $subMenu = subMenu();

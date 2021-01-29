@@ -22,97 +22,8 @@ use yii\widgets\LinkPager;
         </button>
     </div>
 <article class="header-list-grid ">
-<section class="show container p-0 d-flex  align-items-center justify-content-between">
 
-        <!--Right Details -->
 
-        <!--of Header Content-->
-
-        <div class="number d-flex  align-items-center"> 
-            <span class="title number-title">   بر اساس تعداد نمایش  :    </span> 
-            <select name="state" class="js-example-basic-single" id="show" > 
-            <option > لطفا انتخاب کنید </option> 
-                <option value="10">    نمایش 10 عدد   </option> 
-                <option value="20">   نمایش 20 عدد   </option> 
-                <option value="30">    نمایش 30 عدد  </option>  
-            </select> 
-        </div>
-
-        <!--Left Details -->
-
-        <!--of Header Content-->
-
-        <div class="sort d-flex  align-items-center">
-
-            <span class="title sort-title">
-
-                    مرتب سازی بر اساس  :
-
-            </span>
-
-            <ul class="nav">
-
-                <!-- <li class="nav-item ">
-
-                    <a href="#" class="nav-link ">
-
-                        <i class="icon-menu-1"></i>
-
-                    </a>
-
-                </li> -->
-
-                <!-- <li class="nav-item ">
-
-                    <div class="nav-link active">
-
-                        <i class="icon-menu-2"></i>
-
-                    </a>
-
-                </li> -->
-
-                <li class="nav-item active category-button" data-filter="one">
-
-                    <i class="icon-menu-4"></i>
-
-                </li>
-
-                <li class="nav-item  category-button" data-filter="two">
-
-                    
-                     <i class="icon-menu-3"></i>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-    </section>
-
-        <section class="filter container p-0 d-flex flex-wrap  justify-content-around align-items-center">
-            <span class="title">
-            انتخاب فیلتر ها بر اساس  :
-        </span>
-        <?php $form = ActiveForm::begin([
-            'action'=>'search',
-            'fieldConfig' => [
-                'template' => '{input}{label}{hint}',
-                    'horizontalCssClasses' => [
-                        'label' => '',
-                        'offset' => '',
-                        'wrapper' => '',
-                        'error' => '',
-                        'hint' => '',
-                    ],
-            ]
-                    ]); ?>
-
-       
-
-            <?php ActiveForm::end(); ?>
-        </section>
     </article>
 
    <section class="filter-sec one list">
@@ -219,18 +130,6 @@ use yii\widgets\LinkPager;
                         <h3 class="title">  <?=$article->name?> </h3>
                         <span class="price ">  <?=number_format($article->price)?>  تومان </span>
                     </div>
-                    <ul class="nav attr d-block">
-                        <span class="title">
-                            ویژگی
-                        </span>
-                        <?php foreach($aboutproducts as $aboutproduct){
-                            if($aboutproduct->productID==$article->id){ ?>
-                        <li class="nav-item"> 
-                        <i class="icon-023-tick"></i> 
-                        <?=$aboutproduct->details?>
-                        </li> 
-                        <?php } } ?>
-                    </ul>
                     <a href="/product/<?=str_replace(' ', '-',$article->name)?>/" class="show">   
                        <span>
                        مشاهده محصول

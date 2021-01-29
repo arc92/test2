@@ -175,11 +175,10 @@ class ProductController extends Controller
                 'aboutproducts',
                 'categoryRelations' => function ($query) {
                     $query->where(['catID' => 1]);
-                },
-                'subcatRelations' => function ($query) {
-                    $query->where(['subcatID' => 9]);
                 }
-            ]);
+            ])
+            ->where(['subcat_relation.subcatID' => 9]);
+
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['product_Count' => SORT_DESC]);
@@ -453,8 +452,8 @@ class ProductController extends Controller
 
         $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
             $query->where(['catproduct.id' => $catproducts->id]);
-        }])
-        ->with('aboutproducts');
+        }]);
+
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
         $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
         $products->orderBy(['product_Count' => SORT_DESC]);
@@ -534,7 +533,7 @@ class ProductController extends Controller
         }
 
         if ($cartoption->load(Yii::$app->request->post())) {
-            //set session for cart id 
+            //set session for cart id
             $usercheck = \app\models\Cart::find()->Where(['userID' => \yii::$app->session['user_id']])->andWhere(['status' => 0])->andwhere(['submitDate' => \Yii::$app->jdate->date('Y/m/d')])->count();
             if ((!isset(\yii::$app->session['cart_id'])) && \yii::$app->users->is_loged() == true && $usercheck == 1) {
                 $cart = \app\models\Cart::find()->Where(['userID' => \Yii::$app->session['user_id']])->andWhere(['status' => 0])->andWhere(['submitDate' => Yii::$app->jdate->date('Y/m/d')])->one();
