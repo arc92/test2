@@ -485,18 +485,11 @@ class ProductController extends Controller
         date_default_timezone_set("Asia/tehran");
         $strname = str_replace('-', ' ', $name);
         if ($id != null) {
+
             $product = Product::find()->where(['id' => $id])->one();
         } else {
+
             $product = Product::find()->where(['name' => $strname])->one();
-        }
-        \Yii::$app->view->registerMetaTag([
-            'name' => 'description',
-            'content' => $product->descriptionmeta
-        ]);
-        if ($product->titlemeta != null) {
-            \Yii::$app->view->title = $product->titlemeta;
-        } else {
-            \Yii::$app->view->title = $product->name;
         }
 
         ///***********************/////

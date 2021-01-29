@@ -85,14 +85,7 @@ $str .= ($urls['path']);
     <!--        a.appendChild(r);-->
     <!--    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');-->
     <!--</script>-->
-    <?php if (\yii::$app->controller->id == "product" && \yii::$app->controller->action->id == "product") {
-        $strname = $_GET['name'];
-        $name = str_replace('-', ' ', $strname);
-        $product = \app\models\Product::find()->Where(['name' => $name])->one();
-        $img = \app\models\Productimg::find()->Where(['productID' => $product->id])->orderBy(['id' => SORT_DESC])->one();
-        ?>
 
-    <?php } ?>
     <?php $this->head() ?>
 </head>
 <body>
