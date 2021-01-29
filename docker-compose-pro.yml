@@ -5,26 +5,26 @@ services:
 
 
 
-  ## --------------------------------------------
-  ## | 8 : cache server
-  ## --------------------------------------------
-  redis:
-    image: redis:4.0.10-alpine
-    expose:
-      - "6379"
-    volumes:
-      - ./docker/redis/default.conf:/usr/local/etc/redis/redis.conf
-      - ./docker/redis/data:/data
-    ports:
-      - "127.0.0.1:6379:6379"
-    restart: always
-    command: [
-      "sh", "-c",
-      '
-       docker-entrypoint.sh
-       --requirepass "bccstyle"
-      '
-    ]
+#  ## --------------------------------------------
+#  ## | 8 : cache server
+#  ## --------------------------------------------
+#  redis:
+#    image: redis:4.0.10-alpine
+#    expose:
+#      - "6379"
+#    volumes:
+#      - ./docker/redis/default.conf:/usr/local/etc/redis/redis.conf
+#      - ./docker/redis/data:/data
+#    ports:
+#      - "127.0.0.1:6379:6379"
+#    restart: always
+#    command: [
+#      "sh", "-c",
+#      '
+#       docker-entrypoint.sh
+#       --requirepass "bccstyle"
+#      '
+#    ]
 
   elasticsearch:
     build:
@@ -43,6 +43,7 @@ services:
       memlock:
         soft: -1
         hard: -1
+    restart: always
     volumes:
       - ./docker/elasticsearch/data/:/usr/share/elasticsearch/data
     expose:
