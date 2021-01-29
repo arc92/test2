@@ -170,9 +170,9 @@ class ProductController extends Controller
 
         $products = Product::find()
             ->joinWith(['featurevalues'])
+            ->joinWith(['subcatRelations'])
             ->with([
                 'productimgs',
-                'aboutproducts',
                 'categoryRelations' => function ($query) {
                     $query->where(['catID' => 1]);
                 }
@@ -215,7 +215,6 @@ class ProductController extends Controller
             ->joinWith(['subcatRelations'])
             ->with([
                 'productimgs',
-                'aboutproducts',
                 'categoryRelations' => function ($query) {
                     $query->where(['catID' => 1]);
                 }
