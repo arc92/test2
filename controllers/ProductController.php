@@ -84,7 +84,8 @@ class ProductController extends Controller
         $products->limit($pagination->limit);
         $articles = $products->all();
 
-        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
+        return $this->render('babycat',
+            compact('contentcategory', 'articles', 'pagination', 'category', 'size', 'count'));
 
     }
 
@@ -104,7 +105,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('test', compact('imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'subcat'));
+        return $this->render('test',
+            compact('imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'subcat'));
     }
 
     public function actionIndex2()
@@ -130,7 +132,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('index2', compact('imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'subcat'));
+        return $this->render('index2',
+            compact('imgs', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts', 'subcat'));
     }
 
 
@@ -260,7 +263,9 @@ class ProductController extends Controller
             ->all();
 
         $imgs = \app\models\Productimg::find()->all();
-        return $this->render('girlbaby', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('girlbaby',
+            compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model',
+                'size', 'count', 'aboutproducts'));
     }
 
     /**
@@ -294,7 +299,9 @@ class ProductController extends Controller
             ->all();
 
         $imgs = \app\models\Productimg::find()->all();
-        return $this->render('boybaby', compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('boybaby',
+            compact('catrelations', 'subcatrelations', 'imgs', 'subcat', 'articles', 'pagination', 'category', 'model',
+                'size', 'count', 'aboutproducts'));
     }
 
     public function actionMenulink($name)
@@ -321,7 +328,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('menulink', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('menulink',
+            compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
     public function actionTowel($name)
@@ -348,7 +356,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('towel', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('towel',
+            compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
     public function actionSet()
@@ -375,7 +384,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('set', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('set',
+            compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
     public function actionSets()
@@ -402,7 +412,8 @@ class ProductController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('sets', compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('sets',
+            compact('imgs', 'articles', 'subcat', 'pagination', 'category', 'model', 'size', 'count', 'aboutproducts'));
     }
 
     public function actionBestsales()
@@ -424,16 +435,13 @@ class ProductController extends Controller
             ->queryAll();
 
 
-
-
-
         \Yii::$app->view->title = "پر فروش ترین ها";
-        return $this->render('bestsales', compact( 'products'));
+        return $this->render('bestsales', compact('products'));
     }
 
     public function actionBabycat($id = null, $urltitle)
     {
-        if(!Yii::$app->cache->exists('Babycat' . $urltitle)) {
+        if (!Yii::$app->cache->exists('Babycat' . $urltitle)) {
             if ($id != null) {
                 $catproducts = Catproduct::find()->Where(['id' => $id])->one();
             } else {
@@ -442,7 +450,8 @@ class ProductController extends Controller
             $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
 
 
-            $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
+            $products = Product::find()->joinWith(['featurevalues', 'catproducts' => function ($query) use ($catproducts
+            ) {
                 $query->where(['catproduct.id' => $catproducts->id]);
             }]);
 
@@ -458,14 +467,15 @@ class ProductController extends Controller
             $articles = $products->all();
 
 
-
-        $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
-        \Yii::$app->view->registerMetaTag([
-            'name' => 'description',
-            'content' => $catproduct->description
-        ]);
-        \Yii::$app->view->title = $catproduct->title;
-        return $this->render('babycat', compact( 'contentcategory','articles',  'pagination', 'category', 'size', 'count'));
+            $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+            \Yii::$app->view->registerMetaTag([
+                'name' => 'description',
+                'content' => $catproduct->description
+            ]);
+            \Yii::$app->view->title = $catproduct->title;
+            return $this->render('babycat',
+                compact('contentcategory', 'articles', 'pagination', 'category', 'size', 'count'));
+        }
     }
 
     ////product details
@@ -740,7 +750,9 @@ class ProductController extends Controller
             ->all();
 
         $imgs = \app\models\Productimg::find()->all();
-        return $this->render('baby', compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('baby',
+            compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count',
+                'aboutproducts'));
     }
 
     /**
@@ -773,7 +785,9 @@ class ProductController extends Controller
             ->all();
 
         $imgs = \app\models\Productimg::find()->all();
-        return $this->render('child', compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count', 'aboutproducts'));
+        return $this->render('child',
+            compact('catrelations', 'imgs', 'articles', 'pagination', 'subcat', 'category', 'model', 'size', 'count',
+                'aboutproducts'));
     }
 
 
