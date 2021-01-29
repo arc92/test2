@@ -1,5 +1,5 @@
 <?php
-
+dd(env('MYSQL_PASSWORD','123'));
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=' . env('MYSQL_HOST','localhost') . ';' . 'dbname=' . env('MYSQL_DATABASE','bccstyle'),
