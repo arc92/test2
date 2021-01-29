@@ -449,16 +449,9 @@ class ProductController extends Controller
 
         $countQuery = clone $products;
 
-        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_articles')) {
-            $articles = $products->all();
-            Yii::$app->cache->set('Babycat' . $articles ,3600 * 24 * 1);
-        }
-        $articles = Yii::$app->cache->get('Babycat_' . $urltitle . '_articles');
-
-
         if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_count')) {
             $count = $countQuery->count();
-            Yii::$app->cache->set('Babycat' . $articles ,3600 * 24 * 1);
+            Yii::$app->cache->set('Babycat_' . $urltitle . '_count', $count ,3600 * 24 * 1);
         }
         $count = Yii::$app->cache->get('Babycat_' . $urltitle . '_count');
 
@@ -466,8 +459,19 @@ class ProductController extends Controller
             $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
             $products->offset($pagination->offset);
             $products->limit($pagination->limit);
+            Yii::$app->cache->set( $urltitle . '_count', $pagination ,3600 * 24 * 1);
         }
         $pagination = Yii::$app->cache->get('Babycat_' . $urltitle . '_pagination');
+
+
+        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_articles')) {
+            $articles = $products->all();
+            Yii::$app->cache->set('Babycat_' . $urltitle . '_articles' , $articles ,3600 * 24 * 1);
+        }
+        $articles = Yii::$app->cache->get('Babycat_' . $urltitle . '_articles');
+
+
+
 
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
