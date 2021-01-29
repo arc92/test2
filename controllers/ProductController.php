@@ -439,38 +439,35 @@ class ProductController extends Controller
             $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         }
         $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
+        $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
+            $query->where(['catproduct.id' => $catproducts->id]);
+        }]);
+
+        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+        $products->orderBy(['product_Count' => SORT_DESC]);
+
+        $countQuery = clone $products;
+
+        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_articles')) {
+            $articles = $products->all();
+            Yii::$app->cache->set('Babycat' . $articles ,3600 * 24 * 1);
+        }
+        $articles = Yii::$app->cache->get('Babycat_' . $urltitle . '_articles');
 
 
-        if(!Yii::$app->cache->exists('Babycat' . $urltitle)) {
-            $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
-                $query->where(['catproduct.id' => $catproducts->id]);
-            }]);
-
-            $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
-            $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
-            $products->orderBy(['product_Count' => SORT_DESC]);
-
-            $countQuery = clone $products;
+        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_count')) {
             $count = $countQuery->count();
+            Yii::$app->cache->set('Babycat' . $articles ,3600 * 24 * 1);
+        }
+        $count = Yii::$app->cache->get('Babycat_' . $urltitle . '_count');
+
+        if(!Yii::$app->cache->exists('Babycat_' . $urltitle . '_pagination')) {
             $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
             $products->offset($pagination->offset);
             $products->limit($pagination->limit);
-            $articles = $products->all();
-
-
-            Yii::$app->cache->set('Babycat' . $urltitle, [
-                'articles' => $articles,
-                'pagination' => $pagination,
-                'count' => $count
-            ] ,3600 * 24 * 1);
         }
-
-        $data = Yii::$app->cache->get('Babycat' . $urltitle);
-
-
-        $count = $data['count'];
-        $pagination = $data['pagination'];
-        $articles =  $data['articles'];
+        $pagination = Yii::$app->cache->get('Babycat_' . $urltitle . '_pagination');
 
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
