@@ -433,15 +433,15 @@ class ProductController extends Controller
 
     public function actionBabycat($id = null, $urltitle)
     {
+        if ($id != null) {
+            $catproducts = Catproduct::find()->Where(['id' => $id])->one();
+        } else {
+            $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+        }
+        $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
+
+
         if(!Yii::$app->cache->exists('Babycat' . $urltitle)) {
-            if ($id != null) {
-                $catproducts = Catproduct::find()->Where(['id' => $id])->one();
-            } else {
-                $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
-            }
-            $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
-
-
             $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
                 $query->where(['catproduct.id' => $catproducts->id]);
             }]);
@@ -461,14 +461,13 @@ class ProductController extends Controller
             Yii::$app->cache->set('Babycat' . $urltitle, [
                 'articles' => $articles,
                 'pagination' => $pagination,
-                'count' => $count,
-                'contentcategory' => $contentcategory,
+                'count' => $count
             ] ,3600 * 24 * 1);
         }
 
         $data = Yii::$app->cache->get('Babycat' . $urltitle);
 
-        $contentcategory = $data['contentcategory'];
+
         $count = $data['count'];
         $pagination = $data['pagination'];
         $articles =  $data['articles'];
