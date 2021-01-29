@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\models\Product;
 use Yii;
 
 use yii\filters\AccessControl;
@@ -105,11 +106,11 @@ class PlanController extends Controller
 
         $imgs = \app\models\Productimg::find()->all();
 
-        $model = new \app\models\Product();
+        $model = new Product();
         $strname = str_replace('-', ' ', $name);
         $plan = \app\models\Plan::find()->where(['like', 'name', $strname])->one();
 
-        $products = \app\models\Product::find()->where(['planID' => $plan->id])->orderBy(['id' => SORT_DESC]);
+        $products = Product::find()->where(['planID' => $plan->id])->orderBy(['id' => SORT_DESC]);
 
         $countQuery = clone $products;
 
@@ -136,16 +137,10 @@ class PlanController extends Controller
 
     public function actionCollections($name)
     {
-        $subcat = new \app\models\Subcat();
-        $size = new \app\models\Size();
-
-
-        $model = new \app\models\Product();
         $strname = str_replace('-', ' ', $name);
         $plan = \app\models\Plan::find()->where(['like', 'name', $strname])->one();
 
-        $products = \app\models\Product::find();
-        $products->joinWith(['featurevalues'])
+        $products = Product::find()->joinWith(['featurevalues'])
             ->with('productimgs')
             ->with('catproducts');
         $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);

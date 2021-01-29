@@ -127,19 +127,6 @@ use yii\widgets\LinkPager;
                             <h3 class="title">  <?= $article->name ?> </h3>
                             <span class="price ">  <?= number_format($article->price) ?>  تومان </span>
                         </div>
-                        <ul class="nav attr d-block">
-    <span class="title">
-        ویژگی
-    </span>
-                            <?php foreach ($article->aboutproducts as $aboutproduct) {
-                                if ($aboutproduct->productID == $article->id) { ?>
-                                    <li class="nav-item">
-                                        <i class="icon-023-tick"></i>
-                                        <?= $aboutproduct->details ?>
-                                    </li>
-                                <?php }
-                            } ?>
-                        </ul>
                         <a href="/product/<?= $article->name ?>/" target="_blank" class="show">
     <span>
     مشاهده محصول
