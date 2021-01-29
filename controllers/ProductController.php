@@ -62,7 +62,7 @@ class ProductController extends Controller
     public function actionIndex()
     {
 
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_product_index
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
     public function actionIndex2()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_product_index2
@@ -154,7 +154,7 @@ class ProductController extends Controller
 
     public function actionGirlgrid()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_girlgrid
@@ -170,11 +170,10 @@ class ProductController extends Controller
                     $query->where(['catID' => 1]);
                 }
             ])
-            ->where(['subcat_relation.subcatID' => 9]);
-
-        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
-        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
-        $products->orderBy(['product_Count' => SORT_DESC]);
+            ->where(['subcat_relation.subcatID' => 9])
+            ->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count'])
+            ->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off'])
+            ->orderBy(['product_Count' => SORT_DESC]);
 
         $countQuery = clone $products;
         $count = $countQuery->count();
@@ -196,7 +195,7 @@ class ProductController extends Controller
      */
     public function actionBoygrid()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_girlgrid
@@ -238,7 +237,7 @@ class ProductController extends Controller
 
     public function actionGirlbaby()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_girlbaby
@@ -271,7 +270,7 @@ class ProductController extends Controller
      */
     public function actionBoybaby()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_boybaby
@@ -300,7 +299,7 @@ class ProductController extends Controller
 
     public function actionMenulink($name)
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_menulink
@@ -327,7 +326,7 @@ class ProductController extends Controller
 
     public function actionTowel($name)
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_menulink
@@ -354,7 +353,7 @@ class ProductController extends Controller
 
     public function actionSet()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_menulink
@@ -381,7 +380,7 @@ class ProductController extends Controller
 
     public function actionSets()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_menulink
@@ -434,28 +433,35 @@ class ProductController extends Controller
 
     public function actionBabycat($id = null, $urltitle)
     {
-        if ($id != null) {
-            $catproducts = Catproduct::find()->Where(['id' => $id])->one();
-        } else {
-            $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+        if(!Yii::$app->cache->exists('Babycat' . $urltitle)) {
+            if ($id != null) {
+                $catproducts = Catproduct::find()->Where(['id' => $id])->one();
+            } else {
+                $catproducts = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
+            }
+            $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
+
+
+            $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
+                $query->where(['catproduct.id' => $catproducts->id]);
+            }]);
+
+            $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
+            $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
+            $products->orderBy(['product_Count' => SORT_DESC]);
+
+            $countQuery = clone $products;
+            $count = $countQuery->count();
+            $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
+            $products->offset($pagination->offset);
+            $products->limit($pagination->limit);
+            $articles = $products->all();
+
+
+            Yii::$app->cache->set('Babycat' . $urltitle, $articles ,3600 * 24 * 1);
         }
-        $contentcategory = Contentcategory::find()->Where(['catID' => $catproducts->id])->orderBy(['id' => SORT_DESC])->one();
 
-
-        $products = Product::find()->joinWith(['featurevalues','catproducts' =>function($query) use($catproducts){
-            $query->where(['catproduct.id' => $catproducts->id]);
-        }]);
-
-        $products->select(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off', 'SUM(featurevalue.count) AS product_Count']);
-        $products->groupBy(['product.id', 'product.name', 'product.status', 'product.catID', 'product.subcatID', 'product.planID', 'product.colorID', 'product.storePrice', 'product.price', 'product.count', 'product.description', 'product.likes', 'product.submitDate', 'product.titlemeta', 'product.descriptionmeta', 'product.off']);
-        $products->orderBy(['product_Count' => SORT_DESC]);
-
-        $countQuery = clone $products;
-        $count = $countQuery->count();
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
-        $products->offset($pagination->offset);
-        $products->limit($pagination->limit);
-        $articles = $products->all();
+        $articles = Yii::$app->cache->get('Babycat' . $urltitle);
 
         $catproduct = Catproduct::find()->Where(['urltitle' => $urltitle])->one();
         \Yii::$app->view->registerMetaTag([
@@ -716,7 +722,7 @@ class ProductController extends Controller
      */
     public function actionBaby()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_baby
@@ -748,7 +754,7 @@ class ProductController extends Controller
      */
     public function actionChild()
     {
-        $setting = \app\models\Setting::find()->orderBy(['id' => SORT_DESC])->one();
+        $setting = cacheSetting();
         \Yii::$app->view->registerMetaTag([
             'name' => 'description',
             'content' => $setting->description_child
