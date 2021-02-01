@@ -224,7 +224,7 @@ class ProductController extends Controller
         $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
         $products->offset($pagination->offset);
         $products->limit($pagination->limit);
-        $articles = $products->all();
+        $articles = cacheMe('boygrid'. $pagination->offset,$products->all(),1);
 
         \Yii::$app->view->title = 'baby boy';
         return $this->render('girlgrid',

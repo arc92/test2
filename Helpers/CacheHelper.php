@@ -161,7 +161,7 @@ if(!function_exists('cacheMe')){
     function cacheMe($cacheName,$cacheData,$cacheTime){
 
         if(!Yii::$app->cache->exists($cacheName)) {
-            Yii::$app->cache->set($cacheName, $cacheData ,$cacheTime * 3600 * 24);
+            Yii::$app->cache->set($cacheName, $cacheData ,$cacheTime * 3600 );
         }
 
         $category = Yii::$app->cache->get($cacheName);
