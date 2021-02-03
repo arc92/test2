@@ -81,7 +81,7 @@ $config = [
         ],
         'redis' => [
             'class'=>'yii\redis\Connection',
-            'hostname' => "localhost", // the swarm service name
+            'hostname' => env('REDIS_HOST'), // the swarm service name
             'password' => env('REDIS_PASSWORD'),
             'port' => 6379,
             'database' => 0,

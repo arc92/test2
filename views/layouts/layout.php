@@ -340,6 +340,11 @@ $str .= ($urls['path']);
                                 تخفیفی
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/branches/" class="nav-link" id="navbarDropdown" style="color: #ed008c!important;">
+                                فروشگاه ها
+                            </a>
+                        </li>
 
 
                     </ul>
