@@ -20,7 +20,7 @@ class SendSms extends BaseObject implements JobInterface
         $smsLog->message =  (string)$this->message;
         $smsLog->created_at = Carbon::now(\Yii::$app->timezone);
 
-
+return;
         $response = (new Client)->request('POST', 'http://api.smsapp.ir/v2/sms/send/simple', [
             'headers' => [
                 'apikey' => '9bQPFjT8P/UB3mhGOJGYO0/aASU/STCCZ1lk+ECNvq0'
@@ -34,6 +34,6 @@ class SendSms extends BaseObject implements JobInterface
 
 
         $smsLog->state = (string) (json_decode($response->getBody()->getContents())->result);
-//        $smsLog->save();
+        $smsLog->save();
     }
 }
