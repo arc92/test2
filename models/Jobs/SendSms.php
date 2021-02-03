@@ -14,6 +14,7 @@ class SendSms extends BaseObject implements JobInterface
 
     public function execute($queue)
     {
+        echo 123;
         $smsLog = (new SmsLog);
         $smsLog->phone_number = (string) $this->number;
         $smsLog->message =  (string)$this->message;
