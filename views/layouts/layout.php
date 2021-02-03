@@ -341,7 +341,7 @@ $str .= ($urls['path']);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/branches/" class="nav-link" id="navbarDropdown" style="color: #ed008c!important;">
+                            <a href="/branches/" class="nav-link" id="navbarDropdown" >
                                 فروشگاه ها
                             </a>
                         </li>
