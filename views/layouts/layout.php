@@ -340,9 +340,9 @@ $str .= ($urls['path']);
                                 تخفیفی
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="/branches/" class="nav-link" id="navbarDropdown" >
-                                فروشگاه ها
+<li class="nav-item">
+                            <a href="/collections/Kids/" class="nav-link" id="navbarDropdown" >
+                                 کودک ۴تا۷ سال
                             </a>
                         </li>
 
